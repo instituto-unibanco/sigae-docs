@@ -22,6 +22,17 @@ Bundles the definition to the dist folder.
 #### `npm test`
 Validates the definition.
 
+### Publishing
+#### Linting
+```
+npx @redocly/cli lint openapi/openapi.yaml
+```
+
+#### Bundling
+```
+npx @redocly/cli build-docs openapi/openapi.yaml --output index.html
+```
+
 ## Contribution Guide
 
 Below is a sample contribution guide. The tools
