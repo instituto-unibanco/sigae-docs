@@ -18,20 +18,13 @@ Starts the reference docs preview server.
 
 #### `npm run build`
 Bundles the definition to the dist folder.
+```
+npx @redocly/cli build-docs openapi/openapi.yaml --output docs/index.html
+```
 
 #### `npm test`
 Validates the definition.
 
-### Publishing
-#### Linting
-```
-npx @redocly/cli lint openapi/openapi.yaml
-```
-
-#### Bundling
-```
-npx @redocly/cli build-docs openapi/openapi.yaml --output docs/index.html
-```
 
 ## Contribution Guide
 
