@@ -30,7 +30,7 @@ npx @redocly/cli lint openapi/openapi.yaml
 
 #### Bundling
 ```
-npx @redocly/cli build-docs openapi/openapi.yaml --output index.html
+npx @redocly/cli build-docs openapi/openapi.yaml --output docs/index.html
 ```
 
 ## Contribution Guide
