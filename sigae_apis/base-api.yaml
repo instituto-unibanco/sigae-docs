@@ -1,0 +1,172 @@
+openapi: 3.1.0
+info:
+  title: BaseAPI
+  description: Api base do projeto Sigae Open Source
+  version: v1
+paths:
+  /api/Escola/CriarEscolaERetornar:
+    post:
+      tags:
+        - BaseApi-Escola
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarEscolaERetornarDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CriarEscolaERetornarDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CriarEscolaERetornarDTO'
+      responses:
+        '200':
+          description: Success
+  /api/Importacao/Instituicoes/Modelo:
+    get:
+      tags:
+        - BaseApi-Importação
+      responses:
+        '200':
+          description: Success
+  /api/Importacao/Instituicoes:
+    post:
+      tags:
+        - BaseApi-Importação
+      summary: Importar Instituições
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                Arquivo:
+                  title: Arquivo de importação de escolas
+                  type: string
+                  description: Arquivo de importação de escolas no formato csv
+                  format: binary/csv
+                CircuitoDeGestao:
+                  title: Circuito de gestão das escolas
+                  type: string
+                  description: Circuito de gestão das escolas a serem importadas
+            encoding:
+              Arquivo:
+                style: form
+              CircuitoDeGestao:
+                style: form
+      responses:
+        '200':
+          description: Instituições importadas com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ImportarInstituicoesCommandResponseApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportarInstituicoesCommandResponseApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ImportarInstituicoesCommandResponseApiResponse'
+        '400':
+          description: Erro ao importar instituições
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+  /api/Secretaria/all:
+    get:
+      tags:
+        - BaseApi-Secretaria
+      responses:
+        '200':
+          description: Success
+components:
+  schemas:
+    ApiError:
+      type: object
+      properties:
+        key:
+          type: string
+          description: Tipo do erro
+          nullable: true
+        message:
+          type: string
+          description: Mensagem do erro
+          nullable: true
+      additionalProperties: false
+    CriarEscolaERetornarDTO:
+      type: object
+      properties:
+        nome:
+          type: string
+          nullable: true
+        inep:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Erro:
+      type: object
+      properties:
+        linha:
+          type: integer
+          description: Número da linha onde ocorreu o erro
+          format: int32
+        inep:
+          type: string
+          description: Inep da escola com problema
+          nullable: true
+        mensagem:
+          type: string
+          description: Mensagem de erro
+          nullable: true
+      additionalProperties: false
+    ImportarInstituicoesCommandResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        mensagens:
+          type: array
+          items:
+            $ref: '#/components/schemas/Erro'
+          description: Alertas ocorridos na importação da planilha
+          nullable: true
+      additionalProperties: false
+    ImportarInstituicoesCommandResponseApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/ImportarInstituicoesCommandResponse'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    ObjectApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          description: Conteúdo do retorno
+          nullable: true
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
