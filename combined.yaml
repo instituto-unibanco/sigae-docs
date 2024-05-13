@@ -53,6 +53,10 @@ tags:
     x-displayName: BaseApi-Importação
   - name: BaseApi-Secretaria
     x-displayName: BaseApi-Secretaria
+  - name: PlanoAcao
+    x-displayName: PlanoAcao
+  - name: Intituicoes-Escola
+    x-displayName: Intituicoes-Escola
   - name: User
     x-displayName: User
   - name: Admin
@@ -149,6 +153,34 @@ paths:
     get:
       tags:
         - BaseApi-Secretaria
+      responses:
+        '200':
+          description: Success
+  /api/PlanoAcao/BuscarEscolas:
+    get:
+      tags:
+        - PlanoAcao
+      responses:
+        '200':
+          description: Success
+  /api/Escola:
+    get:
+      tags:
+        - Intituicoes-Escola
+      responses:
+        '200':
+          description: Success
+  /api/Escola/{id}:
+    get:
+      tags:
+        - Intituicoes-Escola
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         '200':
           description: Success
@@ -1059,6 +1091,12 @@ x-tagGroups:
       - BaseApi-Escola
       - BaseApi-Importação
       - BaseApi-Secretaria
+  - name: CircuitoGestãoAPI
+    tags:
+      - PlanoAcao
+  - name: InstituiçãoApi
+    tags:
+      - Intituicoes-Escola
   - name: Example API
     tags:
       - User

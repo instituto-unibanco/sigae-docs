@@ -1,0 +1,14 @@
+openapi: 3.1.0
+info:
+  title: CircuitoGestãoAPI
+  description: Api de circuito de gestão do SIGAE OPEN SOURCE
+  version: v1
+paths:
+  /api/PlanoAcao/BuscarEscolas:
+    get:
+      tags:
+        - PlanoAcao
+      responses:
+        '200':
+          description: Success
+components: { }
