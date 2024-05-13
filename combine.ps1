@@ -30,4 +30,4 @@ Write-Host "Comando construído: $command"
 Invoke-Expression $command
 
 # Mensagem de sucesso
-Write-Host "Os arquivos YAML foram combinados com sucesso em final.yaml"
+Write-Host "Os arquivos YAML foram combinados com sucesso em combined.yaml"
