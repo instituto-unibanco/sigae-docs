@@ -1,13 +1,14 @@
 {
-  "name": "acme-api",
+  "name": "sigae-apidocs",
   "version": "1.0.0",
   "dependencies": {
-    "@redocly/cli": "1.12.0"
+    "@redocly/cli": "1.12.2"
   },
   "private": true,
   "scripts": {
     "start": "redocly preview-docs",
-    "build": "redocly bundle -o dist/bundle.yaml",
-    "test": "redocly lint"
+    "join": "redocly join openapi/*.yaml -o dist/bundle.yaml",
+    "test": "redocly lint dist/bundle.yaml",
+    "build": "redocly build-docs dist/bundle.yaml -o docs/index.html"
   }
 }

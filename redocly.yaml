@@ -9,7 +9,7 @@ rules:
   no-server-example.com: off
 theme:
   openapi:
-    htmlTemplate: ./docs/index.html
+    htmlTemplate: ./docs/template.html
     theme:
       colors:
         primary:
