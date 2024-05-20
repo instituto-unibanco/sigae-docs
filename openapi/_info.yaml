@@ -1,0 +1,17 @@
+openapi: 3.1.0
+info:
+  version: 0.0.1
+  title: SIGAE
+  termsOfService: https://example.com/terms/
+  contact:
+    name: Contact our support
+    email: contact@example.com
+    url: http://example.com/contact
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  x-logo:
+    url: 'https://cdnportaliuprd.portalinstitutounibanco.org.br/core/views/unibanco/images/cover-acontece.jpg'
+    altText: Instituto Unibanco SIGAE
+  description: >
+    Estas são as APIs do SIGAE
