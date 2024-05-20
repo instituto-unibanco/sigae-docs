@@ -10,6 +10,6 @@
 1. Instalar o [Node JS](https://nodejs.org/).
 2. Clonas este repositorio e executar `npm install` na raíz do projeto.
 3. Executar `npm run join` para combinar as definições de APIs de todos os microserviços no arquivo `dist/bundle.yaml`.
-4. Executar `npm run test` para verificar a sintaxe do arquivo `dist/bundle.yaml`.
+4. Executar `npm run lint` para verificar a sintaxe do arquivo `dist/bundle.yaml`.
 5. Executar `npm run build` para gerar o arquivo `docs/index.html` com a documentação completa das APIs.
 

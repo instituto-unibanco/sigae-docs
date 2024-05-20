@@ -1,6 +1,6 @@
 {
   "name": "sigae-apidocs",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "dependencies": {
     "@redocly/cli": "1.12.2"
   },
@@ -8,7 +8,7 @@
   "scripts": {
     "start": "redocly preview-docs",
     "join": "redocly join sigae/*.yaml -o dist/bundle.yaml",
-    "test": "redocly lint dist/bundle.yaml",
+    "lint": "redocly lint dist/bundle.yaml",
     "build": "redocly build-docs dist/bundle.yaml -o docs/index.html"
   }
 }
