@@ -8,8 +8,8 @@ info:
     email: contact@example.com
     url: http://example.com/contact
   license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
+    name: MIT
+    url: https://www.mit.edu/~amini/LICENSE.md
   x-logo:
     url: 'https://cdnportaliuprd.portalinstitutounibanco.org.br/core/views/unibanco/images/cover-acontece.jpg'
     altText: Instituto Unibanco SIGAE
