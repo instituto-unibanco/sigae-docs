@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "start": "redocly preview-docs",
-    "join": "redocly join openapi/*.yaml -o dist/bundle.yaml",
+    "join": "redocly join sigae/*.yaml -o dist/bundle.yaml",
     "test": "redocly lint dist/bundle.yaml",
     "build": "redocly build-docs dist/bundle.yaml -o docs/index.html"
   }
