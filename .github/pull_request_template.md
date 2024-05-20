@@ -1,18 +1,5 @@
-## What/Why/How?
+## Qual API está sendo adicionada ou atualizada?
 
-## Reference
+## Checklist
 
-## Testing
-
-## Screenshots (optional)
-
-## Check yourself
-
-- [ ] Code is linted
-- [ ] Tested
-- [ ] All new/updated code is covered with tests
-
-## Security
-
-- [ ] Security impact of change has been considered
-- [ ] Code follows company security practices and guidelines
+- [ ] `npm run test`
