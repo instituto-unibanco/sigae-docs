@@ -15,6 +15,9 @@ info:
     altText: Instituto Unibanco SIGAE
   description: >
     Estas são as APIs do SIGAE
+servers:
+  - url: http://example.com
+    description: Placeholder server
 components:
   securitySchemes:
     main_auth:
