@@ -2,7 +2,7 @@
   "name": "sigae-apidocs",
   "version": "0.0.1",
   "dependencies": {
-    "@redocly/cli": "1.12.2"
+    "@redocly/cli": "1.13.0"
   },
   "private": true,
   "scripts": {
