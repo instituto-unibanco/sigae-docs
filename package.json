@@ -8,7 +8,8 @@
   "scripts": {
     
     "start": "redocly preview-docs",
-    "join": "redocly join sigae/*.yaml -o dist/bundle.yaml",
+    "join-windows": "./combine.ps1",
+    "join-linux": "./combine.sh",
     "lint": "redocly lint dist/bundle.yaml",
     "build": "redocly build-docs dist/bundle.yaml -o docs/index.html"
   }

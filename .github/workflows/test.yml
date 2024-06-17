@@ -14,6 +14,6 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Combine Docs
-        run: npm run join
+        run: npm run join-linux
       - name: Lint Docs
         run: npm run lint

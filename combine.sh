@@ -26,7 +26,7 @@ do
 done
 
 # Adiciona a parte final do comando para especificar o arquivo de saída
-command+=" -o ./combined.yaml"
+command+=" -o dist/bundle.yaml"
 
 # Mostra o comando que foi construído
 echo "Comando construído: $command"
