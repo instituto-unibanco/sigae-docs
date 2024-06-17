@@ -6,6 +6,7 @@
   },
   "private": true,
   "scripts": {
+    
     "start": "redocly preview-docs",
     "join": "redocly join sigae/*.yaml -o dist/bundle.yaml",
     "lint": "redocly lint dist/bundle.yaml",
