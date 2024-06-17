@@ -7,6 +7,9 @@ extends:
 rules:
   no-unused-components: error
   no-server-example.com: off
+  no-empty-servers: warn  
+  spec: warn               
+  security-defined: warn   
 theme:
   openapi:
     theme:
