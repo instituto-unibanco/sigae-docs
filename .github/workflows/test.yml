@@ -13,9 +13,7 @@ jobs:
           node-version: '20.x'
       - name: Install Dependencies
         run: npm install
-      - name: Give Combine file Permission
-        run: chmod +x ./combine.sh
       - name: Combine Docs
-        run: npm run join-linux
+        run: npm run join
       - name: Lint Docs
         run: npm run lint
