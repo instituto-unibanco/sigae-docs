@@ -7,7 +7,9 @@
   "private": true,
   "scripts": {
     "start": "redocly preview-docs",
-    "join": "redocly join info.yaml apis/*.yaml -o dist/bundle.yaml",
+    "join-windows": "./combine.ps1",
+    "join": "redocly join ./_info.yaml ./sigae_apis/*.yaml -o dist/bundle.yaml",
+    "join-linux": "./combine.sh",
     "lint": "redocly lint dist/bundle.yaml",
     "build": "redocly build-docs dist/bundle.yaml -o docs/index.html"
   }
