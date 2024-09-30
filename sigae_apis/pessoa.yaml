@@ -1,0 +1,1011 @@
+openapi: 3.1.0
+info:
+  title: PessoaAPI
+  description: Api base do projeto Sigae Open Source
+  version: v1
+paths:
+  '/Pessoa/api/Perfil/{idPerfil}':
+    get:
+      tags:
+        - PessoaApi-Perfil
+      summary: Busca permissões de um perfil
+      parameters:
+        - name: idPerfil
+          in: path
+          description: Guid do perfil
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de perfis
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    put:
+      tags:
+        - PessoaApi-Perfil
+      summary: Atualiza um perfil
+      parameters:
+        - name: idPerfil
+          in: path
+          description: Guid do perfil
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtualizarPerfilDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/AtualizarPerfilDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/AtualizarPerfilDTO'
+      responses:
+        '200':
+          description: Perfil atualizado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    delete:
+      tags:
+        - PessoaApi-Perfil
+      summary: Deleta um perfil
+      parameters:
+        - name: idPerfil
+          in: path
+          description: Guid do perfil
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Perfil deletado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /listar-objetos:
+    get:
+      tags:
+        - PessoaApi-Perfil
+      summary: Busca objetos por usuario e relacao
+      parameters:
+        - name: usuario
+          in: query
+          schema:
+            type: string
+        - name: objeto
+          in: query
+          schema:
+            type: string
+        - name: relacao
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de perfis
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Pessoa/api/Perfil:
+    get:
+      tags:
+        - PessoaApi-Perfil
+      summary: Buscar todos os perfis
+      responses:
+        '200':
+          description: Perfis
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PerfilViewModelIEnumerableApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PerfilViewModelIEnumerableApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PerfilViewModelIEnumerableApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    post:
+      tags:
+        - PessoaApi-Perfil
+      summary: Cria um perfil
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarPerfilDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CriarPerfilDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CriarPerfilDTO'
+      responses:
+        '200':
+          description: Perfil criado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Pessoa/api/Pessoa/{guid}/exists':
+    get:
+      tags:
+        - PessoaApi-Pessoa
+      summary: Verificar se pessoa existe
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do pessoa
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Pessoa existe ou não
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Pessoa/api/Pessoa:
+    get:
+      tags:
+        - PessoaApi-Pessoa
+      summary: Buscar todos os pessoas
+      responses:
+        '200':
+          description: Pessoas
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PessoasViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PessoasViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PessoasViewModelApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    post:
+      tags:
+        - PessoaApi-Pessoa
+      summary: Cria um pessoa
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarPessoaDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CriarPessoaDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CriarPessoaDTO'
+      responses:
+        '200':
+          description: Pessoa criado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Pessoa/api/Pessoa/{guid}':
+    get:
+      tags:
+        - PessoaApi-Pessoa
+      summary: Busca um pessoa
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do pessoa
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Pessoa
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PessoaViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PessoaViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PessoaViewModelApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    put:
+      tags:
+        - PessoaApi-Pessoa
+      summary: Atualiza pessoa
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do pessoa
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtualizarPessoaDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/AtualizarPessoaDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/AtualizarPessoaDTO'
+      responses:
+        '200':
+          description: Pessoa atualizado
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    delete:
+      tags:
+        - PessoaApi-Pessoa
+      summary: Deleta um pessoa
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do pessoa
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Pessoa deletado
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Pessoa/api/Pessoa/associar-instituicao:
+    post:
+      tags:
+        - PessoaApi-Pessoa
+      summary: Associar instituicao a pessoa
+      parameters:
+        - name: pessoaGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: instituicaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: tipoInstituicao
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: permissao
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Instituição associada com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Pessoa/api/Pessoa/associar-perfil:
+    post:
+      tags:
+        - PessoaApi-Pessoa
+      summary: Associar perfil a pessoa
+      parameters:
+        - name: pessoaGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: perfilGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Perfil associado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Pessoa/api/Pessoa/supervisor/{escola_guid}':
+    get:
+      tags:
+        - PessoaApi-Pessoa
+      summary: Buscar supervisor por Guid da escola
+      parameters:
+        - name: escola_guid
+          in: path
+          description: Guid da escola
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Supervisor retornado
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/StringApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/StringApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+components:
+  schemas:
+    ApiError:
+      type: object
+      properties:
+        key:
+          type: string
+          description: Tipo do erro
+          nullable: true
+        message:
+          type: string
+          description: Mensagem do erro
+          nullable: true
+      additionalProperties: false
+    AtualizarPerfilDTO:
+      type: object
+      properties:
+        nome:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+      additionalProperties: false
+    AtualizarPessoaDTO:
+      type: object
+      properties:
+        nome:
+          type: string
+          nullable: true
+        email:
+          type: string
+          nullable: true
+      additionalProperties: false
+    BooleanApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: boolean
+          description: Conteúdo do retorno
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    CriarPerfilDTO:
+      type: object
+      properties:
+        nome:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CriarPessoaDTO:
+      type: object
+      properties:
+        nome:
+          type: string
+          nullable: true
+        email:
+          type: string
+          nullable: true
+      additionalProperties: false
+    GuidApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: string
+          description: Conteúdo do retorno
+          format: uuid
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    ObjectApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          description: Conteúdo do retorno
+          nullable: true
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    PerfilViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+        permissoes:
+          type: array
+          items:
+            type: string
+            format: uuid
+          nullable: true
+      additionalProperties: false
+    PerfilViewModelIEnumerableApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PerfilViewModel'
+          description: Conteúdo do retorno
+          nullable: true
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    PessoaViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        email:
+          type: string
+          nullable: true
+      additionalProperties: false
+    PessoaViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/PessoaViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    PessoasViewModel:
+      type: object
+      properties:
+        pessoas:
+          type: array
+          items:
+            $ref: '#/components/schemas/PessoaViewModel'
+          nullable: true
+      additionalProperties: false
+    PessoasViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/PessoasViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+      additionalProperties: { }
+    StringApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: string
+          description: Conteúdo do retorno
+          nullable: true
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
