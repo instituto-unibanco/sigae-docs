@@ -3,6 +3,7 @@ info:
   title: CircuitoGestaoApi
   description: Api de circuito de gestao da SIGAE OPEN SOURCE
   version: v1
+x-sort: 2
 paths:
   /CircuitoGestao/api/CircuitoDeGestao:
     get:
