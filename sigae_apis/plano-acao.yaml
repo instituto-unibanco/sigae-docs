@@ -1,9 +1,8 @@
-openapi: 3.1.0
+openapi: 3.0.1
 info:
   title: PlanoAcaoApi
   description: Api do plano de ação da SIGAE OPEN SOURCE
   version: v1
-x-sort: 1
 paths:
   /PlanoAcao/api/CircuitoGestaoModeloPlano:
     post:
@@ -1416,7 +1415,7 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  '/PlanoAcao/api/PlanoMelhoria/Plano/{planoGuid}/Melhoria/{MelhoriaGuid}':
+  '/PlanoAcao/api/PlanoMelhoria/Plano/{planoGuid}/Melhoria/{melhoriaGuid}':
     delete:
       tags:
         - PlanoAcaoApi-PlanoMelhoria

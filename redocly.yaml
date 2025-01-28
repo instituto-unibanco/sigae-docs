@@ -9,7 +9,9 @@ rules:
   no-server-example.com: off
   no-empty-servers: warn  
   spec: warn               
-  security-defined: warn
+  security-defined: off
+  operation-operationId: off
+  tag-description: off
 theme:
   openapi:
     theme:
