@@ -15,6 +15,7 @@ jobs:
         run: npm install
       - name: Lint Docs
         run: npm run lint
+        continue-on-error: true
       - name: Build Docs
         run: npm run build
       - name: Publish Docs

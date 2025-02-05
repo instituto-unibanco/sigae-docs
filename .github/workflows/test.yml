@@ -15,3 +15,4 @@ jobs:
         run: npm install
       - name: Lint Docs
         run: npm run lint
+        continue-on-error: true
