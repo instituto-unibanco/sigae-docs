@@ -7,8 +7,7 @@
   "private": true,
   "scripts": {
     "start": "redocly preview-docs",
-    "join": "redocly join ./_info.yaml ./apis/*.yaml -o dist/bundle.yaml",
-    "lint": "redocly lint dist/bundle.yaml",
-    "build": "redocly build-docs dist/bundle.yaml -o docs/index.html"
+    "lint": "redocly lint ./apis/*/*.yaml",
+    "build": "./build.sh"
   }
 }
