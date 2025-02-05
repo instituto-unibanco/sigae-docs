@@ -1,4 +1,10 @@
-openapi: 3.0.1
+openapi: 3.1.0
+servers:
+  - url: https://{tenant}/api/v1
+    variables:
+      tenant:
+        default: www
+        description: Your tenant id
 info:
   title: PlanoAcaoApi
   description: Api do plano de ação da SIGAE OPEN SOURCE

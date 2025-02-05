@@ -1,4 +1,10 @@
-openapi: 3.0.1
+openapi: 3.1.0
+servers:
+  - url: https://{tenant}/api/v1
+    variables:
+      tenant:
+        default: www
+        description: Your tenant id
 info:
   title: CircuitoGestaoApi
   description: Api de circuito de gestao da SIGAE OPEN SOURCE
