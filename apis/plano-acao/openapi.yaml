@@ -1,8 +1,20 @@
-openapi: 3.0.1
+openapi: 3.1.0
+servers:
+  - url: https://{tenant}/api/v1
+    variables:
+      tenant:
+        default: www
+        description: Your tenant id
 info:
   title: PlanoAcaoApi
   description: Api do plano de ação da SIGAE OPEN SOURCE
-  version: v1
+  version: 0.0.1
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  x-logo:
+    url: 'https://cdnportaliuprd.portalinstitutounibanco.org.br/core/views/unibanco/images/cover-acontece.jpg'
+    altText: Instituto Unibanco SIGAE
 paths:
   /PlanoAcao/api/CircuitoGestaoModeloPlano:
     post:

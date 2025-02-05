@@ -1,14 +1,15 @@
 # See https://redocly.com/docs/cli/configuration/ for more information.
 apis:
-  sample@v1: 
-    root: dist/bundle.yaml
+  circuito_gestao: 
+    root: dist/circuito-gestao/bundle.yaml
+  plano-acao:
+    root: dist/plano-acao/bundle.yaml
 extends:
   - recommended
 rules:
   no-unused-components: error
   no-server-example.com: off
-  no-empty-servers: warn  
-  spec: warn               
+  no-empty-servers: warn            
   security-defined: off
   operation-operationId: off
   tag-description: off

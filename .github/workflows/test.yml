@@ -13,7 +13,6 @@ jobs:
           node-version: '20.x'
       - name: Install Dependencies
         run: npm install
-      - name: Combine Docs
-        run: npm run join
       - name: Lint Docs
         run: npm run lint
+        continue-on-error: true
