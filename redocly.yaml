@@ -1,7 +1,9 @@
 # See https://redocly.com/docs/cli/configuration/ for more information.
 apis:
-  sample@v1: 
-    root: dist/bundle.yaml
+  circuito_gestao: 
+    root: dist/circuito-gestao/bundle.yaml
+  plano-acao:
+    root: dist/plano-acao/bundle.yaml
 extends:
   - recommended
 rules:
