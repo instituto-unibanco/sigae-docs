@@ -2,7 +2,7 @@
 
 ## Como Atualiazar a definição de uma API
 1. Abrir uma nova branch a partir da `main`.
-2. Adicionar/Atualizar a definição da API do microserviço no diretório `sigae_apis` ou `devolutivas_apis`.
+2. Adicionar/Atualizar a definição da API do microserviço no diretório `apis`.
 > Se a versão da API for diferente de 3.0.1, alterar para ela.
 3. Abrir uma Pull Request para a branch `main`.
 

@@ -7,8 +7,7 @@ extends:
 rules:
   no-unused-components: error
   no-server-example.com: off
-  no-empty-servers: warn  
-  spec: warn               
+  no-empty-servers: warn            
   security-defined: off
   operation-operationId: off
   tag-description: off
