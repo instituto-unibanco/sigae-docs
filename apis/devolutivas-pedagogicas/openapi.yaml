@@ -1,9 +1,15 @@
 ---
-openapi: 3.0.1
+openapi: 3.1.0
 info:
   title: Foco API V3
   version: v3
   description: Foco API V3
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  x-logo:
+    url: 'https://cdnportaliuprd.portalinstitutounibanco.org.br/core/views/unibanco/images/cover-acontece.jpg'
+    altText: Instituto Unibanco SIGAE
 servers:
 - url: http://localhost:3000
   description: Local
