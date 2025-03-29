@@ -22,7 +22,7 @@ theme:
         primary:
           main: "#32329f"
       rightPanel:
-        backgroundColor: "#1d3662"
+        backgroundColor: "#172b4e"
     generateCodeSamples:
       languages:
         - lang: curl
