@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   x-logo:
-    url: 'https://cdnportaliuprd.portalinstitutounibanco.org.br/core/views/unibanco/images/cover-acontece.jpg'
+    url: 'logo.png'
     altText: Instituto Unibanco SIGAE
 servers:
 - url: http://localhost:3000
