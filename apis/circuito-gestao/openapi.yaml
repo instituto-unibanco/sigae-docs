@@ -1,20 +1,8 @@
-openapi: 3.1.0
-servers:
-  - url: https://{tenant}/api/v1
-    variables:
-      tenant:
-        default: www
-        description: Your tenant id
+openapi: 3.0.1
 info:
   title: CircuitoGestaoApi
   description: Api de circuito de gestao da SIGAE OPEN SOURCE
-  version: 0.0.1
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
-  x-logo:
-    url: 'https://cdnportaliuprd.portalinstitutounibanco.org.br/core/views/unibanco/images/cover-acontece.jpg'
-    altText: Instituto Unibanco SIGAE
+  version: v1
 paths:
   /CircuitoGestao/api/Categoria:
     post:
@@ -284,142 +272,59 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  '/CircuitoGestao/api/Categoria/{guid}/indicador':
-    post:
-      tags:
-        - CircuitoGestaoApi-Categoria
-      summary: Vincula um indicador a uma categoria
-      parameters:
-        - name: guid
-          in: path
-          description: Guid do categoria
-          required: true
-          schema:
-            type: string
-            format: uuid
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/VincularIndicadorACategoriaDTO'
-          text/json:
-            schema:
-              $ref: '#/components/schemas/VincularIndicadorACategoriaDTO'
-          application/*+json:
-            schema:
-              $ref: '#/components/schemas/VincularIndicadorACategoriaDTO'
-      responses:
-        '200':
-          description: Guid do Indicador
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-        '400':
-          description: Erro de validação
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-        '500':
-          description: Erro interno
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-  '/CircuitoGestao/api/Categoria/{guid}/indicador/{indicadorGuid}':
-    delete:
-      tags:
-        - CircuitoGestaoApi-Categoria
-      summary: Deleta um indicador de uma categoria
-      parameters:
-        - name: guid
-          in: path
-          description: Guid da Categoria
-          required: true
-          schema:
-            type: string
-            format: uuid
-        - name: indicadorGuid
-          in: path
-          description: Guid do Indicador
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: Guid do Indicador
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-        '400':
-          description: Erro de validação
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-        '500':
-          description: Erro interno
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
   /CircuitoGestao/api/CircuitoGestao:
     get:
       tags:
         - CircuitoGestaoApi-CircuitoGestao
-      summary: Buscar todos os circuitos de gestão
+      summary: Filtrar os circuitos de gestão de forma paginada
+      parameters:
+        - name: Guid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: ModuloGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Nome
+          in: query
+          schema:
+            type: string
+        - name: DataInicio
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: DataFim
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
       responses:
         '200':
-          description: Circuito de gestão
+          description: Lista paginada de Circuitos de gestão
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/CircuitoDeGestaoViewModelApiResponse'
+                $ref: '#/components/schemas/CircuitoGestaoViewModelPaginatedResultApiResponse'
             application/json:
               schema:
-                $ref: '#/components/schemas/CircuitoDeGestaoViewModelApiResponse'
+                $ref: '#/components/schemas/CircuitoGestaoViewModelPaginatedResultApiResponse'
             text/json:
               schema:
-                $ref: '#/components/schemas/CircuitoDeGestaoViewModelApiResponse'
+                $ref: '#/components/schemas/CircuitoGestaoViewModelPaginatedResultApiResponse'
         '400':
           description: Erro de validação
           content:
@@ -452,13 +357,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CriarCircuitoDeGestaoDTO'
+              $ref: '#/components/schemas/CriarCircuitoGestaoDTO'
           text/json:
             schema:
-              $ref: '#/components/schemas/CriarCircuitoDeGestaoDTO'
+              $ref: '#/components/schemas/CriarCircuitoGestaoDTO'
           application/*+json:
             schema:
-              $ref: '#/components/schemas/CriarCircuitoDeGestaoDTO'
+              $ref: '#/components/schemas/CriarCircuitoGestaoDTO'
       responses:
         '200':
           description: Circuito de gestão criado com sucesso
@@ -500,7 +405,7 @@ paths:
     get:
       tags:
         - CircuitoGestaoApi-CircuitoGestao
-      summary: Busca um circuito de gestão
+      summary: Busca um circuito de gestão completo
       parameters:
         - name: guid
           in: path
@@ -515,13 +420,13 @@ paths:
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/CircuitoDeGestaoViewModelApiResponse'
+                $ref: '#/components/schemas/CircuitoGestaoCompletoViewModelApiResponse'
             application/json:
               schema:
-                $ref: '#/components/schemas/CircuitoDeGestaoViewModelApiResponse'
+                $ref: '#/components/schemas/CircuitoGestaoCompletoViewModelApiResponse'
             text/json:
               schema:
-                $ref: '#/components/schemas/CircuitoDeGestaoViewModelApiResponse'
+                $ref: '#/components/schemas/CircuitoGestaoCompletoViewModelApiResponse'
         '400':
           description: Erro de validação
           content:
@@ -562,13 +467,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AtualizarCircuitoDeGestaoDTO'
+              $ref: '#/components/schemas/EditarCircuitoGestaoDTO'
           text/json:
             schema:
-              $ref: '#/components/schemas/AtualizarCircuitoDeGestaoDTO'
+              $ref: '#/components/schemas/EditarCircuitoGestaoDTO'
           application/*+json:
             schema:
-              $ref: '#/components/schemas/AtualizarCircuitoDeGestaoDTO'
+              $ref: '#/components/schemas/EditarCircuitoGestaoDTO'
       responses:
         '200':
           description: Circuito de gestão atualizado
@@ -655,1020 +560,11 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  '/CircuitoGestao/api/CircuitoGestao/{guid}/etapas':
+  /CircuitoGestao/api/CircuitoGestaoEtapaReuniaoPautaPadrao:
     post:
       tags:
-        - CircuitoGestaoApi-CircuitoGestao
-      summary: Criar etapas de um circuito de gestão
-      parameters:
-        - name: guid
-          in: path
-          description: Guid do circuito de gestão
-          required: true
-          schema:
-            type: string
-            format: uuid
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CriarEtapasDoCircuitoGestaoDTO'
-          text/json:
-            schema:
-              $ref: '#/components/schemas/CriarEtapasDoCircuitoGestaoDTO'
-          application/*+json:
-            schema:
-              $ref: '#/components/schemas/CriarEtapasDoCircuitoGestaoDTO'
-      responses:
-        '200':
-          description: Etapas do circuito de gestão criadas com sucesso
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/GuidIEnumerableApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GuidIEnumerableApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/GuidIEnumerableApiResponse'
-        '400':
-          description: Erro de validação
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-        '500':
-          description: Erro interno
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-    get:
-      tags:
-        - CircuitoGestaoApi-CircuitoGestao
-      summary: Busca paginada das etapas de um circuito de gestão
-      parameters:
-        - name: guid
-          in: path
-          description: Guid do circuito gestão
-          required: true
-          schema:
-            type: string
-            format: uuid
-        - name: Page
-          in: query
-          schema:
-            type: integer
-            format: int32
-        - name: PageSize
-          in: query
-          schema:
-            type: integer
-            format: int32
-      responses:
-        '200':
-          description: Lista paginada das etapas do circuito gestão
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/CircuitoGestaoEtapaViewModelPaginatedResultApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CircuitoGestaoEtapaViewModelPaginatedResultApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/CircuitoGestaoEtapaViewModelPaginatedResultApiResponse'
-        '400':
-          description: Erro de validação
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-        '500':
-          description: Erro interno
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-  '/CircuitoGestao/api/CircuitoGestao/{guid}/meta':
-    post:
-      tags:
-        - CircuitoGestaoApi-CircuitoGestao
-      summary: Vincula uma meta ao circuito de gestão
-      parameters:
-        - name: guid
-          in: path
-          description: Guid do circuito de gestão
-          required: true
-          schema:
-            type: string
-            format: uuid
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CircuitoGestaoMetaDTO'
-          text/json:
-            schema:
-              $ref: '#/components/schemas/CircuitoGestaoMetaDTO'
-          application/*+json:
-            schema:
-              $ref: '#/components/schemas/CircuitoGestaoMetaDTO'
-      responses:
-        '200':
-          description: Guid do vinculo da meta com circuito de gestão
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-        '400':
-          description: Erro de validação
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-        '500':
-          description: Erro interno
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-  '/CircuitoGestao/api/CircuitoGestao/{guid}/metas':
-    get:
-      tags:
-        - CircuitoGestaoApi-CircuitoGestao
-      summary: Busca das metas de um circuito de gestão
-      parameters:
-        - name: guid
-          in: path
-          description: Guid do circuito gestão
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: Lista das etapas do circuito gestão
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/MetaDoCircuitoGestaoViewModelIEnumerableApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MetaDoCircuitoGestaoViewModelIEnumerableApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/MetaDoCircuitoGestaoViewModelIEnumerableApiResponse'
-        '400':
-          description: Erro de validação
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-        '500':
-          description: Erro interno
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-  '/CircuitoGestao/api/CircuitoGestao/{guid}/instituicoes':
-    post:
-      tags:
-        - CircuitoGestaoApi-CircuitoGestao
-      summary: Vincula instituições ao circuito de gestão
-      parameters:
-        - name: guid
-          in: path
-          description: Guid do circuito de gestão
-          required: true
-          schema:
-            type: string
-            format: uuid
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/VincularInstituicoesAoCircuitoGestaoDTO'
-          text/json:
-            schema:
-              $ref: '#/components/schemas/VincularInstituicoesAoCircuitoGestaoDTO'
-          application/*+json:
-            schema:
-              $ref: '#/components/schemas/VincularInstituicoesAoCircuitoGestaoDTO'
-      responses:
-        '200':
-          description: Total de instituições vinculadas ao circuito gestão
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/Int32ApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Int32ApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/Int32ApiResponse'
-        '400':
-          description: Erro de validação
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-        '500':
-          description: Erro interno
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-  '/CircuitoGestao/api/CircuitoGestao/{guid}/instituicao/{instituicaoGuid}':
-    delete:
-      tags:
-        - CircuitoGestaoApi-CircuitoGestao
-      summary: Remove uma institução de um circuito gestão
-      parameters:
-        - name: guid
-          in: path
-          description: Guid do circuito de gestão
-          required: true
-          schema:
-            type: string
-            format: uuid
-        - name: instituicaoGuid
-          in: path
-          description: Guid da instituição
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: Guid da Instituição
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-        '400':
-          description: Erro de validação
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-        '500':
-          description: Erro interno
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-  /CircuitoGestao/api/CircuitoGestao/copiar-instituicoes:
-    put:
-      tags:
-        - CircuitoGestaoApi-CircuitoGestao
-      summary: Copia todas as instituições de um circuito gestão para outro
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CopiarInstituicoesEntreCircuitosGestaoDTO'
-          text/json:
-            schema:
-              $ref: '#/components/schemas/CopiarInstituicoesEntreCircuitosGestaoDTO'
-          application/*+json:
-            schema:
-              $ref: '#/components/schemas/CopiarInstituicoesEntreCircuitosGestaoDTO'
-      responses:
-        '200':
-          description: Total de Instituições vinculadas
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/Int32ApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Int32ApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/Int32ApiResponse'
-        '400':
-          description: Erro de validação
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-        '500':
-          description: Erro interno
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-  '/CircuitoGestao/api/CircuitoGestaoEtapa/{guid}':
-    put:
-      tags:
-        - CircuitoGestaoApi-CircuitoGestaoEtapa
-      summary: 'Atualiza etapa do circuito de gestão, com suas configurações'
-      parameters:
-        - name: guid
-          in: path
-          description: Guid da etapa do circuito de gestão
-          required: true
-          schema:
-            type: string
-            format: uuid
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/EditarEtapaDoCircuitoGestaoDTO'
-          text/json:
-            schema:
-              $ref: '#/components/schemas/EditarEtapaDoCircuitoGestaoDTO'
-          application/*+json:
-            schema:
-              $ref: '#/components/schemas/EditarEtapaDoCircuitoGestaoDTO'
-      responses:
-        '200':
-          description: Etapa do Circuito de gestão atualizado
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-        '400':
-          description: Erro de validação
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-        '500':
-          description: Erro interno
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-    delete:
-      tags:
-        - CircuitoGestaoApi-CircuitoGestaoEtapa
-      summary: Deleta etapa do circuito de gestão
-      parameters:
-        - name: guid
-          in: path
-          description: Guid da etapa do circuito de gestão
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: Etapa do Circuito de gestão removido
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-        '400':
-          description: Erro de validação
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-        '500':
-          description: Erro interno
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-    get:
-      tags:
-        - CircuitoGestaoApi-CircuitoGestaoEtapa
-      summary: Busca uma etapa completa por Guid
-      parameters:
-        - name: guid
-          in: path
-          description: Guid da etapa do circuito gestão
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: CircuitoGestaoEtapaViewModel
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/CircuitoGestaoEtapaViewModelApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CircuitoGestaoEtapaViewModelApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/CircuitoGestaoEtapaViewModelApiResponse'
-        '400':
-          description: Erro de validação
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-        '500':
-          description: Erro interno
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-  '/CircuitoGestao/api/CircuitoGestaoEtapa/{guid}/formulario':
-    post:
-      tags:
-        - CircuitoGestaoApi-CircuitoGestaoEtapa
-      summary: Vincula formulario a uma etapa do circuito de gestão
-      parameters:
-        - name: guid
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/VincularFormularioEtapaDTO'
-          text/json:
-            schema:
-              $ref: '#/components/schemas/VincularFormularioEtapaDTO'
-          application/*+json:
-            schema:
-              $ref: '#/components/schemas/VincularFormularioEtapaDTO'
-      responses:
-        '200':
-          description: Guid do CircuitoGestaoEtapaFormulario
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-        '400':
-          description: Erro de validação
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-        '500':
-          description: Erro interno
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-  '/CircuitoGestao/api/CircuitoGestaoEtapa/{guid}/reuniao':
-    post:
-      tags:
-        - CircuitoGestaoApi-CircuitoGestaoEtapa
-      summary: Vincula uma reunião a uma etapa do circuito de gestão
-      parameters:
-        - name: guid
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/VincularReuniaoComEtapaDTO'
-          text/json:
-            schema:
-              $ref: '#/components/schemas/VincularReuniaoComEtapaDTO'
-          application/*+json:
-            schema:
-              $ref: '#/components/schemas/VincularReuniaoComEtapaDTO'
-      responses:
-        '200':
-          description: Guid do CircuitoGestaoEtapaReuniao
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-        '400':
-          description: Erro de validação
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-        '500':
-          description: Erro interno
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-  '/CircuitoGestao/api/CircuitoGestaoEtapa/{guid}/reunioes':
-    get:
-      tags:
-        - CircuitoGestaoApi-CircuitoGestaoEtapa
-      summary: 'Busca as reunioes de uma etapa do circuito gestão, por Guid'
-      parameters:
-        - name: guid
-          in: path
-          description: Guid da etapa do circuito gestão
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: Lista de CircuitoGestaoEtapaReuniaoViewModel
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/CircuitoGestaoEtapaReuniaoViewModelIEnumerableApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CircuitoGestaoEtapaReuniaoViewModelIEnumerableApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/CircuitoGestaoEtapaReuniaoViewModelIEnumerableApiResponse'
-        '400':
-          description: Erro de validação
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-        '500':
-          description: Erro interno
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-  '/CircuitoGestao/api/CircuitoGestaoEtapa/{guid}/formularios':
-    get:
-      tags:
-        - CircuitoGestaoApi-CircuitoGestaoEtapa
-      summary: 'Busca os formularios de uma etapa do circuito gestão, por Guid'
-      parameters:
-        - name: guid
-          in: path
-          description: Guid da etapa do circuito gestão
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: Lista de CircuitoGestaoEtapaFormularioViewModel
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/CircuitoGestaoEtapaFormularioViewModelIEnumerableApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CircuitoGestaoEtapaFormularioViewModelIEnumerableApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/CircuitoGestaoEtapaFormularioViewModelIEnumerableApiResponse'
-        '400':
-          description: Erro de validação
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-        '500':
-          description: Erro interno
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-  '/CircuitoGestao/api/CircuitoGestaoEtapaFormulario/{guid}':
-    put:
-      tags:
-        - CircuitoGestaoApi-CircuitoGestaoEtapaFormulario
-      summary: Editar o vinculo do formulario a uma etapa do circuito de gestão
-      parameters:
-        - name: guid
-          in: path
-          description: Guid do vinculo entre a etapa e formulário
-          required: true
-          schema:
-            type: string
-            format: uuid
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/EditarVinculoDoFormularioEtapaDTO'
-          text/json:
-            schema:
-              $ref: '#/components/schemas/EditarVinculoDoFormularioEtapaDTO'
-          application/*+json:
-            schema:
-              $ref: '#/components/schemas/EditarVinculoDoFormularioEtapaDTO'
-      responses:
-        '200':
-          description: Guid do CircuitoGestaoEtapaFormulario
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-        '400':
-          description: Erro de validação
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-        '500':
-          description: Erro interno
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-    delete:
-      tags:
-        - CircuitoGestaoApi-CircuitoGestaoEtapaFormulario
-      summary: Deleta o vinculo do formulario a uma etapa do circuito de gestão
-      parameters:
-        - name: guid
-          in: path
-          description: Guid do vinculo entre a etapa e formulário
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: Guid do CircuitoGestaoEtapaFormulario
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-        '400':
-          description: Erro de validação
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-        '500':
-          description: Erro interno
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-  '/CircuitoGestao/api/CircuitoGestaoEtapaReuniao/{guid}':
-    put:
-      tags:
-        - CircuitoGestaoApi-CircuitoGestaoEtapaReuniao
-      summary: Editar o vinculo da reuniao com uma etapa do circuito de gestão
-      parameters:
-        - name: guid
-          in: path
-          description: Guid do vinculo entre a etapa e reunião
-          required: true
-          schema:
-            type: string
-            format: uuid
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/EditarVinculoReuniaoComEtapaDTO'
-          text/json:
-            schema:
-              $ref: '#/components/schemas/EditarVinculoReuniaoComEtapaDTO'
-          application/*+json:
-            schema:
-              $ref: '#/components/schemas/EditarVinculoReuniaoComEtapaDTO'
-      responses:
-        '200':
-          description: Guid do CircuitoGestaoEtapaReuniao
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-        '400':
-          description: Erro de validação
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-        '500':
-          description: Erro interno
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-    delete:
-      tags:
-        - CircuitoGestaoApi-CircuitoGestaoEtapaReuniao
-      summary: Deleta o vinculo da reuniao com uma etapa do circuito de gestão
-      parameters:
-        - name: guid
-          in: path
-          description: Guid do vinculo entre a etapa e reunião
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: Guid do CircuitoGestaoEtapaReuniao
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-        '400':
-          description: Erro de validação
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-        '500':
-          description: Erro interno
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-  '/CircuitoGestao/api/CircuitoGestaoEtapaReuniao/{guid}/pautasPadrao':
-    post:
-      tags:
-        - CircuitoGestaoApi-CircuitoGestaoEtapaReuniao
+        - CircuitoGestaoApi-CircuitoGestaoEtapaReuniaoPautaPadrao
       summary: Cria uma pauta padrão da etapa
-      parameters:
-        - name: guid
-          in: path
-          description: Guid do circutoGestaoEtapaReuniao
-          required: true
-          schema:
-            type: string
-            format: uuid
       requestBody:
         content:
           application/json:
@@ -1717,9 +613,10 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
+  '/CircuitoGestao/api/CircuitoGestaoEtapaReuniaoPautaPadrao/CircuitoGestaoEtapaReuniao/{guid}':
     get:
       tags:
-        - CircuitoGestaoApi-CircuitoGestaoEtapaReuniao
+        - CircuitoGestaoApi-CircuitoGestaoEtapaReuniaoPautaPadrao
       summary: 'Busca as pautas padrão de uma reunião de etapa do circuito gestão, por Guid'
       parameters:
         - name: guid
@@ -1994,13 +891,114 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  '/CircuitoGestao/api/CircuitoGestaoInstituicao/{circuitoGestaoInstituicaoGuid}':
+    post:
+      tags:
+        - CircuitoGestaoApi-CircuitoGestaoInstituicao
+      summary: Vincula instituições ao circuito de gestão
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VincularInstituicoesAoCircuitoGestaoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/VincularInstituicoesAoCircuitoGestaoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/VincularInstituicoesAoCircuitoGestaoDTO'
+      responses:
+        '200':
+          description: Total de instituições vinculadas ao circuito gestão
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Int32ApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Int32ApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Int32ApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/CircuitoGestao/api/CircuitoGestaoInstituicao/{guid}':
+    delete:
+      tags:
+        - CircuitoGestaoApi-CircuitoGestaoInstituicao
+      summary: Remove uma institução de um circuito gestão
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do circuitoGestãoInsitituição
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Guid da Instituição
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
     get:
       tags:
         - CircuitoGestaoApi-CircuitoGestaoInstituicao
       summary: Buscar instituição em um circuito gestão
       parameters:
-        - name: circuitoGestaoInstituicaoGuid
+        - name: guid
           in: path
           description: Guid do CircuitoGestaoInstituicao
           required: true
@@ -2044,33 +1042,225 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  '/CircuitoGestao/api/CircuitoGestaoMeta/{guid}':
+  /CircuitoGestao/api/CircuitoGestaoInstituicao/CopiarInstituicoes:
     put:
       tags:
-        - CircuitoGestaoApi-CircuitoGestaoMeta
-      summary: Editar o vinculo da meta com o circuito de gestão
-      parameters:
-        - name: guid
-          in: path
-          description: Guid do vinculo entre a meta e o circuito gestão
-          required: true
-          schema:
-            type: string
-            format: uuid
+        - CircuitoGestaoApi-CircuitoGestaoInstituicao
+      summary: Copia todas as instituições de um circuito gestão para outro
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/EditarCircuitoGestaoMetaDTO'
+              $ref: '#/components/schemas/CopiarInstituicoesEntreCircuitosGestaoDTO'
           text/json:
             schema:
-              $ref: '#/components/schemas/EditarCircuitoGestaoMetaDTO'
+              $ref: '#/components/schemas/CopiarInstituicoesEntreCircuitosGestaoDTO'
           application/*+json:
             schema:
-              $ref: '#/components/schemas/EditarCircuitoGestaoMetaDTO'
+              $ref: '#/components/schemas/CopiarInstituicoesEntreCircuitosGestaoDTO'
       responses:
         '200':
-          description: Guid do CircuitoGestaoMeta
+          description: Total de Instituições vinculadas
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Int32ApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Int32ApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Int32ApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/CircuitoGestao/api/CircuitoGestaoInstituicaoInternal/{guid}/Existe':
+    get:
+      tags:
+        - CircuitoGestaoApi-CircuitoGestaoInstituicaoInternal
+      summary: Verifica se o circuito gestão instituicao existe
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do circuito gestão instituicão
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'True se existe, False se não existe'
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/CircuitoGestao/api/CircuitoGestaoInternal/{guid}/Existe':
+    get:
+      tags:
+        - CircuitoGestaoApi-CircuitoGestaoInternal
+      summary: Verifica se o circuito gestão existe
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do circuito gestão
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'True se existe, False se não existe'
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/CircuitoGestao/api/CircuitoGestaoInternal/{guid}':
+    get:
+      tags:
+        - CircuitoGestaoApi-CircuitoGestaoInternal
+      summary: Busca um circuito de gestão
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do circuito de gestão
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Circuito de gestão
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CircuitoDeGestaoInternalViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CircuitoDeGestaoInternalViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CircuitoDeGestaoInternalViewModelApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/CircuitoGestao/api/CircuitoGestaoInternal/instituicao/{instituicaoGuid}':
+    get:
+      tags:
+        - CircuitoGestaoApi-CircuitoGestaoInternal
+      summary: Busca um Circuito de Gestão Guid por Instituicao Guid
+      parameters:
+        - name: instituicaoGuid
+          in: path
+          description: Guid da Instituicao
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Circuito de gestão
           content:
             text/plain:
               schema:
@@ -2105,21 +1295,179 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-    delete:
+  '/CircuitoGestao/api/CircuitoGestaoObjetivoInternal/{guid}/Existe':
+    get:
       tags:
-        - CircuitoGestaoApi-CircuitoGestaoMeta
-      summary: Deleta o vinculo da meta com o circuito de gestão
+        - CircuitoGestaoApi-CircuitoGestaoObjetivoInternal
+      summary: Verifica se o circuito gestão objetivo existe
       parameters:
         - name: guid
           in: path
-          description: Guid do vinculo entre a etapa e formulário
+          description: Guid do vinculo entre o objetivo e o circuito gestão
           required: true
           schema:
             type: string
             format: uuid
       responses:
         '200':
-          description: Guid do CircuitoGestaoMeta
+          description: 'True se existe, False se não existe'
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /CircuitoGestao/api/CircuitoGestaoObjetivoInternal/Existem:
+    get:
+      tags:
+        - CircuitoGestaoApi-CircuitoGestaoObjetivoInternal
+      summary: Verifica se o circuito gestão objetivos existem
+      parameters:
+        - name: guids
+          in: query
+          description: Guid do vinculo entre a objetivo e o circuito gestão
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+      responses:
+        '200':
+          description: GetObjetivoDoCircuitoGestaoViewModel
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /CircuitoGestao/api/CircuitoGestaoObjetivoInternal:
+    get:
+      tags:
+        - CircuitoGestaoApi-CircuitoGestaoObjetivoInternal
+      summary: Busca os objetivos do circuito gestão por guids
+      parameters:
+        - name: guids
+          in: query
+          description: Guid do vinculo entre a objetivo e o circuito gestão
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+      responses:
+        '200':
+          description: GetObjetivoDoCircuitoGestaoViewModel
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CircuitoGestaoObjetivoInternalViewModelIEnumerableApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CircuitoGestaoObjetivoInternalViewModelIEnumerableApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CircuitoGestaoObjetivoInternalViewModelIEnumerableApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /CircuitoGestao/api/EtapaEnsino:
+    post:
+      tags:
+        - CircuitoGestaoApi-EtapaEnsino
+      summary: Cria uma etapa
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarEtapaEnsinoDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CriarEtapaEnsinoDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CriarEtapaEnsinoDto'
+      responses:
+        '200':
+          description: Etapa criada com sucesso
           content:
             text/plain:
               schema:
@@ -2156,29 +1504,356 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
     get:
       tags:
-        - CircuitoGestaoApi-CircuitoGestaoMeta
-      summary: Busca o vinculo da meta com o circuito de gestão
+        - CircuitoGestaoApi-EtapaEnsino
+      summary: Buscar e filtrar todas as etapa
+      parameters:
+        - name: Descricao
+          in: query
+          schema:
+            type: string
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Etapa
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/EtapaEnsinoViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EtapaEnsinoViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/EtapaEnsinoViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/CircuitoGestao/api/EtapaEnsino/{guid}':
+    put:
+      tags:
+        - CircuitoGestaoApi-EtapaEnsino
+      summary: Atualiza a descrição da etapa
       parameters:
         - name: guid
           in: path
-          description: Guid do vinculo entre a meta e o circuito gestão
+          description: Guid da etapa
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtualizarEtapaEnsinoDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/AtualizarEtapaEnsinoDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/AtualizarEtapaEnsinoDto'
+      responses:
+        '200':
+          description: Etapa atualizada
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    delete:
+      tags:
+        - CircuitoGestaoApi-EtapaEnsino
+      summary: Deletar uma etapa
+      parameters:
+        - name: guid
+          in: path
+          description: Guid da etapa
           required: true
           schema:
             type: string
             format: uuid
       responses:
         '200':
-          description: GetMetaDoCircuitoGestaoViewModel
+          description: Etapa deletada com sucesso
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/MetaDoCircuitoGestaoViewModelApiResponse'
+                $ref: '#/components/schemas/BooleanApiResponse'
             application/json:
               schema:
-                $ref: '#/components/schemas/MetaDoCircuitoGestaoViewModelApiResponse'
+                $ref: '#/components/schemas/BooleanApiResponse'
             text/json:
               schema:
-                $ref: '#/components/schemas/MetaDoCircuitoGestaoViewModelApiResponse'
+                $ref: '#/components/schemas/BooleanApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - CircuitoGestaoApi-EtapaEnsino
+      summary: Buscar etapa por guid
+      parameters:
+        - name: guid
+          in: path
+          description: Guid da etapa
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Etapa
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/EtapaEnsinoViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EtapaEnsinoViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/EtapaEnsinoViewModelApiResponse'
+        '204':
+          description: Etapa não encontrada
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /CircuitoGestao/api/EtapaEnsinoInternal:
+    get:
+      tags:
+        - CircuitoGestaoApi-EtapaEnsinoInternal
+      summary: Buscar e filtrar todas as etapa
+      parameters:
+        - name: Descricao
+          in: query
+          schema:
+            type: string
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Etapa
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/EtapaEnsinoViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EtapaEnsinoViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/EtapaEnsinoViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/CircuitoGestao/api/EtapaEnsinoInternal/{guid}':
+    get:
+      tags:
+        - CircuitoGestaoApi-EtapaEnsinoInternal
+      summary: Buscar etapa por guid
+      parameters:
+        - name: guid
+          in: path
+          description: Guid da etapa
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Etapa
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/EtapaEnsinoViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EtapaEnsinoViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/EtapaEnsinoViewModelApiResponse'
+        '204':
+          description: Etapa não encontrada
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/CircuitoGestao/api/EtapaEnsinoInternal/{guid}/Existe':
+    get:
+      tags:
+        - CircuitoGestaoApi-EtapaEnsinoInternal
+      summary: Verifica se uma etapa de ensino existe
+      parameters:
+        - name: guid
+          in: path
+          description: Guid da Etapa de Ensino
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'True se existe, False se não existe'
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
         '400':
           description: Erro de validação
           content:
@@ -2481,82 +2156,25 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  '/CircuitoGestao/api/GrupoPrioridade/{guid}':
-    put:
+  /CircuitoGestao/api/Grupo:
+    post:
       tags:
-        - CircuitoGestaoApi-GrupoPrioridade
-      summary: Editar um grupo prioridade
-      parameters:
-        - name: guid
-          in: path
-          description: Guid do Grupo Prioridade
-          required: true
-          schema:
-            type: string
-            format: uuid
+        - CircuitoGestaoApi-Grupo
+      summary: Cria um grupo
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/EditarGrupoPrioridadeDTO'
+              $ref: '#/components/schemas/CriarGrupoDTO'
           text/json:
             schema:
-              $ref: '#/components/schemas/EditarGrupoPrioridadeDTO'
+              $ref: '#/components/schemas/CriarGrupoDTO'
           application/*+json:
             schema:
-              $ref: '#/components/schemas/EditarGrupoPrioridadeDTO'
+              $ref: '#/components/schemas/CriarGrupoDTO'
       responses:
         '200':
-          description: Guid do Grupo Prioridade
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-        '400':
-          description: Erro de validação
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-        '500':
-          description: Erro interno
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-    delete:
-      tags:
-        - CircuitoGestaoApi-GrupoPrioridade
-      summary: Deleta um grupo prioridade com suas respectivas instituições
-      parameters:
-        - name: guid
-          in: path
-          description: Guid do Grupo Prioridade
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: Guid do Grupo Prioridade
+          description: Guid do Grupo
           content:
             text/plain:
               schema:
@@ -2593,12 +2211,192 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
     get:
       tags:
-        - CircuitoGestaoApi-GrupoPrioridade
-      summary: Buscar um grupo prioridade com suas respectivas instituições
+        - CircuitoGestaoApi-Grupo
+      summary: Filtrar grupos
+      parameters:
+        - name: Nome
+          in: query
+          schema:
+            type: string
+        - name: Descricao
+          in: query
+          schema:
+            type: string
+        - name: ModuloGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: GrupoInstituicaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Objeto paginado dos grupos
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GrupoViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GrupoViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GrupoViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/CircuitoGestao/api/Grupo/{guid}':
+    put:
+      tags:
+        - CircuitoGestaoApi-Grupo
+      summary: Editar um grupo
       parameters:
         - name: guid
           in: path
-          description: Guid do Grupo Prioridade
+          description: Guid do Grupo
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditarGrupoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/EditarGrupoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/EditarGrupoDTO'
+      responses:
+        '200':
+          description: Guid do Grupo
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    delete:
+      tags:
+        - CircuitoGestaoApi-Grupo
+      summary: Deleta um grupo com suas respectivas instituições
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do Grupo
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Guid do Grupo
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - CircuitoGestaoApi-Grupo
+      summary: Buscar um grupo com suas respectivas instituições
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do Grupo
           required: true
           schema:
             type: string
@@ -2609,13 +2407,13 @@ paths:
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/GrupoPrioridadeCompletoViewModelApiResponse'
+                $ref: '#/components/schemas/GrupoCompletoViewModelApiResponse'
             application/json:
               schema:
-                $ref: '#/components/schemas/GrupoPrioridadeCompletoViewModelApiResponse'
+                $ref: '#/components/schemas/GrupoCompletoViewModelApiResponse'
             text/json:
               schema:
-                $ref: '#/components/schemas/GrupoPrioridadeCompletoViewModelApiResponse'
+                $ref: '#/components/schemas/GrupoCompletoViewModelApiResponse'
         '400':
           description: Erro de validação
           content:
@@ -2640,215 +2438,32 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  /CircuitoGestao/api/GrupoPrioridade:
+  '/CircuitoGestao/api/GrupoInternal/{guid}/Existe':
     get:
       tags:
-        - CircuitoGestaoApi-GrupoPrioridade
-      summary: Filtrar grupos prioridade
-      parameters:
-        - name: ModuloGuid
-          in: query
-          schema:
-            type: string
-            format: uuid
-        - name: Nome
-          in: query
-          schema:
-            type: string
-        - name: Page
-          in: query
-          schema:
-            type: integer
-            format: int32
-        - name: PageSize
-          in: query
-          schema:
-            type: integer
-            format: int32
-      responses:
-        '200':
-          description: Objeto paginado dos grupos prioridade
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/GrupoPrioridadeViewModelPaginatedResultApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GrupoPrioridadeViewModelPaginatedResultApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/GrupoPrioridadeViewModelPaginatedResultApiResponse'
-        '400':
-          description: Erro de validação
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-        '500':
-          description: Erro interno
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-  '/CircuitoGestao/api/GrupoPrioridade/{guid}/instituicoes':
-    post:
-      tags:
-        - CircuitoGestaoApi-GrupoPrioridade
-      summary: Vincular instituições a um grupo de prioridade
+        - CircuitoGestaoApi-GrupoInternal
+      summary: Verifica se o circuito gestão existe
       parameters:
         - name: guid
           in: path
-          description: Guid do Grupo Prioridade
-          required: true
-          schema:
-            type: string
-            format: uuid
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/VincularInstituicoesAoGrupoPrioridadeDTO'
-          text/json:
-            schema:
-              $ref: '#/components/schemas/VincularInstituicoesAoGrupoPrioridadeDTO'
-          application/*+json:
-            schema:
-              $ref: '#/components/schemas/VincularInstituicoesAoGrupoPrioridadeDTO'
-      responses:
-        '200':
-          description: Guids do Grupo Prioridade Instituições
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/GuidIEnumerableApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GuidIEnumerableApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/GuidIEnumerableApiResponse'
-        '400':
-          description: Erro de validação
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-        '500':
-          description: Erro interno
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-  '/CircuitoGestao/api/GrupoPrioridadeInstituicao/{guid}':
-    put:
-      tags:
-        - CircuitoGestaoApi-GrupoPrioridadeInstituicao
-      summary: Editar vinculo da instituição com um grupo de prioridade
-      parameters:
-        - name: guid
-          in: path
-          description: Guid do vinculo da instituição com o grupo de prioridade
-          required: true
-          schema:
-            type: string
-            format: uuid
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/EditarVinculoDaInstituicaoComGrupoPrioridadeDTO'
-          text/json:
-            schema:
-              $ref: '#/components/schemas/EditarVinculoDaInstituicaoComGrupoPrioridadeDTO'
-          application/*+json:
-            schema:
-              $ref: '#/components/schemas/EditarVinculoDaInstituicaoComGrupoPrioridadeDTO'
-      responses:
-        '200':
-          description: Guid do vinculo da instituição com um grupo de prioridade
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/GuidApiResponse'
-        '400':
-          description: Erro de validação
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-        '500':
-          description: Erro interno
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-    delete:
-      tags:
-        - CircuitoGestaoApi-GrupoPrioridadeInstituicao
-      summary: Deletar o  vinculo da instituição com um grupo de prioridade
-      parameters:
-        - name: guid
-          in: path
-          description: Guid do vinculo da instituição com o grupo de prioridade
+          description: Guid do circuito gestão
           required: true
           schema:
             type: string
             format: uuid
       responses:
         '200':
-          description: Guid do vinculo da instituição com um grupo de prioridade
+          description: 'True se existe, False se não existe'
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/GuidApiResponse'
+                $ref: '#/components/schemas/BooleanApiResponse'
             application/json:
               schema:
-                $ref: '#/components/schemas/GuidApiResponse'
+                $ref: '#/components/schemas/BooleanApiResponse'
             text/json:
               schema:
-                $ref: '#/components/schemas/GuidApiResponse'
+                $ref: '#/components/schemas/BooleanApiResponse'
         '400':
           description: Erro de validação
           content:
@@ -2873,94 +2488,32 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
+  '/CircuitoGestao/api/GrupoInternal/{guid}':
     get:
       tags:
-        - CircuitoGestaoApi-GrupoPrioridadeInstituicao
-      summary: Busca vinculo da instituição com um grupo de prioridade por Guid
+        - CircuitoGestaoApi-GrupoInternal
+      summary: Busca um Grupo
       parameters:
         - name: guid
           in: path
-          description: Guid do vinculo da instituição com o grupo de prioridade
+          description: Guid do Grupo
           required: true
           schema:
             type: string
             format: uuid
       responses:
         '200':
-          description: Objeto do vinculo da instituição com um grupo de prioridade
+          description: Grupo
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/GrupoPrioridadeInstituicaoCompletoQueryDTOApiResponse'
+                $ref: '#/components/schemas/GrupoInternalViewModelApiResponse'
             application/json:
               schema:
-                $ref: '#/components/schemas/GrupoPrioridadeInstituicaoCompletoQueryDTOApiResponse'
+                $ref: '#/components/schemas/GrupoInternalViewModelApiResponse'
             text/json:
               schema:
-                $ref: '#/components/schemas/GrupoPrioridadeInstituicaoCompletoQueryDTOApiResponse'
-        '400':
-          description: Erro de validação
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ObjectApiResponse'
-        '500':
-          description: Erro interno
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-  /CircuitoGestao/api/GrupoPrioridadeInstituicao:
-    get:
-      tags:
-        - CircuitoGestaoApi-GrupoPrioridadeInstituicao
-      summary: Filtrar vinculos da instituição com um grupo de prioridade
-      parameters:
-        - name: GrupoPrioridadeGuid
-          in: query
-          schema:
-            type: string
-            format: uuid
-        - name: InstituicaoGuid
-          in: query
-          schema:
-            type: string
-            format: uuid
-        - name: Page
-          in: query
-          schema:
-            type: integer
-            format: int32
-        - name: PageSize
-          in: query
-          schema:
-            type: integer
-            format: int32
-      responses:
-        '200':
-          description: Lista paginada dos vinculos da instituição com um grupo de prioridade
-          content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/GrupoPrioridadeInstituicaoViewModelPaginatedResultApiResponse'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GrupoPrioridadeInstituicaoViewModelPaginatedResultApiResponse'
-            text/json:
-              schema:
-                $ref: '#/components/schemas/GrupoPrioridadeInstituicaoViewModelPaginatedResultApiResponse'
+                $ref: '#/components/schemas/GrupoInternalViewModelApiResponse'
         '400':
           description: Erro de validação
           content:
@@ -2995,7 +2548,16 @@ paths:
           in: query
           schema:
             type: string
+        - name: Tipo
+          in: query
+          schema:
+            $ref: '#/components/schemas/Tipo'
         - name: MetaGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: CategoriaGuid
           in: query
           schema:
             type: string
@@ -3258,20 +2820,20 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  '/CircuitoGestao/api/Indicador/{guid}/grupoPrioridade/{grupoPrioridadeGuid}':
+  '/CircuitoGestao/api/IndicadorGrupo/Indicador/{indicadorGuid}/Grupo/{grupoGuid}':
     delete:
       tags:
-        - CircuitoGestaoApi-Indicador
+        - CircuitoGestaoApi-IndicadorGrupo
       summary: Deleta um indicador de um Grupo Prioridade
       parameters:
-        - name: guid
+        - name: indicadorGuid
           in: path
           description: Guid do Grupo Prioridade
           required: true
           schema:
             type: string
             format: uuid
-        - name: grupoPrioridadeGuid
+        - name: grupoGuid
           in: path
           description: Guid do Indicador
           required: true
@@ -3315,30 +2877,22 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  '/CircuitoGestao/api/Indicador/{guidIndicador}/grupoPrioridade':
+  /CircuitoGestao/api/IndicadorGrupo:
     post:
       tags:
-        - CircuitoGestaoApi-Indicador
+        - CircuitoGestaoApi-IndicadorGrupo
       summary: Vincula um indicador a um Grupo Prioridade
-      parameters:
-        - name: guidIndicador
-          in: path
-          description: Guid do indicador
-          required: true
-          schema:
-            type: string
-            format: uuid
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/VincularIndicadorAGrupoPrioridadeDTO'
+              $ref: '#/components/schemas/VincularIndicadorAGrupoDTO'
           text/json:
             schema:
-              $ref: '#/components/schemas/VincularIndicadorAGrupoPrioridadeDTO'
+              $ref: '#/components/schemas/VincularIndicadorAGrupoDTO'
           application/*+json:
             schema:
-              $ref: '#/components/schemas/VincularIndicadorAGrupoPrioridadeDTO'
+              $ref: '#/components/schemas/VincularIndicadorAGrupoDTO'
       responses:
         '200':
           description: Guid do Indicador
@@ -3654,25 +3208,25 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  /CircuitoGestao/api/Meta:
+  /CircuitoGestao/api/ModalidadeEnsino:
     post:
       tags:
-        - CircuitoGestaoApi-Meta
-      summary: Criar meta
+        - CircuitoGestaoApi-ModalidadeEnsino
+      summary: Cria uma modalidade
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CriarMetaDTO'
+              $ref: '#/components/schemas/CriarModalidadeEnsinoDto'
           text/json:
             schema:
-              $ref: '#/components/schemas/CriarMetaDTO'
+              $ref: '#/components/schemas/CriarModalidadeEnsinoDto'
           application/*+json:
             schema:
-              $ref: '#/components/schemas/CriarMetaDTO'
+              $ref: '#/components/schemas/CriarModalidadeEnsinoDto'
       responses:
         '200':
-          description: Guid da Meta
+          description: Modalidade criada com sucesso
           content:
             text/plain:
               schema:
@@ -3709,23 +3263,13 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
     get:
       tags:
-        - CircuitoGestaoApi-Meta
-      summary: Filtar metas
+        - CircuitoGestaoApi-ModalidadeEnsino
+      summary: Buscar e filtrar todas as modalidade
       parameters:
-        - name: Nome
+        - name: Descricao
           in: query
           schema:
             type: string
-        - name: ModuloGuid
-          in: query
-          schema:
-            type: string
-            format: uuid
-        - name: CircuitoGestaoGuid
-          in: query
-          schema:
-            type: string
-            format: uuid
         - name: Page
           in: query
           schema:
@@ -3738,17 +3282,17 @@ paths:
             format: int32
       responses:
         '200':
-          description: Lista paginada das metas
+          description: Modalidade
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/MetaCompletoViewModelPaginatedResultApiResponse'
+                $ref: '#/components/schemas/ModalidadeEnsinoViewModelPaginatedResultApiResponse'
             application/json:
               schema:
-                $ref: '#/components/schemas/MetaCompletoViewModelPaginatedResultApiResponse'
+                $ref: '#/components/schemas/ModalidadeEnsinoViewModelPaginatedResultApiResponse'
             text/json:
               schema:
-                $ref: '#/components/schemas/MetaCompletoViewModelPaginatedResultApiResponse'
+                $ref: '#/components/schemas/ModalidadeEnsinoViewModelPaginatedResultApiResponse'
         '400':
           description: Erro de validação
           content:
@@ -3773,15 +3317,15 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  '/CircuitoGestao/api/Meta/{guid}':
+  '/CircuitoGestao/api/ModalidadeEnsino/{guid}':
     put:
       tags:
-        - CircuitoGestaoApi-Meta
-      summary: Editar meta por Guid
+        - CircuitoGestaoApi-ModalidadeEnsino
+      summary: Atualiza a descrição da modalidade
       parameters:
         - name: guid
           in: path
-          description: Guid da Meta
+          description: Guid da modalidade
           required: true
           schema:
             type: string
@@ -3790,16 +3334,16 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/EditarMetaDTO'
+              $ref: '#/components/schemas/AtualizarModalidadeEnsinoDto'
           text/json:
             schema:
-              $ref: '#/components/schemas/EditarMetaDTO'
+              $ref: '#/components/schemas/AtualizarModalidadeEnsinoDto'
           application/*+json:
             schema:
-              $ref: '#/components/schemas/EditarMetaDTO'
+              $ref: '#/components/schemas/AtualizarModalidadeEnsinoDto'
       responses:
         '200':
-          description: Guid da Meta
+          description: Modalidade atualizada
           content:
             text/plain:
               schema:
@@ -3836,29 +3380,29 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
     delete:
       tags:
-        - CircuitoGestaoApi-Meta
-      summary: Deletar meta por Guid
+        - CircuitoGestaoApi-ModalidadeEnsino
+      summary: Deletar uma modalidade
       parameters:
         - name: guid
           in: path
-          description: Guid da Meta
+          description: Guid da modalidade
           required: true
           schema:
             type: string
             format: uuid
       responses:
         '200':
-          description: Guid da Meta
+          description: Modalidade deletada com sucesso
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/GuidApiResponse'
+                $ref: '#/components/schemas/BooleanApiResponse'
             application/json:
               schema:
-                $ref: '#/components/schemas/GuidApiResponse'
+                $ref: '#/components/schemas/BooleanApiResponse'
             text/json:
               schema:
-                $ref: '#/components/schemas/GuidApiResponse'
+                $ref: '#/components/schemas/BooleanApiResponse'
         '400':
           description: Erro de validação
           content:
@@ -3885,29 +3429,31 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
     get:
       tags:
-        - CircuitoGestaoApi-Meta
-      summary: Buscar meta por Guid
+        - CircuitoGestaoApi-ModalidadeEnsino
+      summary: Buscar Modalidade por guid
       parameters:
         - name: guid
           in: path
-          description: Guid da Meta
+          description: Guid da modalidade
           required: true
           schema:
             type: string
             format: uuid
       responses:
         '200':
-          description: Objeto meta com detalhes
+          description: Modalidade
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/MetaCompletoViewModelApiResponse'
+                $ref: '#/components/schemas/ModalidadeEnsinoViewModelApiResponse'
             application/json:
               schema:
-                $ref: '#/components/schemas/MetaCompletoViewModelApiResponse'
+                $ref: '#/components/schemas/ModalidadeEnsinoViewModelApiResponse'
             text/json:
               schema:
-                $ref: '#/components/schemas/MetaCompletoViewModelApiResponse'
+                $ref: '#/components/schemas/ModalidadeEnsinoViewModelApiResponse'
+        '204':
+          description: Modalidade não encontrada
         '400':
           description: Erro de validação
           content:
@@ -3932,43 +3478,39 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  '/CircuitoGestao/api/Meta/{guid}/indicador':
-    post:
+  /CircuitoGestao/api/ModalidadeEnsinoInternal:
+    get:
       tags:
-        - CircuitoGestaoApi-Meta
-      summary: Vincula um indicador a uma meta
+        - CircuitoGestaoApi-ModalidadeEnsinoInternal
+      summary: Buscar e filtrar todas as modalidade
       parameters:
-        - name: guid
-          in: path
-          description: Guid do meta
-          required: true
+        - name: Descricao
+          in: query
           schema:
             type: string
-            format: uuid
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/VincularIndicadorAMetaDTO'
-          text/json:
-            schema:
-              $ref: '#/components/schemas/VincularIndicadorAMetaDTO'
-          application/*+json:
-            schema:
-              $ref: '#/components/schemas/VincularIndicadorAMetaDTO'
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
       responses:
         '200':
-          description: Guid do Indicador
+          description: Modalidade
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/GuidApiResponse'
+                $ref: '#/components/schemas/ModalidadeEnsinoViewModelPaginatedResultApiResponse'
             application/json:
               schema:
-                $ref: '#/components/schemas/GuidApiResponse'
+                $ref: '#/components/schemas/ModalidadeEnsinoViewModelPaginatedResultApiResponse'
             text/json:
               schema:
-                $ref: '#/components/schemas/GuidApiResponse'
+                $ref: '#/components/schemas/ModalidadeEnsinoViewModelPaginatedResultApiResponse'
         '400':
           description: Erro de validação
           content:
@@ -3993,39 +3535,84 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  '/CircuitoGestao/api/Meta/{guid}/indicador/{indicadorGuid}':
-    delete:
+  '/CircuitoGestao/api/ModalidadeEnsinoInternal/{guid}':
+    get:
       tags:
-        - CircuitoGestaoApi-Meta
-      summary: Deleta um indicador de uma meta
+        - CircuitoGestaoApi-ModalidadeEnsinoInternal
+      summary: Buscar Modalidade por guid
       parameters:
         - name: guid
           in: path
-          description: Guid da Meta
-          required: true
-          schema:
-            type: string
-            format: uuid
-        - name: indicadorGuid
-          in: path
-          description: Guid do Indicador
+          description: Guid da modalidade
           required: true
           schema:
             type: string
             format: uuid
       responses:
         '200':
-          description: Guid do Indicador
+          description: Modalidade
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/GuidApiResponse'
+                $ref: '#/components/schemas/ModalidadeEnsinoViewModelApiResponse'
             application/json:
               schema:
-                $ref: '#/components/schemas/GuidApiResponse'
+                $ref: '#/components/schemas/ModalidadeEnsinoViewModelApiResponse'
             text/json:
               schema:
-                $ref: '#/components/schemas/GuidApiResponse'
+                $ref: '#/components/schemas/ModalidadeEnsinoViewModelApiResponse'
+        '204':
+          description: Modalidade não encontrada
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/CircuitoGestao/api/ModalidadeEnsinoInternal/{guid}/Existe':
+    get:
+      tags:
+        - CircuitoGestaoApi-ModalidadeEnsinoInternal
+      summary: Verifica se uma Modalidade de ensino existe
+      parameters:
+        - name: guid
+          in: path
+          description: Guid da Modalidade de Ensino
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'True se existe, False se não existe'
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
         '400':
           description: Erro de validação
           content:
@@ -4318,33 +3905,25 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  '/CircuitoGestao/api/Modulo/{guid}/grupo-prioridade':
+  /CircuitoGestao/api/Objetivo:
     post:
       tags:
-        - CircuitoGestaoApi-Modulo
-      summary: Cria um grupo de prioridade
-      parameters:
-        - name: guid
-          in: path
-          description: Guid do projeto
-          required: true
-          schema:
-            type: string
-            format: uuid
+        - CircuitoGestaoApi-Objetivo
+      summary: Criar objetivo
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CriarGrupoPrioridadeDTO'
+              $ref: '#/components/schemas/CriarObjetivoDTO'
           text/json:
             schema:
-              $ref: '#/components/schemas/CriarGrupoPrioridadeDTO'
+              $ref: '#/components/schemas/CriarObjetivoDTO'
           application/*+json:
             schema:
-              $ref: '#/components/schemas/CriarGrupoPrioridadeDTO'
+              $ref: '#/components/schemas/CriarObjetivoDTO'
       responses:
         '200':
-          description: Guid do Grupo Prioridade
+          description: Guid do Objetivo
           content:
             text/plain:
               schema:
@@ -4355,6 +3934,362 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - CircuitoGestaoApi-Objetivo
+      summary: Filtrar objetivos
+      parameters:
+        - name: Nome
+          in: query
+          schema:
+            type: string
+        - name: PossuiMeta
+          in: query
+          schema:
+            type: boolean
+        - name: ObjetivoSuperiorGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: IndicadorGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: CircuitoGestaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Lista paginada dos objetivos
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjetivoCompletoViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjetivoCompletoViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjetivoCompletoViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/CircuitoGestao/api/Objetivo/{guid}':
+    put:
+      tags:
+        - CircuitoGestaoApi-Objetivo
+      summary: Editar objetivo por Guid
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do Objetivo
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditarObjetivoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/EditarObjetivoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/EditarObjetivoDTO'
+      responses:
+        '200':
+          description: Guid do Objetivo
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    delete:
+      tags:
+        - CircuitoGestaoApi-Objetivo
+      summary: Deletar objetivo por Guid
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do Objetivo
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Guid do Objetivo
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - CircuitoGestaoApi-Objetivo
+      summary: Buscar objetivo por Guid
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do Objetivo
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Objeto objetivo com detalhes
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjetivoCompletoViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjetivoCompletoViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjetivoCompletoViewModelApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /CircuitoGestao/api/OfertaEnsinoInternal/Existem:
+    get:
+      tags:
+        - CircuitoGestaoApi-OfertaEnsinoInternal
+      summary: Verifica se ofertas de ensino existem
+      parameters:
+        - name: etapasEnsino
+          in: query
+          description: Lista de GUIDs das etapas de ensino
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+        - name: modalidadesEnsino
+          in: query
+          description: Lista de GUIDs das modalidades de ensino
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+      responses:
+        '200':
+          description: 'True se existem, False se não existem'
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /CircuitoGestao/api/OfertaEnsinoInternal:
+    get:
+      tags:
+        - CircuitoGestaoApi-OfertaEnsinoInternal
+      summary: Obtém ofertas de ensino filtradas
+      parameters:
+        - name: etapasEnsino
+          in: query
+          description: Lista de GUIDs das etapas de ensino
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+        - name: modalidadesEnsino
+          in: query
+          description: Lista de GUIDs das modalidades de ensino
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+      responses:
+        '200':
+          description: Ofertas de ensino retornadas com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/OfertaEnsinoExternalDTOApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OfertaEnsinoExternalDTOApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/OfertaEnsinoExternalDTOApiResponse'
         '400':
           description: Erro de validação
           content:
@@ -4588,7 +4523,7 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  '/CircuitoGestao/api/PublicoAlvo/modulo/{moduloGuid}':
+  '/CircuitoGestao/api/PublicoAlvo/Modulo/{moduloGuid}':
     get:
       tags:
         - CircuitoGestaoApi-PublicoAlvo
@@ -4651,51 +4586,12 @@ components:
           description: Mensagem do erro
           nullable: true
       additionalProperties: false
-    AtualizarCircuitoDeGestaoDTO:
+    AtualizarEtapaEnsinoDto:
       type: object
       properties:
-        circuitoGestaoGuid:
-          type: string
-          format: uuid
-        dataInicio:
-          type: string
-          format: date-time
-        dataFim:
-          type: string
-          format: date-time
-        moduloGuid:
-          type: string
-          format: uuid
         descricao:
           type: string
           nullable: true
-        nome:
-          type: string
-          nullable: true
-        toCommand:
-          $ref: '#/components/schemas/AtualizarCircuitoGestaoCommand'
-      additionalProperties: false
-    AtualizarCircuitoGestaoCommand:
-      type: object
-      properties:
-        circuitoGestaoGuid:
-          type: string
-          format: uuid
-        moduloGuid:
-          type: string
-          format: uuid
-        nome:
-          type: string
-          nullable: true
-        descricao:
-          type: string
-          nullable: true
-        dataInicio:
-          type: string
-          format: date-time
-        dataFim:
-          type: string
-          format: date-time
       additionalProperties: false
     AtualizarEtapaReuniaoDto:
       type: object
@@ -4712,9 +4608,21 @@ components:
         nome:
           type: string
           nullable: true
+        tipo:
+          $ref: '#/components/schemas/Tipo'
         grupoIndicadorGuid:
           type: string
           format: uuid
+        categoriaGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    AtualizarModalidadeEnsinoDto:
+      type: object
+      properties:
+        descricao:
+          type: string
+          nullable: true
       additionalProperties: false
     AtualizarPublicoAlvoDTO:
       type: object
@@ -4820,31 +4728,27 @@ components:
           type: string
           nullable: true
       additionalProperties: false
-    CircuitoDeGestaoViewModel:
+    CircuitoDeGestaoInternalViewModel:
       type: object
       properties:
-        guid:
+        circuitoGestaoGuid:
           type: string
           format: uuid
-        dataInicio:
+        nome:
           type: string
-          format: date-time
-        dataFim:
+          nullable: true
+        descricao:
           type: string
-          format: date-time
-        modulo:
-          $ref: '#/components/schemas/ModuloCompletoQueryDTO'
-        estado:
-          $ref: '#/components/schemas/Estados'
+          nullable: true
       additionalProperties: false
-    CircuitoDeGestaoViewModelApiResponse:
+    CircuitoDeGestaoInternalViewModelApiResponse:
       type: object
       properties:
         success:
           type: boolean
           description: Indica se a requisição foi bem sucedida
         data:
-          $ref: '#/components/schemas/CircuitoDeGestaoViewModel'
+          $ref: '#/components/schemas/CircuitoDeGestaoInternalViewModel'
         errors:
           type: array
           items:
@@ -4852,20 +4756,31 @@ components:
           description: Lista de erros
           nullable: true
       additionalProperties: false
-    CircuitoGestaoEtapaFormularioViewModel:
+    CircuitoGestaoCicloCompletoViewModel:
       type: object
       properties:
-        etapaGuid:
+        guid:
           type: string
           format: uuid
+        nome:
+          type: string
+          nullable: true
+        etapas:
+          type: array
+          items:
+            $ref: '#/components/schemas/CircuitoGestaoEtapaCompletoViewModel'
+          nullable: true
+      additionalProperties: false
+    CircuitoGestaoCompletoEtapaFormularioViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+          nullable: true
         formularioGuid:
           type: string
           format: uuid
-        publicoAlvos:
-          type: array
-          items:
-            $ref: '#/components/schemas/PublicoAlvoDoFormularioViewModel'
-          nullable: true
         dataAbertura:
           type: string
           format: date-time
@@ -4877,25 +4792,133 @@ components:
           type: boolean
         tipoInstituicao:
           $ref: '#/components/schemas/Instituicoes'
+        publicosAlvo:
+          type: array
+          items:
+            $ref: '#/components/schemas/CircuitoGestaoCompletoPublicoAlvoViewModel'
+          nullable: true
       additionalProperties: false
-    CircuitoGestaoEtapaFormularioViewModelIEnumerableApiResponse:
+    CircuitoGestaoCompletoEtapaReuniaoViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+          nullable: true
+        etapaReuniaoGuid:
+          type: string
+          format: uuid
+        nomeAlternativo:
+          type: string
+          nullable: true
+        quantidadeMinima:
+          type: integer
+          format: int32
+        sigla:
+          type: string
+          nullable: true
+        publicosAlvo:
+          type: array
+          items:
+            $ref: '#/components/schemas/CircuitoGestaoCompletoPublicoAlvoViewModel'
+          nullable: true
+      additionalProperties: false
+    CircuitoGestaoCompletoPublicoAlvoViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CircuitoGestaoCompletoViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+        dataInicio:
+          type: string
+          format: date-time
+        dataFim:
+          type: string
+          format: date-time
+        moduloGuid:
+          type: string
+          format: uuid
+        moduloNome:
+          type: string
+          nullable: true
+        ciclos:
+          type: array
+          items:
+            $ref: '#/components/schemas/CircuitoGestaoCicloCompletoViewModel'
+          nullable: true
+      additionalProperties: false
+    CircuitoGestaoCompletoViewModelApiResponse:
       type: object
       properties:
         success:
           type: boolean
           description: Indica se a requisição foi bem sucedida
         data:
-          type: array
-          items:
-            $ref: '#/components/schemas/CircuitoGestaoEtapaFormularioViewModel'
-          description: Conteúdo do retorno
-          nullable: true
+          $ref: '#/components/schemas/CircuitoGestaoCompletoViewModel'
         errors:
           type: array
           items:
             $ref: '#/components/schemas/ApiError'
           description: Lista de erros
           nullable: true
+      additionalProperties: false
+    CircuitoGestaoEtapaCompletoViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        etapa:
+          $ref: '#/components/schemas/Etapas'
+        configuracoes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CircuitoGestaoEtapaConfiguracaoCompletoViewModel'
+          nullable: true
+        reunioes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CircuitoGestaoCompletoEtapaReuniaoViewModel'
+          nullable: true
+        formularios:
+          type: array
+          items:
+            $ref: '#/components/schemas/CircuitoGestaoCompletoEtapaFormularioViewModel'
+          nullable: true
+      additionalProperties: false
+    CircuitoGestaoEtapaConfiguracaoCompletoViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        dataInicio:
+          type: string
+          format: date-time
+        dataFim:
+          type: string
+          format: date-time
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
       additionalProperties: false
     CircuitoGestaoEtapaReuniaoPautaPadraoViewModel:
       type: object
@@ -4937,129 +4960,6 @@ components:
             $ref: '#/components/schemas/CircuitoGestaoEtapaReuniaoPautaPadraoViewModel'
           description: Conteúdo do retorno
           nullable: true
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ApiError'
-          description: Lista de erros
-          nullable: true
-      additionalProperties: false
-    CircuitoGestaoEtapaReuniaoViewModel:
-      type: object
-      properties:
-        etapaGuid:
-          type: string
-          format: uuid
-        etapaReuniao:
-          $ref: '#/components/schemas/EtapaReuniaoDoCircuitoGestaoEtapaViewModel'
-        nome:
-          type: string
-          nullable: true
-        sigla:
-          type: string
-          nullable: true
-        quantidadeMinima:
-          type: integer
-          format: int32
-        publicoAlvos:
-          type: array
-          items:
-            $ref: '#/components/schemas/PublicoAlvoDaReuniaoViewModel'
-          nullable: true
-      additionalProperties: false
-    CircuitoGestaoEtapaReuniaoViewModelIEnumerableApiResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          description: Indica se a requisição foi bem sucedida
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/CircuitoGestaoEtapaReuniaoViewModel'
-          description: Conteúdo do retorno
-          nullable: true
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ApiError'
-          description: Lista de erros
-          nullable: true
-      additionalProperties: false
-    CircuitoGestaoEtapaViewModel:
-      type: object
-      properties:
-        circuitoGestaoGuid:
-          type: string
-          format: uuid
-        circuitoGestaoEtapaGuid:
-          type: string
-          format: uuid
-        etapaNome:
-          type: string
-          nullable: true
-        etapa:
-          $ref: '#/components/schemas/Etapas'
-        configuracoes:
-          type: array
-          items:
-            $ref: '#/components/schemas/EtapaDoCircuitoGestaoConfiguracaoViewModel'
-          nullable: true
-        formularios:
-          type: array
-          items:
-            $ref: '#/components/schemas/EtapaDoCircuitoGestaoFormularioViewModel'
-          nullable: true
-        reunioes:
-          type: array
-          items:
-            $ref: '#/components/schemas/EtapaDoCircuitoGestaoReuniaoViewModel'
-          nullable: true
-      additionalProperties: false
-    CircuitoGestaoEtapaViewModelApiResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          description: Indica se a requisição foi bem sucedida
-        data:
-          $ref: '#/components/schemas/CircuitoGestaoEtapaViewModel'
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ApiError'
-          description: Lista de erros
-          nullable: true
-      additionalProperties: false
-    CircuitoGestaoEtapaViewModelPaginatedResult:
-      type: object
-      properties:
-        page:
-          type: integer
-          format: int32
-        pageSize:
-          type: integer
-          format: int32
-        totalPages:
-          type: integer
-          format: int32
-        totalItens:
-          type: integer
-          format: int32
-        itens:
-          type: array
-          items:
-            $ref: '#/components/schemas/CircuitoGestaoEtapaViewModel'
-          nullable: true
-      additionalProperties: false
-    CircuitoGestaoEtapaViewModelPaginatedResultApiResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          description: Indica se a requisição foi bem sucedida
-        data:
-          $ref: '#/components/schemas/CircuitoGestaoEtapaViewModelPaginatedResult'
         errors:
           type: array
           items:
@@ -5151,14 +5051,102 @@ components:
           description: Lista de erros
           nullable: true
       additionalProperties: false
-    CircuitoGestaoMetaDTO:
+    CircuitoGestaoModuloViewModel:
       type: object
       properties:
-        metaGuid:
+        guid:
           type: string
           format: uuid
-        tipoInstituicao:
-          $ref: '#/components/schemas/Instituicoes'
+        nome:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CircuitoGestaoObjetivoInternalViewModel:
+      type: object
+      properties:
+        circuitoGestaoObjetivoGuid:
+          type: string
+          format: uuid
+        objetivo:
+          type: string
+          nullable: true
+        valor:
+          type: number
+          format: double
+          nullable: true
+      additionalProperties: false
+    CircuitoGestaoObjetivoInternalViewModelIEnumerableApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CircuitoGestaoObjetivoInternalViewModel'
+          description: Conteúdo do retorno
+          nullable: true
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    CircuitoGestaoViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        dataInicio:
+          type: string
+          format: date-time
+        dataFim:
+          type: string
+          format: date-time
+        modulo:
+          $ref: '#/components/schemas/CircuitoGestaoModuloViewModel'
+      additionalProperties: false
+    CircuitoGestaoViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/CircuitoGestaoViewModel'
+          nullable: true
+      additionalProperties: false
+    CircuitoGestaoViewModelPaginatedResultApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/CircuitoGestaoViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
       additionalProperties: false
     CopiarInstituicoesEntreCircuitosGestaoDTO:
       type: object
@@ -5177,15 +5165,21 @@ components:
           type: string
           nullable: true
       additionalProperties: false
-    CriarCircuitoDeGestaoDTO:
+    CriarCircuitoGestaoCicloDTO:
       type: object
       properties:
-        dataInicio:
+        nome:
           type: string
-          format: date-time
-        dataFim:
-          type: string
-          format: date-time
+          nullable: true
+        etapas:
+          type: array
+          items:
+            $ref: '#/components/schemas/CriarCircuitoGestaoEtapaDTO'
+          nullable: true
+      additionalProperties: false
+    CriarCircuitoGestaoDTO:
+      type: object
+      properties:
         moduloGuid:
           type: string
           format: uuid
@@ -5195,14 +5189,155 @@ components:
         descricao:
           type: string
           nullable: true
+        dataInicio:
+          type: string
+          format: date-time
+        dataFim:
+          type: string
+          format: date-time
+        ciclos:
+          type: array
+          items:
+            $ref: '#/components/schemas/CriarCircuitoGestaoCicloDTO'
+          nullable: true
+        objetivos:
+          type: array
+          items:
+            $ref: '#/components/schemas/CriarCircuitoGestaoObjetivoDTO'
+          nullable: true
+      additionalProperties: false
+    CriarCircuitoGestaoEtapaConfiguracaoDTO:
+      type: object
+      properties:
+        dataInicio:
+          type: string
+          format: date-time
+        dataFim:
+          type: string
+          format: date-time
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+      additionalProperties: false
+    CriarCircuitoGestaoEtapaDTO:
+      type: object
+      properties:
+        etapa:
+          $ref: '#/components/schemas/Etapas'
+        nome:
+          type: string
+          nullable: true
+        configuracoes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CriarCircuitoGestaoEtapaConfiguracaoDTO'
+          nullable: true
+        reunioes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CriarCircuitoGestaoEtapaReuniaoDTO'
+          nullable: true
+        formularios:
+          type: array
+          items:
+            $ref: '#/components/schemas/CriarCircuitoGestaoEtapaFormularioDTO'
+          nullable: true
+      additionalProperties: false
+    CriarCircuitoGestaoEtapaFormularioDTO:
+      type: object
+      properties:
+        formularioGuid:
+          type: string
+          format: uuid
+        dataAbertura:
+          type: string
+          format: date-time
+        dataFechamento:
+          type: string
+          format: date-time
+          nullable: true
+        ocultarAposFechamento:
+          type: boolean
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+        publicoAlvo:
+          type: array
+          items:
+            type: string
+            format: uuid
+          nullable: true
+      additionalProperties: false
+    CriarCircuitoGestaoEtapaReuniaoDTO:
+      type: object
+      properties:
+        etapaReuniaoGuid:
+          type: string
+          format: uuid
+        nomeAlternativo:
+          type: string
+          nullable: true
+        quantidadeMinima:
+          type: integer
+          format: int32
+        sigla:
+          type: string
+          nullable: true
+        publicoAlvo:
+          type: array
+          items:
+            type: string
+            format: uuid
+          nullable: true
+        etapaReuniaoFormulario:
+          type: array
+          items:
+            $ref: '#/components/schemas/CriarCircuitoGestaoEtapaReuniaoFormularioDTO'
+          nullable: true
+      additionalProperties: false
+    CriarCircuitoGestaoEtapaReuniaoFormularioDTO:
+      type: object
+      properties:
+        formularioGuid:
+          type: string
+          format: uuid
+        dataAberturaRespostas:
+          type: string
+          format: date-time
+        dataFechamentoRespostas:
+          type: string
+          format: date-time
+          nullable: true
+        ocultarAposFechamneto:
+          type: boolean
       additionalProperties: false
     CriarCircuitoGestaoEtapaReuniaoPautaPadraoDTO:
       type: object
       properties:
+        circuitoGestaoEtapaReuniaoGuid:
+          type: string
+          format: uuid
         pautasPadrao:
           type: array
           items:
             $ref: '#/components/schemas/PautaPadraoDTO'
+          nullable: true
+      additionalProperties: false
+    CriarCircuitoGestaoObjetivoDTO:
+      type: object
+      properties:
+        objetivoGuid:
+          type: string
+          format: uuid
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+        meta:
+          type: number
+          format: double
+      additionalProperties: false
+    CriarEtapaEnsinoDto:
+      type: object
+      properties:
+        descricao:
+          type: string
           nullable: true
       additionalProperties: false
     CriarEtapaReuniaoDto:
@@ -5216,42 +5351,7 @@ components:
         tipoInstituicao:
           $ref: '#/components/schemas/Instituicoes'
       additionalProperties: false
-    CriarEtapasDoCircuitoGestaoDTO:
-      type: object
-      properties:
-        etapas:
-          type: array
-          items:
-            $ref: '#/components/schemas/CriarEtapasDoCircuitoGestaoEtapaDTO'
-          nullable: true
-      additionalProperties: false
-    CriarEtapasDoCircuitoGestaoEtapaConfiguracaoDTO:
-      type: object
-      properties:
-        dataInicio:
-          type: string
-          format: date-time
-        dataFim:
-          type: string
-          format: date-time
-        tipoInstituicao:
-          $ref: '#/components/schemas/Instituicoes'
-      additionalProperties: false
-    CriarEtapasDoCircuitoGestaoEtapaDTO:
-      type: object
-      properties:
-        nome:
-          type: string
-          nullable: true
-        etapa:
-          $ref: '#/components/schemas/Etapas'
-        configuracoes:
-          type: array
-          items:
-            $ref: '#/components/schemas/CriarEtapasDoCircuitoGestaoEtapaConfiguracaoDTO'
-          nullable: true
-      additionalProperties: false
-    CriarGrupoPrioridadeDTO:
+    CriarGrupoDTO:
       type: object
       properties:
         nome:
@@ -5260,6 +5360,30 @@ components:
         descricao:
           type: string
           nullable: true
+        moduloGuid:
+          type: string
+          format: uuid
+        gruposInstituicao:
+          type: array
+          items:
+            $ref: '#/components/schemas/CriarGrupoInstituicaoDTO'
+          nullable: true
+      additionalProperties: false
+    CriarGrupoInstituicaoDTO:
+      type: object
+      properties:
+        instituicaoGuid:
+          type: string
+          format: uuid
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+        dataInicio:
+          type: string
+          format: date-time
+        dataFim:
+          type: string
+          format: date-time
+          nullable: true
       additionalProperties: false
     CriarIndicadorDTO:
       type: object
@@ -5267,16 +5391,17 @@ components:
         nome:
           type: string
           nullable: true
+        tipo:
+          $ref: '#/components/schemas/Tipo'
+        categoriaGuid:
+          type: string
+          format: uuid
       additionalProperties: false
-    CriarMetaDTO:
+    CriarModalidadeEnsinoDto:
       type: object
       properties:
-        nome:
+        descricao:
           type: string
-          nullable: true
-        valor:
-          type: number
-          format: double
           nullable: true
       additionalProperties: false
     CriarModuloDTO:
@@ -5285,8 +5410,53 @@ components:
         nome:
           type: string
           nullable: true
-        estado:
-          $ref: '#/components/schemas/Estados'
+        estadoGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    CriarObjetivoDTO:
+      type: object
+      properties:
+        nome:
+          type: string
+          nullable: true
+        possuiMeta:
+          type: boolean
+        objetivoSuperiorGuid:
+          type: string
+          format: uuid
+          nullable: true
+        moduloGuid:
+          type: string
+          format: uuid
+        indicadores:
+          type: array
+          items:
+            $ref: '#/components/schemas/CriarObjetivoIndicadorDTO'
+          nullable: true
+        objetivosFilhos:
+          type: array
+          items:
+            $ref: '#/components/schemas/CriarObjetivoFilhoDTO'
+          nullable: true
+      additionalProperties: false
+    CriarObjetivoFilhoDTO:
+      type: object
+      properties:
+        objetivoGuid:
+          type: string
+          format: uuid
+        operacao:
+          $ref: '#/components/schemas/Operacoes'
+      additionalProperties: false
+    CriarObjetivoIndicadorDTO:
+      type: object
+      properties:
+        indicadorGuid:
+          type: string
+          format: uuid
+        operacao:
+          $ref: '#/components/schemas/Operacoes'
       additionalProperties: false
     CriarPublicAlvoComposicaoDTO:
       type: object
@@ -5297,7 +5467,7 @@ components:
         funcaoGuid:
           type: string
           format: uuid
-        grupoPrioridadeGuid:
+        grupoGuid:
           type: string
           format: uuid
       additionalProperties: false
@@ -5323,6 +5493,185 @@ components:
           type: string
           nullable: true
       additionalProperties: false
+    EditarCircuitoGestaoCicloDTO:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+          nullable: true
+        nome:
+          type: string
+          nullable: true
+        etapas:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditarCircuitoGestaoEtapaDTO'
+          nullable: true
+        operacao:
+          $ref: '#/components/schemas/Operacoes'
+      additionalProperties: false
+    EditarCircuitoGestaoDTO:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        moduloGuid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+        dataInicio:
+          type: string
+          format: date-time
+        dataFim:
+          type: string
+          format: date-time
+        ciclos:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditarCircuitoGestaoCicloDTO'
+          nullable: true
+        objetivos:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditarCircuitoGestaoObjetivoDTO'
+          nullable: true
+      additionalProperties: false
+    EditarCircuitoGestaoEtapaConfiguracaoDTO:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+          nullable: true
+        dataInicio:
+          type: string
+          format: date-time
+        dataFim:
+          type: string
+          format: date-time
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+        operacao:
+          $ref: '#/components/schemas/Operacoes'
+      additionalProperties: false
+    EditarCircuitoGestaoEtapaDTO:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+          nullable: true
+        etapa:
+          $ref: '#/components/schemas/Etapas'
+        nome:
+          type: string
+          nullable: true
+        configuracoes:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditarCircuitoGestaoEtapaConfiguracaoDTO'
+          nullable: true
+        reunioes:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditarCircuitoGestaoEtapaReuniaoDTO'
+          nullable: true
+        formularios:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditarCircuitoGestaoEtapaFormularioDTO'
+          nullable: true
+        operacao:
+          $ref: '#/components/schemas/Operacoes'
+      additionalProperties: false
+    EditarCircuitoGestaoEtapaFormularioDTO:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+          nullable: true
+        formularioGuid:
+          type: string
+          format: uuid
+        dataAbertura:
+          type: string
+          format: date-time
+        dataFechamento:
+          type: string
+          format: date-time
+        ocultarAposFechamento:
+          type: boolean
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+        publicosAlvo:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditarCircuitoGestaoPublicoAlvoDTO'
+          nullable: true
+        operacao:
+          $ref: '#/components/schemas/Operacoes'
+      additionalProperties: false
+    EditarCircuitoGestaoEtapaReuniaoDTO:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+          nullable: true
+        etapaReuniaoGuid:
+          type: string
+          format: uuid
+        nomeAlternativo:
+          type: string
+          nullable: true
+        quantidadeMinima:
+          type: integer
+          format: int32
+        sigla:
+          type: string
+          nullable: true
+        publicosAlvo:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditarCircuitoGestaoPublicoAlvoDTO'
+          nullable: true
+        circuitoGestaoEtapaReuniaoFormulario:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditarCircuitoGestaoEtapaReuniaoFormularioDTO'
+          nullable: true
+        operacao:
+          $ref: '#/components/schemas/Operacoes'
+      additionalProperties: false
+    EditarCircuitoGestaoEtapaReuniaoFormularioDTO:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        formularioGuid:
+          type: string
+          format: uuid
+        dataAberturaRespostas:
+          type: string
+          format: date-time
+        dataFechamentoRespostas:
+          type: string
+          format: date-time
+          nullable: true
+        ocultarAposFechamneto:
+          type: boolean
+        operacao:
+          $ref: '#/components/schemas/Operacoes'
+      additionalProperties: false
     EditarCircuitoGestaoEtapaReuniaoPautaPadraoDTO:
       type: object
       properties:
@@ -5333,51 +5682,34 @@ components:
           type: integer
           format: int32
       additionalProperties: false
-    EditarCircuitoGestaoMetaDTO:
+    EditarCircuitoGestaoObjetivoDTO:
       type: object
       properties:
-        circuitoGestaoGuid:
+        guid:
           type: string
           format: uuid
-        metaGuid:
+          nullable: true
+        objetivoGuid:
           type: string
           format: uuid
         tipoInstituicao:
           $ref: '#/components/schemas/Instituicoes'
+        meta:
+          type: number
+          format: double
+        operacao:
+          $ref: '#/components/schemas/Operacoes'
       additionalProperties: false
-    EditarEtapaDoCircuitoGestaoConfiguracaoDTO:
+    EditarCircuitoGestaoPublicoAlvoDTO:
       type: object
       properties:
-        etapaConfiguracaoGuid:
+        guid:
           type: string
           format: uuid
-        dataInicio:
-          type: string
-          format: date-time
-        dataFim:
-          type: string
-          format: date-time
-        tipoInstituicao:
-          $ref: '#/components/schemas/Instituicoes'
+        operacao:
+          $ref: '#/components/schemas/Operacoes'
       additionalProperties: false
-    EditarEtapaDoCircuitoGestaoDTO:
-      type: object
-      properties:
-        circuitoGestaoEtapaGuid:
-          type: string
-          format: uuid
-        nome:
-          type: string
-          nullable: true
-        etapa:
-          $ref: '#/components/schemas/Etapas'
-        configuracoes:
-          type: array
-          items:
-            $ref: '#/components/schemas/EditarEtapaDoCircuitoGestaoConfiguracaoDTO'
-          nullable: true
-      additionalProperties: false
-    EditarGrupoPrioridadeDTO:
+    EditarGrupoDTO:
       type: object
       properties:
         nome:
@@ -5386,10 +5718,43 @@ components:
         descricao:
           type: string
           nullable: true
-        projetoGuid:
+        moduloGuid:
           type: string
           format: uuid
+        gruposInstituicao:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditarGrupoInstituicaoDTO'
           nullable: true
+      additionalProperties: false
+    EditarGrupoInstituicaoDTO:
+      type: object
+      properties:
+        grupoInstituicaoGuid:
+          type: string
+          format: uuid
+        instituicaoGuid:
+          type: string
+          format: uuid
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+        dataInicio:
+          type: string
+          format: date-time
+        dataFim:
+          type: string
+          format: date-time
+        operacoes:
+          $ref: '#/components/schemas/Operacoes'
+      additionalProperties: false
+    EditarIndicadorDTO:
+      type: object
+      properties:
+        indicadorGuid:
+          type: string
+          format: uuid
+        operacao:
+          $ref: '#/components/schemas/Operacoes'
       additionalProperties: false
     EditarIndicadorPorModuloDTO:
       type: object
@@ -5398,188 +5763,124 @@ components:
           type: string
           nullable: true
       additionalProperties: false
-    EditarMetaDTO:
-      type: object
-      properties:
-        nome:
-          type: string
-          nullable: true
-        valor:
-          type: number
-          format: double
-          nullable: true
-      additionalProperties: false
     EditarModuloDTO:
       type: object
       properties:
         nome:
           type: string
           nullable: true
-        estado:
-          $ref: '#/components/schemas/Estados'
+        estadoGuid:
+          type: string
+          format: uuid
       additionalProperties: false
-    EditarVinculoDaInstituicaoComGrupoPrioridadeDTO:
+    EditarObjetivoDTO:
       type: object
       properties:
-        grupoPrioridadeInstituicaoGuid:
-          type: string
-          format: uuid
-        dataInicio:
-          type: string
-          format: date-time
-        dataFim:
-          type: string
-          format: date-time
-          nullable: true
-      additionalProperties: false
-    EditarVinculoDoFormularioEtapaDTO:
-      type: object
-      properties:
-        circuitoGestaoEtapaGuid:
-          type: string
-          format: uuid
-        formularioGuid:
-          type: string
-          format: uuid
-        dataAbertura:
-          type: string
-          format: date-time
-        dataFechamento:
-          type: string
-          format: date-time
-          nullable: true
-        tipoInstituicao:
-          $ref: '#/components/schemas/Instituicoes'
-        ocultarAposFechamento:
-          type: boolean
-        publicosAlvo:
-          type: array
-          items:
-            type: string
-            format: uuid
-          nullable: true
-      additionalProperties: false
-    EditarVinculoReuniaoComEtapaDTO:
-      type: object
-      properties:
-        circuitoGestaoEtapaGuid:
-          type: string
-          format: uuid
-        etapaReuniaoGuid:
+        objetivoGuid:
           type: string
           format: uuid
         nome:
           type: string
           nullable: true
-        sigla:
-          type: string
+        possuiMeta:
+          type: boolean
           nullable: true
-        quantidadeMinima:
-          type: integer
-          format: int32
-        publicosAlvo:
-          type: array
-          items:
-            type: string
-            format: uuid
-          nullable: true
-      additionalProperties: false
-    Estados:
-      enum:
-        - 0
-        - 11
-        - 12
-        - 13
-        - 14
-        - 15
-        - 16
-        - 17
-        - 21
-        - 22
-        - 23
-        - 24
-        - 25
-        - 26
-        - 27
-        - 28
-        - 29
-        - 31
-        - 32
-        - 33
-        - 35
-        - 41
-        - 42
-        - 43
-        - 50
-        - 51
-        - 52
-        - 53
-      type: integer
-      format: int32
-    EtapaDoCircuitoGestaoConfiguracaoViewModel:
-      type: object
-      properties:
-        circuitoGestaoEtapaId:
-          type: integer
-          format: int32
-        dataInicio:
-          type: string
-          format: date-time
-        dataFim:
-          type: string
-          format: date-time
-        tipoInstituicao:
-          $ref: '#/components/schemas/Instituicoes'
-      additionalProperties: false
-    EtapaDoCircuitoGestaoFormularioViewModel:
-      type: object
-      properties:
-        formularioGuid:
+        operacao:
+          $ref: '#/components/schemas/Operacoes'
+        objetivoSuperiorGuid:
           type: string
           format: uuid
-        dataAbertura:
-          type: string
-          format: date-time
-        dataFechamento:
-          type: string
-          format: date-time
           nullable: true
-        ocultarAposFechamento:
-          type: boolean
-        tipoInstituicao:
-          $ref: '#/components/schemas/Instituicoes'
+        indicadores:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditarIndicadorDTO'
+          nullable: true
+        objetivosFilhos:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditarObjetivoFilhoDTO'
+          nullable: true
       additionalProperties: false
-    EtapaDoCircuitoGestaoReuniaoViewModel:
+    EditarObjetivoFilhoDTO:
       type: object
       properties:
-        etapaReuniaoId:
-          type: integer
-          format: int32
-        etapaReuniao:
-          $ref: '#/components/schemas/ListarEtapaReuniaoViewModel'
-        nome:
+        objetivoGuid:
           type: string
-          nullable: true
-        sigla:
-          type: string
-          nullable: true
-        quantidadeMinima:
-          type: integer
-          format: int32
+          format: uuid
+        operacao:
+          $ref: '#/components/schemas/Operacoes'
       additionalProperties: false
-    EtapaReuniaoDoCircuitoGestaoEtapaViewModel:
+    EtapaEnsinoExternalDTO:
+      type: object
+      properties:
+        etapaEnsinoGuid:
+          type: string
+          format: uuid
+        descricao:
+          type: string
+          nullable: true
+      additionalProperties: false
+    EtapaEnsinoViewModel:
       type: object
       properties:
         guid:
           type: string
           format: uuid
-        etapa:
-          $ref: '#/components/schemas/Etapas'
-        reuniao:
+        descricao:
           type: string
           nullable: true
-        tipoInstituicao:
-          $ref: '#/components/schemas/Instituicoes'
+      additionalProperties: false
+    EtapaEnsinoViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/EtapaEnsinoViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    EtapaEnsinoViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/EtapaEnsinoViewModel'
+          nullable: true
+      additionalProperties: false
+    EtapaEnsinoViewModelPaginatedResultApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/EtapaEnsinoViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
       additionalProperties: false
     EtapaReuniaoViewModel:
       type: object
@@ -5669,17 +5970,7 @@ components:
           type: string
           nullable: true
       additionalProperties: false
-    GetMetaCircuitoGestaoMetaIndicadorViewModel:
-      type: object
-      properties:
-        indicadorGuid:
-          type: string
-          format: uuid
-        indicador:
-          type: string
-          nullable: true
-      additionalProperties: false
-    GrupoPrioridadeCompletoViewModel:
+    GrupoCompletoViewModel:
       type: object
       properties:
         guid:
@@ -5697,17 +5988,17 @@ components:
         instituicoes:
           type: array
           items:
-            $ref: '#/components/schemas/InstituicoesGrupoPrioridadeViewModel'
+            $ref: '#/components/schemas/InstituicoesGrupoViewModel'
           nullable: true
       additionalProperties: false
-    GrupoPrioridadeCompletoViewModelApiResponse:
+    GrupoCompletoViewModelApiResponse:
       type: object
       properties:
         success:
           type: boolean
           description: Indica se a requisição foi bem sucedida
         data:
-          $ref: '#/components/schemas/GrupoPrioridadeCompletoViewModel'
+          $ref: '#/components/schemas/GrupoCompletoViewModel'
         errors:
           type: array
           items:
@@ -5715,9 +6006,12 @@ components:
           description: Lista de erros
           nullable: true
       additionalProperties: false
-    GrupoPrioridadeDadosCompleto:
+    GrupoInternalViewModel:
       type: object
       properties:
+        grupoGuid:
+          type: string
+          format: uuid
         nome:
           type: string
           nullable: true
@@ -5725,40 +6019,14 @@ components:
           type: string
           nullable: true
       additionalProperties: false
-    GrupoPrioridadeInstituicaoCompletoQueryDTO:
-      type: object
-      properties:
-        guid:
-          type: string
-          format: uuid
-        instituicaoGuid:
-          type: string
-          format: uuid
-        tipoInstituicao:
-          $ref: '#/components/schemas/Instituicoes'
-        dataInicio:
-          type: string
-          format: date-time
-        dataFim:
-          type: string
-          format: date-time
-          nullable: true
-        grupoPrioridadeGuid:
-          type: string
-          format: uuid
-        grupoPrioridade:
-          $ref: '#/components/schemas/GrupoPrioridadeDadosCompleto'
-        instituicao:
-          $ref: '#/components/schemas/GrupoPrioridadeInstituicaoDadosCompleto'
-      additionalProperties: false
-    GrupoPrioridadeInstituicaoCompletoQueryDTOApiResponse:
+    GrupoInternalViewModelApiResponse:
       type: object
       properties:
         success:
           type: boolean
           description: Indica se a requisição foi bem sucedida
         data:
-          $ref: '#/components/schemas/GrupoPrioridadeInstituicaoCompletoQueryDTO'
+          $ref: '#/components/schemas/GrupoInternalViewModel'
         errors:
           type: array
           items:
@@ -5766,87 +6034,7 @@ components:
           description: Lista de erros
           nullable: true
       additionalProperties: false
-    GrupoPrioridadeInstituicaoDados:
-      type: object
-      properties:
-        nome:
-          type: string
-          nullable: true
-        inep:
-          type: string
-          nullable: true
-      additionalProperties: false
-    GrupoPrioridadeInstituicaoDadosCompleto:
-      type: object
-      properties:
-        nome:
-          type: string
-          nullable: true
-        inep:
-          type: string
-          nullable: true
-      additionalProperties: false
-    GrupoPrioridadeInstituicaoViewModel:
-      type: object
-      properties:
-        guid:
-          type: string
-          format: uuid
-        instituicaoGuid:
-          type: string
-          format: uuid
-        tipoInstituicao:
-          $ref: '#/components/schemas/Instituicoes'
-        dataInicio:
-          type: string
-          format: date-time
-        dataFim:
-          type: string
-          format: date-time
-          nullable: true
-        grupoPrioridadeGuid:
-          type: string
-          format: uuid
-        instituicao:
-          $ref: '#/components/schemas/GrupoPrioridadeInstituicaoDados'
-      additionalProperties: false
-    GrupoPrioridadeInstituicaoViewModelPaginatedResult:
-      type: object
-      properties:
-        page:
-          type: integer
-          format: int32
-        pageSize:
-          type: integer
-          format: int32
-        totalPages:
-          type: integer
-          format: int32
-        totalItens:
-          type: integer
-          format: int32
-        itens:
-          type: array
-          items:
-            $ref: '#/components/schemas/GrupoPrioridadeInstituicaoViewModel'
-          nullable: true
-      additionalProperties: false
-    GrupoPrioridadeInstituicaoViewModelPaginatedResultApiResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          description: Indica se a requisição foi bem sucedida
-        data:
-          $ref: '#/components/schemas/GrupoPrioridadeInstituicaoViewModelPaginatedResult'
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ApiError'
-          description: Lista de erros
-          nullable: true
-      additionalProperties: false
-    GrupoPrioridadeViewModel:
+    GrupoViewModel:
       type: object
       properties:
         guid:
@@ -5862,7 +6050,7 @@ components:
           type: string
           format: uuid
       additionalProperties: false
-    GrupoPrioridadeViewModelPaginatedResult:
+    GrupoViewModelPaginatedResult:
       type: object
       properties:
         page:
@@ -5880,17 +6068,17 @@ components:
         itens:
           type: array
           items:
-            $ref: '#/components/schemas/GrupoPrioridadeViewModel'
+            $ref: '#/components/schemas/GrupoViewModel'
           nullable: true
       additionalProperties: false
-    GrupoPrioridadeViewModelPaginatedResultApiResponse:
+    GrupoViewModelPaginatedResultApiResponse:
       type: object
       properties:
         success:
           type: boolean
           description: Indica se a requisição foi bem sucedida
         data:
-          $ref: '#/components/schemas/GrupoPrioridadeViewModelPaginatedResult'
+          $ref: '#/components/schemas/GrupoViewModelPaginatedResult'
         errors:
           type: array
           items:
@@ -5944,6 +6132,14 @@ components:
         nome:
           type: string
           nullable: true
+        tipo:
+          $ref: '#/components/schemas/Tipo'
+        categoria:
+          type: string
+          nullable: true
+        categoriaGuid:
+          type: string
+          format: uuid
         metas:
           type: array
           items:
@@ -6013,16 +6209,6 @@ components:
         valor:
           type: number
           format: double
-          nullable: true
-      additionalProperties: false
-    IndicadorModuloCompletoQueryDTO:
-      type: object
-      properties:
-        indicadorGuid:
-          type: string
-          format: uuid
-        indicador:
-          type: string
           nullable: true
       additionalProperties: false
     IndicadorModuloCompletoViewModel:
@@ -6104,7 +6290,7 @@ components:
         - 3
       type: integer
       format: int32
-    InstituicoesGrupoPrioridadeViewModel:
+    InstituicoesGrupoViewModel:
       type: object
       properties:
         instituicaoGuid:
@@ -6152,90 +6338,34 @@ components:
           type: integer
           format: int32
       additionalProperties: false
-    ListarEtapaReuniaoViewModel:
+    ModalidadeEnsinoExternalDTO:
       type: object
       properties:
-        etapa:
-          $ref: '#/components/schemas/Etapas'
-        reuniao:
-          type: string
-          nullable: true
-        tipoInstituicao:
-          $ref: '#/components/schemas/Instituicoes'
-      additionalProperties: false
-    MetaCompletoCircuitoGestaoViewModel:
-      type: object
-      properties:
-        circuitoGestaoGuid:
+        modalidadeEnsinoGuid:
           type: string
           format: uuid
-        circuitoGestao:
+        descricao:
           type: string
-          nullable: true
-        modulo:
-          $ref: '#/components/schemas/MetaCompletoModuloViewModel'
-        dataInicio:
-          type: string
-          format: date-time
-        dataFim:
-          type: string
-          format: date-time
           nullable: true
       additionalProperties: false
-    MetaCompletoMetaIndicadorViewModel:
+    ModalidadeEnsinoViewModel:
       type: object
       properties:
-        indicadorGuid:
+        guid:
           type: string
           format: uuid
-        indicador:
+        descricao:
           type: string
           nullable: true
       additionalProperties: false
-    MetaCompletoModuloViewModel:
-      type: object
-      properties:
-        moduloGuid:
-          type: string
-          format: uuid
-        nome:
-          type: string
-          nullable: true
-        estado:
-          $ref: '#/components/schemas/Estados'
-      additionalProperties: false
-    MetaCompletoViewModel:
-      type: object
-      properties:
-        metaGuid:
-          type: string
-          format: uuid
-        nome:
-          type: string
-          nullable: true
-        valor:
-          type: number
-          format: double
-          nullable: true
-        indicadores:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetaCompletoMetaIndicadorViewModel'
-          nullable: true
-        circuitosGestao:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetaCompletoCircuitoGestaoViewModel'
-          nullable: true
-      additionalProperties: false
-    MetaCompletoViewModelApiResponse:
+    ModalidadeEnsinoViewModelApiResponse:
       type: object
       properties:
         success:
           type: boolean
           description: Indica se a requisição foi bem sucedida
         data:
-          $ref: '#/components/schemas/MetaCompletoViewModel'
+          $ref: '#/components/schemas/ModalidadeEnsinoViewModel'
         errors:
           type: array
           items:
@@ -6243,7 +6373,7 @@ components:
           description: Lista de erros
           nullable: true
       additionalProperties: false
-    MetaCompletoViewModelPaginatedResult:
+    ModalidadeEnsinoViewModelPaginatedResult:
       type: object
       properties:
         page:
@@ -6261,93 +6391,22 @@ components:
         itens:
           type: array
           items:
-            $ref: '#/components/schemas/MetaCompletoViewModel'
+            $ref: '#/components/schemas/ModalidadeEnsinoViewModel'
           nullable: true
       additionalProperties: false
-    MetaCompletoViewModelPaginatedResultApiResponse:
+    ModalidadeEnsinoViewModelPaginatedResultApiResponse:
       type: object
       properties:
         success:
           type: boolean
           description: Indica se a requisição foi bem sucedida
         data:
-          $ref: '#/components/schemas/MetaCompletoViewModelPaginatedResult'
+          $ref: '#/components/schemas/ModalidadeEnsinoViewModelPaginatedResult'
         errors:
           type: array
           items:
             $ref: '#/components/schemas/ApiError'
           description: Lista de erros
-          nullable: true
-      additionalProperties: false
-    MetaDoCircuitoGestaoViewModel:
-      type: object
-      properties:
-        metaGuid:
-          type: string
-          format: uuid
-        circuitoGestaoMetaGuid:
-          type: string
-          format: uuid
-        meta:
-          type: string
-          nullable: true
-        valor:
-          type: number
-          format: double
-          nullable: true
-        indicadores:
-          type: array
-          items:
-            $ref: '#/components/schemas/GetMetaCircuitoGestaoMetaIndicadorViewModel'
-          nullable: true
-      additionalProperties: false
-    MetaDoCircuitoGestaoViewModelApiResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          description: Indica se a requisição foi bem sucedida
-        data:
-          $ref: '#/components/schemas/MetaDoCircuitoGestaoViewModel'
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ApiError'
-          description: Lista de erros
-          nullable: true
-      additionalProperties: false
-    MetaDoCircuitoGestaoViewModelIEnumerableApiResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          description: Indica se a requisição foi bem sucedida
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetaDoCircuitoGestaoViewModel'
-          description: Conteúdo do retorno
-          nullable: true
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ApiError'
-          description: Lista de erros
-          nullable: true
-      additionalProperties: false
-    ModuloCompletoQueryDTO:
-      type: object
-      properties:
-        moduloGuid:
-          type: string
-          format: uuid
-        nome:
-          type: string
-          nullable: true
-        indicadores:
-          type: array
-          items:
-            $ref: '#/components/schemas/IndicadorModuloCompletoQueryDTO'
           nullable: true
       additionalProperties: false
     ModuloCompletoViewModel:
@@ -6442,6 +6501,174 @@ components:
           description: Lista de erros
           nullable: true
       additionalProperties: false
+    ObjetivoCompletoCircuitoGestaoViewModel:
+      type: object
+      properties:
+        circuitoGestaoGuid:
+          type: string
+          format: uuid
+        circuitoGestao:
+          type: string
+          nullable: true
+        modulo:
+          $ref: '#/components/schemas/ObjetivoCompletoModuloViewModel'
+        dataInicio:
+          type: string
+          format: date-time
+        dataFim:
+          type: string
+          format: date-time
+          nullable: true
+      additionalProperties: false
+    ObjetivoCompletoModuloViewModel:
+      type: object
+      properties:
+        moduloGuid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        estadoGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    ObjetivoCompletoObjetivoIndicadorViewModel:
+      type: object
+      properties:
+        indicadorGuid:
+          type: string
+          format: uuid
+        indicador:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ObjetivoCompletoViewModel:
+      type: object
+      properties:
+        objetivoGuid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        possuiMeta:
+          type: boolean
+        objetivoSuperior:
+          $ref: '#/components/schemas/ObjetivoResumoViewModel'
+        objetivosFilhos:
+          type: array
+          items:
+            $ref: '#/components/schemas/ObjetivoResumoViewModel'
+          nullable: true
+        indicadores:
+          type: array
+          items:
+            $ref: '#/components/schemas/ObjetivoCompletoObjetivoIndicadorViewModel'
+          nullable: true
+        circuitosGestao:
+          type: array
+          items:
+            $ref: '#/components/schemas/ObjetivoCompletoCircuitoGestaoViewModel'
+          nullable: true
+      additionalProperties: false
+    ObjetivoCompletoViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/ObjetivoCompletoViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    ObjetivoCompletoViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/ObjetivoCompletoViewModel'
+          nullable: true
+      additionalProperties: false
+    ObjetivoCompletoViewModelPaginatedResultApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/ObjetivoCompletoViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    ObjetivoResumoViewModel:
+      type: object
+      properties:
+        objetivoGuid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+      additionalProperties: false
+    OfertaEnsinoExternalDTO:
+      type: object
+      properties:
+        etapasEnsino:
+          type: array
+          items:
+            $ref: '#/components/schemas/EtapaEnsinoExternalDTO'
+          nullable: true
+        modalidadesEnsino:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModalidadeEnsinoExternalDTO'
+          nullable: true
+      additionalProperties: false
+    OfertaEnsinoExternalDTOApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/OfertaEnsinoExternalDTO'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    Operacoes:
+      enum:
+        - 1
+        - 2
+        - 3
+      type: integer
+      format: int32
     PautaPadraoDTO:
       type: object
       properties:
@@ -6481,78 +6708,24 @@ components:
         funcaoGuid:
           type: string
           format: uuid
-        grupoPrioridadeGuid:
+        grupoGuid:
           type: string
           format: uuid
       additionalProperties: false
-    PublicoAlvoDaReuniaoViewModel:
+    Tipo:
+      enum:
+        - 1
+        - 2
+        - 3
+      type: integer
+      format: int32
+    VincularIndicadorAGrupoDTO:
       type: object
       properties:
-        guid:
-          type: string
-          format: uuid
-        nome:
-          type: string
-          nullable: true
-      additionalProperties: false
-    PublicoAlvoDoFormularioViewModel:
-      type: object
-      properties:
-        guid:
-          type: string
-          format: uuid
-        nome:
-          type: string
-          nullable: true
-      additionalProperties: false
-    VincularFormularioEtapaDTO:
-      type: object
-      properties:
-        formularioGuid:
-          type: string
-          format: uuid
-        dataAbertura:
-          type: string
-          format: date-time
-        dataFechamento:
-          type: string
-          format: date-time
-          nullable: true
-        ocultarAposFechamento:
-          type: boolean
-        tipoInstituicao:
-          $ref: '#/components/schemas/Instituicoes'
-        publicosAlvo:
-          type: array
-          items:
-            type: string
-            format: uuid
-          nullable: true
-      additionalProperties: false
-    VincularIndicadorACategoriaDTO:
-      type: object
-      properties:
-        categoriaGuid:
-          type: string
-          format: uuid
         indicadorGuid:
           type: string
           format: uuid
-      additionalProperties: false
-    VincularIndicadorAGrupoPrioridadeDTO:
-      type: object
-      properties:
-        grupoPrioridadeGuid:
-          type: string
-          format: uuid
-      additionalProperties: false
-    VincularIndicadorAMetaDTO:
-      type: object
-      properties:
-        metaGuid:
-          type: string
-          format: uuid
-        indicadorGuid:
+        grupoGuid:
           type: string
           format: uuid
       additionalProperties: false
@@ -6569,37 +6742,16 @@ components:
           type: string
           nullable: true
       additionalProperties: false
-    VincularInstituicaoAoGrupoPrioridadeInstituicoesDTO:
-      type: object
-      properties:
-        instituicaoGuid:
-          type: string
-          format: uuid
-        tipoInstituicao:
-          $ref: '#/components/schemas/Instituicoes'
-        dataInicio:
-          type: string
-          format: date-time
-      additionalProperties: false
     VincularInstituicoesAoCircuitoGestaoDTO:
       type: object
       properties:
+        circuitoGestaoGuid:
+          type: string
+          format: uuid
         instituicoes:
           type: array
           items:
             $ref: '#/components/schemas/VincularInstituicoesDTO'
-          nullable: true
-      additionalProperties: false
-    VincularInstituicoesAoGrupoPrioridadeDTO:
-      type: object
-      properties:
-        grupoPrioridadeGuid:
-          type: string
-          format: uuid
-        instituicoes:
-          type: array
-          items:
-            $ref: '#/components/schemas/VincularInstituicaoAoGrupoPrioridadeInstituicoesDTO'
           nullable: true
       additionalProperties: false
     VincularInstituicoesDTO:
@@ -6610,26 +6762,4 @@ components:
           format: uuid
         tipoInstituicao:
           $ref: '#/components/schemas/Instituicoes'
-      additionalProperties: false
-    VincularReuniaoComEtapaDTO:
-      type: object
-      properties:
-        etapaReuniaoGuid:
-          type: string
-          format: uuid
-        nome:
-          type: string
-          nullable: true
-        sigla:
-          type: string
-          nullable: true
-        quantidadeMinima:
-          type: integer
-          format: int32
-        publicosAlvo:
-          type: array
-          items:
-            type: string
-            format: uuid
-          nullable: true
       additionalProperties: false
