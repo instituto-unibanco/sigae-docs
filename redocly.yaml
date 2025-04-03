@@ -1,9 +1,11 @@
 # See https://redocly.com/docs/cli/configuration/ for more information.
 apis:
-  circuito_gestao: 
-    root: dist/circuito-gestao/bundle.yaml
+  circuito-gestao: 
+    root: ./apis/circuito-gestao/openapi.yaml
+  devolutivas-pedagogicas:
+    root: ./apis/devolutivas-pedagogicas/openapi.yaml
   plano-acao:
-    root: dist/plano-acao/bundle.yaml
+    root: ./apis/plano-acao/openapi.yaml
 extends:
   - recommended
 rules:
@@ -19,8 +21,10 @@ theme:
       colors:
         primary:
           main: "#32329f"
+      rightPanel:
+        backgroundColor: "#172b4e"
     generateCodeSamples:
-      languages:  # Array of language config objects; indicates in which languages to generate code samples.
+      languages:
         - lang: curl
         - lang: Node.js
         - lang: JavaScript
