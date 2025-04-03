@@ -4959,7 +4959,6 @@ components:
           items:
             $ref: '#/components/schemas/CircuitoGestaoEtapaReuniaoPautaPadraoViewModel'
           description: Conteúdo do retorno
-          nullable: true
         errors:
           type: array
           items:
@@ -5086,7 +5085,6 @@ components:
           items:
             $ref: '#/components/schemas/CircuitoGestaoObjetivoInternalViewModel'
           description: Conteúdo do retorno
-          nullable: true
         errors:
           type: array
           items:
@@ -6115,7 +6113,6 @@ components:
             type: string
             format: uuid
           description: Conteúdo do retorno
-          nullable: true
         errors:
           type: array
           items:
@@ -6493,7 +6490,6 @@ components:
           description: Indica se a requisição foi bem sucedida
         data:
           description: Conteúdo do retorno
-          nullable: true
         errors:
           type: array
           items:

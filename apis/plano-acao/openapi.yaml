@@ -1,1 +1,4700 @@
-https://localhost:7128/PlanoAcao/swagger/v1/swagger.yaml
+openapi: 3.0.1
+info:
+  title: PlanoAcaoApi
+  description: Api do plano de ação da SIGAE OPEN SOURCE
+  version: v1
+paths:
+  /PlanoAcao/api/CircuitoGestaoModeloPlano:
+    post:
+      tags:
+        - PlanoAcaoApi-CircuitoGestaoModeloPlano
+      summary: Vincula um Modelo de Plano de Ação com um Circuito de Gestão.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CircuitoGestaoModeloPlanoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CircuitoGestaoModeloPlanoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CircuitoGestaoModeloPlanoDTO'
+      responses:
+        '200':
+          description: Guid do Vínculo do Circuito Gestão com o Modelo Plano.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - PlanoAcaoApi-CircuitoGestaoModeloPlano
+      summary: Buscar Circuitos de Gestão Modelos Plano por filtros
+      parameters:
+        - name: ModeloPlanoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: GrupoPrioridadeGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Instituicao
+          in: query
+          schema:
+            $ref: '#/components/schemas/Instituicoes'
+        - name: CircuitoGestaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Lista paginada dos circuitos de gestão modelo plano
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CircuitoGestaoModeloPlanoViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CircuitoGestaoModeloPlanoViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CircuitoGestaoModeloPlanoViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/PlanoAcao/api/CircuitoGestaoModeloPlano/{guid}':
+    put:
+      tags:
+        - PlanoAcaoApi-CircuitoGestaoModeloPlano
+      summary: Editar o vinculo do Modelo Plano com o Circuito de Gestão
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do vinculo entre Modelo Plano e o circuito gestão
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditarCircuitoGestaoModeloPlanoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/EditarCircuitoGestaoModeloPlanoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/EditarCircuitoGestaoModeloPlanoDTO'
+      responses:
+        '200':
+          description: Guid do CircuitoGestaoModeloPlano
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    delete:
+      tags:
+        - PlanoAcaoApi-CircuitoGestaoModeloPlano
+      summary: Deleta o vinculo do Modelo de Plano de Ação com o circuito de gestão
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do vinculo entre o modelo do plano de ação e circuito de gestão
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Guid do CircuitoGestaoModeloPlano
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - PlanoAcaoApi-CircuitoGestaoModeloPlano
+      summary: Busca Circuito Gestao Modelo Plano por Guid
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do Circuito Gestão Modelo Plano
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Circuito Gestão Modelo Plano
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CircuitoGestaoModeloPlanoViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CircuitoGestaoModeloPlanoViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CircuitoGestaoModeloPlanoViewModelApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /PlanoAcao/api/Classificador:
+    post:
+      tags:
+        - PlanoAcaoApi-Classificador
+      summary: Cria um classificador
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarClassificadorDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CriarClassificadorDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CriarClassificadorDTO'
+      responses:
+        '200':
+          description: classificador criado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - PlanoAcaoApi-Classificador
+      summary: Filtar classificadores
+      parameters:
+        - name: Tipo
+          in: query
+          schema:
+            $ref: '#/components/schemas/TipoClassificador'
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Lista paginada das classificadores
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ClassificadorViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClassificadorViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ClassificadorViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/PlanoAcao/api/Classificador/{guid}':
+    put:
+      tags:
+        - PlanoAcaoApi-Classificador
+      summary: Atualiza classificador
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do classificador
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditarClassificadorDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/EditarClassificadorDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/EditarClassificadorDTO'
+      responses:
+        '200':
+          description: classificador atualizado
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    delete:
+      tags:
+        - PlanoAcaoApi-Classificador
+      summary: Deletar um classificador
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do classificador
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: classificador deletado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - PlanoAcaoApi-Classificador
+      summary: Buscar classificador por guid
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do classificador
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: classificador
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ClassificadorViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClassificadorViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ClassificadorViewModelApiResponse'
+        '204':
+          description: classificador não encontrada
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /PlanoAcao/api/Melhoria:
+    post:
+      tags:
+        - PlanoAcaoApi-Melhoria
+      summary: Cria uma melhoria
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarMelhoriaDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CriarMelhoriaDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CriarMelhoriaDTO'
+      responses:
+        '200':
+          description: Melhoria criada com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - PlanoAcaoApi-Melhoria
+      summary: Buscar e filtrar todas as melhorias
+      parameters:
+        - name: InstituicaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Descricao
+          in: query
+          schema:
+            type: string
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Melhorias paginadas
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MelhoriaViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MelhoriaViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MelhoriaViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/PlanoAcao/api/Melhoria/{guid}':
+    put:
+      tags:
+        - PlanoAcaoApi-Melhoria
+      summary: Atualiza melhoria
+      parameters:
+        - name: guid
+          in: path
+          description: Guid da melhoria
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditarMelhoriaDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/EditarMelhoriaDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/EditarMelhoriaDTO'
+      responses:
+        '200':
+          description: Melhoria atualizada
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    delete:
+      tags:
+        - PlanoAcaoApi-Melhoria
+      summary: Deletar uma melhoria
+      parameters:
+        - name: guid
+          in: path
+          description: Guid da melhoria
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Melhoria deletada com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - PlanoAcaoApi-Melhoria
+      summary: Buscar melhoria por guid
+      parameters:
+        - name: guid
+          in: path
+          description: Guid da melhoria
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Melhoria
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MelhoriaViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MelhoriaViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MelhoriaViewModelApiResponse'
+        '204':
+          description: Melhoria não encontrada
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /PlanoAcao/api/ModeloPlano:
+    post:
+      tags:
+        - PlanoAcaoApi-ModeloPlano
+      summary: Cria um modelo de plano
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarModeloPlanoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CriarModeloPlanoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CriarModeloPlanoDTO'
+      responses:
+        '200':
+          description: Modelo de plano criado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - PlanoAcaoApi-ModeloPlano
+      summary: Buscar e filtrar todos os modelo de plano
+      parameters:
+        - name: Nome
+          in: query
+          schema:
+            type: string
+        - name: Descricao
+          in: query
+          schema:
+            type: string
+        - name: UsarAnexos
+          in: query
+          schema:
+            type: boolean
+        - name: UsarClassificadores
+          in: query
+          schema:
+            type: boolean
+        - name: UsarHistoricoAnosAnteriores
+          in: query
+          schema:
+            type: boolean
+        - name: UsarProtocoloICE
+          in: query
+          schema:
+            type: boolean
+        - name: Modelo
+          in: query
+          schema:
+            $ref: '#/components/schemas/PlanoModelo'
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Modelos de plano paginados
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ModeloPlanoViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModeloPlanoViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ModeloPlanoViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/PlanoAcao/api/ModeloPlano/{guid}':
+    put:
+      tags:
+        - PlanoAcaoApi-ModeloPlano
+      summary: Atualiza modelo de plano
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do modelo de plano
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditarModeloPlanoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/EditarModeloPlanoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/EditarModeloPlanoDTO'
+      responses:
+        '200':
+          description: Modelo de plano atualizado
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    delete:
+      tags:
+        - PlanoAcaoApi-ModeloPlano
+      summary: Deletar um modelo de plano
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do modelo de plano
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Modelo de plano deletado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - PlanoAcaoApi-ModeloPlano
+      summary: Buscar modelo de plano por guid
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do modelo de plano
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Modelo de plano
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ModeloPlanoViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModeloPlanoViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ModeloPlanoViewModelApiResponse'
+        '204':
+          description: Modelo de plano não encontrada
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /PlanoAcao/api/PlanoFocadoEmAprimoramento:
+    post:
+      tags:
+        - PlanoAcaoApi-PlanoFocadoEmAprimoramento
+      summary: Cria um plano focado em aprimoramento
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarPlanoFocadoEmAprimoramentoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CriarPlanoFocadoEmAprimoramentoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CriarPlanoFocadoEmAprimoramentoDTO'
+      responses:
+        '200':
+          description: Plano criado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - PlanoAcaoApi-PlanoFocadoEmAprimoramento
+      summary: Busca um planos focados em aprimoramentos paginados
+      parameters:
+        - name: CircuitoGestaoInstituicaoGuids
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+        - name: CircuitoGestaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Status
+          in: query
+          schema:
+            $ref: '#/components/schemas/StatusPlano'
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Plano focado em aprimoramentos paginado
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PlanoFocadoEmAprimoramentoViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanoFocadoEmAprimoramentoViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PlanoFocadoEmAprimoramentoViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/PlanoAcao/api/PlanoFocadoEmAprimoramento/{guid}':
+    put:
+      tags:
+        - PlanoAcaoApi-PlanoFocadoEmAprimoramento
+      summary: Editado um plano focado em aprimoramentos
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do plano
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditarPlanoFocadoEmAprimoramentoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/EditarPlanoFocadoEmAprimoramentoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/EditarPlanoFocadoEmAprimoramentoDTO'
+      responses:
+        '200':
+          description: Plano editado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    delete:
+      tags:
+        - PlanoAcaoApi-PlanoFocadoEmAprimoramento
+      summary: Deleta um plano focado em aprimoramento por Guid
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do plano
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'Verdadeiro se deletado com sucesso, falso se não'
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - PlanoAcaoApi-PlanoFocadoEmAprimoramento
+      summary: Busca um plano focado em aprimoramento completo por Guid
+      parameters:
+        - name: guid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Plano focado em aprimoramentos completo
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PlanoFocadoEmAprimoramentoCompletoViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanoFocadoEmAprimoramentoCompletoViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PlanoFocadoEmAprimoramentoCompletoViewModelApiResponse'
+        '204':
+          description: Plano não encontrado
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /PlanoAcao/api/PlanoFocadoEmCausa:
+    post:
+      tags:
+        - PlanoAcaoApi-PlanoFocadoEmCausa
+      summary: Cria um plano focado em causa
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarPlanoFocadoEmCausaDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CriarPlanoFocadoEmCausaDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CriarPlanoFocadoEmCausaDTO'
+      responses:
+        '200':
+          description: Plano criado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - PlanoAcaoApi-PlanoFocadoEmCausa
+      summary: Busca planos focados em causa paginados
+      parameters:
+        - name: CircuitoGestaoInstituicaoGuids
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+        - name: CircuitoGestaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Status
+          in: query
+          schema:
+            $ref: '#/components/schemas/StatusPlano'
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Plano focado em causas paginado
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PlanoFocadoEmCausaViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanoFocadoEmCausaViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PlanoFocadoEmCausaViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/PlanoAcao/api/PlanoFocadoEmCausa/{guid}':
+    put:
+      tags:
+        - PlanoAcaoApi-PlanoFocadoEmCausa
+      summary: Edita um plano focado em causa
+      parameters:
+        - name: guid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditarPlanoFocadoEmCausaDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/EditarPlanoFocadoEmCausaDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/EditarPlanoFocadoEmCausaDTO'
+      responses:
+        '200':
+          description: Plano editado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - PlanoAcaoApi-PlanoFocadoEmCausa
+      summary: Busca um plano focado em causa completo por Guid
+      parameters:
+        - name: guid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Plano focado em metas completo
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PlanoFocadoEmCausaCompletoViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanoFocadoEmCausaCompletoViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PlanoFocadoEmCausaCompletoViewModelApiResponse'
+        '204':
+          description: Plano não encontrado
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    delete:
+      tags:
+        - PlanoAcaoApi-PlanoFocadoEmCausa
+      summary: Deleta um plano focado em causa por Guid
+      parameters:
+        - name: guid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'Verdadeiro se deletado com sucesso, falso se não'
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /PlanoAcao/api/PlanoFocadoEmMeta:
+    post:
+      tags:
+        - PlanoAcaoApi-PlanoFocadoEmMeta
+      summary: Cria um plano focado em meta
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarPlanoFocadoEmMetaDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CriarPlanoFocadoEmMetaDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CriarPlanoFocadoEmMetaDTO'
+      responses:
+        '200':
+          description: Plano criado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - PlanoAcaoApi-PlanoFocadoEmMeta
+      summary: Busca planos focados em metas paginados
+      parameters:
+        - name: CircuitoGestaoInstituicaoGuids
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+        - name: CircuitoGestaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Status
+          in: query
+          schema:
+            $ref: '#/components/schemas/StatusPlano'
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Plano focado em metas paginado
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PlanoFocadoEmMetaViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanoFocadoEmMetaViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PlanoFocadoEmMetaViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/PlanoAcao/api/PlanoFocadoEmMeta/{guid}':
+    put:
+      tags:
+        - PlanoAcaoApi-PlanoFocadoEmMeta
+      summary: Edita um plano focado em meta
+      parameters:
+        - name: guid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditarPlanoFocadoEmMetaDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/EditarPlanoFocadoEmMetaDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/EditarPlanoFocadoEmMetaDTO'
+      responses:
+        '200':
+          description: Plano editado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - PlanoAcaoApi-PlanoFocadoEmMeta
+      summary: Busca um plano focado em metas completo por Guid
+      parameters:
+        - name: guid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Plano focado em metas completo
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PlanoFocadoEmMetaCompletoViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanoFocadoEmMetaCompletoViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PlanoFocadoEmMetaCompletoViewModelApiResponse'
+        '204':
+          description: Plano não encontrado
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    delete:
+      tags:
+        - PlanoAcaoApi-PlanoFocadoEmMeta
+      summary: Deleta um plano focado em metas por Guid
+      parameters:
+        - name: guid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'Verdadeiro se deletado com sucesso, falso se não'
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /PlanoAcao/api/PlanoFocadoEmProblema:
+    post:
+      tags:
+        - PlanoAcaoApi-PlanoFocadoEmProblema
+      summary: Cria um plano focado em problema
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarPlanoFocadoEmProblemaDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CriarPlanoFocadoEmProblemaDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CriarPlanoFocadoEmProblemaDTO'
+      responses:
+        '200':
+          description: Plano criado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - PlanoAcaoApi-PlanoFocadoEmProblema
+      summary: Busca planos focados em problemas paginados
+      parameters:
+        - name: CircuitoGestaoInstituicaoGuids
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+        - name: CircuitoGestaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Status
+          in: query
+          schema:
+            $ref: '#/components/schemas/StatusPlano'
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Plano focado em metas paginado
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PlanoFocadoEmProblemaViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanoFocadoEmProblemaViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PlanoFocadoEmProblemaViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/PlanoAcao/api/PlanoFocadoEmProblema/{guid}':
+    put:
+      tags:
+        - PlanoAcaoApi-PlanoFocadoEmProblema
+      summary: Edita um plano focado em meta
+      parameters:
+        - name: guid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditarPlanoFocadoEmProblemaDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/EditarPlanoFocadoEmProblemaDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/EditarPlanoFocadoEmProblemaDTO'
+      responses:
+        '200':
+          description: Plano editado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    delete:
+      tags:
+        - PlanoAcaoApi-PlanoFocadoEmProblema
+      summary: Deleta um plano focado em metas por Guid
+      parameters:
+        - name: guid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'Verdadeiro se deletado com sucesso, falso se não'
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - PlanoAcaoApi-PlanoFocadoEmProblema
+      summary: Busca um plano focado em problemas completo por Guid
+      parameters:
+        - name: guid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Plano focado em problemas completo
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PlanoFocadoEmProblemaCompletoViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanoFocadoEmProblemaCompletoViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PlanoFocadoEmProblemaCompletoViewModelApiResponse'
+        '204':
+          description: Plano não encontrado
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /PlanoAcao/api/Problema:
+    post:
+      tags:
+        - PlanoAcaoApi-Problema
+      summary: Cria um problema
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarProblemaDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CriarProblemaDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CriarProblemaDTO'
+      responses:
+        '200':
+          description: Problema criado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - PlanoAcaoApi-Problema
+      summary: Buscar e filtrar todos os problemas
+      parameters:
+        - name: InstituicaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Descricao
+          in: query
+          schema:
+            type: string
+        - name: Prioridade
+          in: query
+          schema:
+            $ref: '#/components/schemas/PrioridadeProblema'
+        - name: Governabilidade
+          in: query
+          schema:
+            type: boolean
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Problemas paginados
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemaViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemaViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemaViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/PlanoAcao/api/Problema/{guid}':
+    delete:
+      tags:
+        - PlanoAcaoApi-Problema
+      summary: Deletar um problema
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do problema
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Problema deletado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    put:
+      tags:
+        - PlanoAcaoApi-Problema
+      summary: Atualiza problema
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do problema
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditarProblemaDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/EditarProblemaDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/EditarProblemaDTO'
+      responses:
+        '200':
+          description: Problema atualizado
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - PlanoAcaoApi-Problema
+      summary: Buscar problema por guid
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do problema
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Problema
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemaViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemaViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemaViewModelApiResponse'
+        '204':
+          description: Problema não encontrado
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+components:
+  schemas:
+    AcaoDTO:
+      required:
+        - descricao
+        - publico
+        - titulo
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        titulo:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+        publico:
+          type: string
+          nullable: true
+        tarefas:
+          type: array
+          items:
+            $ref: '#/components/schemas/TarefaDTO'
+          nullable: true
+        classificadorGuids:
+          type: array
+          items:
+            type: string
+            format: uuid
+          nullable: true
+        responsaveis:
+          type: array
+          items:
+            $ref: '#/components/schemas/AcaoResponsavelDTO'
+          nullable: true
+        produto:
+          $ref: '#/components/schemas/AcaoProdutoDTO'
+        resultado:
+          $ref: '#/components/schemas/AcaoResultadoDTO'
+        ofertaEnsino:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfertaEnsinoDTO'
+          nullable: true
+      additionalProperties: false
+    AcaoProdutoDTO:
+      required:
+        - produtoEsperado
+      type: object
+      properties:
+        produtoEsperado:
+          type: string
+          nullable: true
+        produtoAlcancado:
+          type: string
+          nullable: true
+        status:
+          $ref: '#/components/schemas/StatusAcaoProduto'
+        porcentagemConclusao:
+          type: integer
+          format: int32
+      additionalProperties: false
+    AcaoProdutoViewModel:
+      type: object
+      properties:
+        produtoEsperado:
+          type: string
+          nullable: true
+        produtoAlcancado:
+          type: string
+          nullable: true
+        status:
+          $ref: '#/components/schemas/StatusAcaoProduto'
+        deveriaTerFinalizado:
+          type: boolean
+      additionalProperties: false
+    AcaoResponsavelDTO:
+      type: object
+      properties:
+        pessoaGuid:
+          type: string
+          format: uuid
+        responsavelPrincipal:
+          type: boolean
+      additionalProperties: false
+    AcaoResponsavelViewModel:
+      type: object
+      properties:
+        pessoaGuid:
+          type: string
+          format: uuid
+        responsavelPrincipal:
+          type: boolean
+        pessoaNome:
+          type: string
+          nullable: true
+      additionalProperties: false
+    AcaoResultadoDTO:
+      required:
+        - resultadoEsperado
+      type: object
+      properties:
+        resultadoEsperado:
+          type: string
+          nullable: true
+        resultadoAlcancado:
+          type: string
+          nullable: true
+        status:
+          $ref: '#/components/schemas/StatusAcaoResultado'
+      additionalProperties: false
+    AcaoResultadoViewModel:
+      type: object
+      properties:
+        resultadoEsperado:
+          type: string
+          nullable: true
+        resultadoAlcancado:
+          type: string
+          nullable: true
+        status:
+          $ref: '#/components/schemas/StatusAcaoResultado'
+      additionalProperties: false
+    AcaoSituacaoViewModel:
+      type: object
+      properties:
+        totalAcoes:
+          type: integer
+          format: int32
+        acoesEmAndamento:
+          type: integer
+          format: int32
+        acoesPrevistas:
+          type: integer
+          format: int32
+        acoesNaoIniciadas:
+          type: integer
+          format: int32
+        acoesConcluidas:
+          type: integer
+          format: int32
+        acoesConcluidasComAtraso:
+          type: integer
+          format: int32
+        acoesAtrasadas:
+          type: integer
+          format: int32
+      additionalProperties: false
+    AcaoViewModel:
+      type: object
+      properties:
+        titulo:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+        inicioPrevisto:
+          type: string
+          format: date-time
+          nullable: true
+        terminoPrevisto:
+          type: string
+          format: date-time
+          nullable: true
+        inicioRealizado:
+          type: string
+          format: date-time
+          nullable: true
+        terminoRealizado:
+          type: string
+          format: date-time
+          nullable: true
+        status:
+          $ref: '#/components/schemas/StatusAcao'
+        publico:
+          type: string
+          nullable: true
+        responsaveis:
+          type: array
+          items:
+            $ref: '#/components/schemas/AcaoResponsavelViewModel'
+          nullable: true
+        tarefas:
+          type: array
+          items:
+            $ref: '#/components/schemas/TarefaViewModel'
+          nullable: true
+        ofertaEnsino:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfertaEnsinoViewModel'
+          nullable: true
+        resultado:
+          $ref: '#/components/schemas/AcaoResultadoViewModel'
+        produto:
+          $ref: '#/components/schemas/AcaoProdutoViewModel'
+      additionalProperties: false
+    ApiError:
+      type: object
+      properties:
+        key:
+          type: string
+          description: Tipo do erro
+          nullable: true
+        message:
+          type: string
+          description: Mensagem do erro
+          nullable: true
+      additionalProperties: false
+    BooleanApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: boolean
+          description: Conteúdo do retorno
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    CircuitoGestaoModeloPlanoDTO:
+      type: object
+      properties:
+        circuitoGestaoGuid:
+          type: string
+          format: uuid
+        modeloPlanoGuid:
+          type: string
+          format: uuid
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+        grupoPrioridadeGuid:
+          type: string
+          format: uuid
+        classificadores:
+          type: array
+          items:
+            type: string
+            format: uuid
+          nullable: true
+      additionalProperties: false
+    CircuitoGestaoModeloPlanoViewModel:
+      type: object
+      properties:
+        circuitoGestaoModeloPlanoGuid:
+          type: string
+          format: uuid
+        circuitoGestaoGuid:
+          type: string
+          format: uuid
+        modeloPlanoId:
+          type: integer
+          format: int32
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+        grupoPrioridadeGuid:
+          type: string
+          format: uuid
+        modeloPlanoDados:
+          $ref: '#/components/schemas/ModeloPlano'
+      additionalProperties: false
+    CircuitoGestaoModeloPlanoViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/CircuitoGestaoModeloPlanoViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    CircuitoGestaoModeloPlanoViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/CircuitoGestaoModeloPlanoViewModel'
+          nullable: true
+      additionalProperties: false
+    CircuitoGestaoModeloPlanoViewModelPaginatedResultApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/CircuitoGestaoModeloPlanoViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    ClassificadorViewModel:
+      required:
+        - descricao
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        descricao:
+          type: string
+          nullable: true
+        tipo:
+          $ref: '#/components/schemas/TipoClassificador'
+      additionalProperties: false
+    ClassificadorViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/ClassificadorViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    ClassificadorViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClassificadorViewModel'
+          nullable: true
+      additionalProperties: false
+    ClassificadorViewModelPaginatedResultApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/ClassificadorViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    CriarClassificadorDTO:
+      type: object
+      properties:
+        descricao:
+          type: string
+          nullable: true
+        tipo:
+          $ref: '#/components/schemas/TipoClassificador'
+      additionalProperties: false
+    CriarMelhoriaDTO:
+      required:
+        - descricao
+      type: object
+      properties:
+        instituicaoGuid:
+          type: string
+          format: uuid
+        descricao:
+          type: string
+          nullable: true
+        ofertasEnsino:
+          type: array
+          items:
+            $ref: '#/components/schemas/CriarOfertaEnsinoDTO'
+          nullable: true
+      additionalProperties: false
+    CriarModeloPlanoDTO:
+      required:
+        - descricao
+        - nome
+      type: object
+      properties:
+        nome:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+        usarAnexos:
+          type: boolean
+        usarClassificadores:
+          type: boolean
+        usarHistoricoAnosAnteriores:
+          type: boolean
+        usarProtocoloICE:
+          type: boolean
+        modelo:
+          $ref: '#/components/schemas/PlanoModelo'
+      additionalProperties: false
+    CriarOfertaEnsinoDTO:
+      type: object
+      properties:
+        ofertaEnsinoGuid:
+          type: string
+          format: uuid
+        etapaEnsinoGuid:
+          type: string
+          format: uuid
+        modalidadeEnsinoGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    CriarPlanoFocadoEmAprimoramentoDTO:
+      required:
+        - circuitoGestaoInstituicaoGuid
+        - missao
+        - titulo
+        - valores
+        - visao
+      type: object
+      properties:
+        titulo:
+          type: string
+          nullable: true
+        circuitoGestaoInstituicaoGuid:
+          type: string
+          format: uuid
+        missao:
+          type: string
+          nullable: true
+        visao:
+          type: string
+          nullable: true
+        valores:
+          type: string
+          nullable: true
+        circuitoGestaoModeloPlanoGuid:
+          type: string
+          format: uuid
+        melhorias:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanoFocadoEmAprimoramentoMelhoriaDTO'
+          nullable: true
+      additionalProperties: false
+    CriarPlanoFocadoEmCausaCircuitoGestaoMetaDTO:
+      required:
+        - circuitoGestaoMetaGuid
+      type: object
+      properties:
+        circuitoGestaoMetaGuid:
+          type: string
+          format: uuid
+        problemas:
+          type: array
+          items:
+            $ref: '#/components/schemas/CriarPlanoFocadoEmCausaProblemaDTO'
+          nullable: true
+      additionalProperties: false
+    CriarPlanoFocadoEmCausaDTO:
+      required:
+        - circuitoGestaoInstituicaoGuid
+        - circuitoGestaoModeloPlanoGuid
+        - titulo
+      type: object
+      properties:
+        titulo:
+          type: string
+          nullable: true
+        circuitoGestaoInstituicaoGuid:
+          type: string
+          format: uuid
+        missao:
+          type: string
+          nullable: true
+        visao:
+          type: string
+          nullable: true
+        valores:
+          type: string
+          nullable: true
+        circuitoGestaoModeloPlanoGuid:
+          type: string
+          format: uuid
+        circuitoGestaoMetas:
+          type: array
+          items:
+            $ref: '#/components/schemas/CriarPlanoFocadoEmCausaCircuitoGestaoMetaDTO'
+          nullable: true
+      additionalProperties: false
+    CriarPlanoFocadoEmCausaProblemaCausaDTO:
+      required:
+        - causa
+      type: object
+      properties:
+        causa:
+          type: string
+          nullable: true
+        acoes:
+          type: array
+          items:
+            $ref: '#/components/schemas/AcaoDTO'
+          nullable: true
+        ofertaEnsino:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfertaEnsinoDTO'
+          nullable: true
+      additionalProperties: false
+    CriarPlanoFocadoEmCausaProblemaDTO:
+      required:
+        - problemaGuid
+      type: object
+      properties:
+        problemaGuid:
+          type: string
+          format: uuid
+        causas:
+          type: array
+          items:
+            $ref: '#/components/schemas/CriarPlanoFocadoEmCausaProblemaCausaDTO'
+          nullable: true
+        ofertaEnsino:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfertaEnsinoDTO'
+          nullable: true
+      additionalProperties: false
+    CriarPlanoFocadoEmMetaCircuitoGestaoMetaDTO:
+      required:
+        - circuitoGestaoMetaGuid
+      type: object
+      properties:
+        circuitoGestaoMetaGuid:
+          type: string
+          format: uuid
+        acoes:
+          type: array
+          items:
+            $ref: '#/components/schemas/AcaoDTO'
+          nullable: true
+        ofertaEnsino:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfertaEnsinoDTO'
+          nullable: true
+      additionalProperties: false
+    CriarPlanoFocadoEmMetaDTO:
+      required:
+        - circuitoGestaoInstituicaoGuid
+        - circuitoGestaoModeloPlanoGuid
+        - titulo
+      type: object
+      properties:
+        titulo:
+          type: string
+          nullable: true
+        circuitoGestaoInstituicaoGuid:
+          type: string
+          format: uuid
+        missao:
+          type: string
+          nullable: true
+        visao:
+          type: string
+          nullable: true
+        valores:
+          type: string
+          nullable: true
+        circuitoGestaoModeloPlanoGuid:
+          type: string
+          format: uuid
+        circuitoGestaoMetas:
+          type: array
+          items:
+            $ref: '#/components/schemas/CriarPlanoFocadoEmMetaCircuitoGestaoMetaDTO'
+          nullable: true
+      additionalProperties: false
+    CriarPlanoFocadoEmProblemaDTO:
+      required:
+        - circuitoGestaoModeloPlanoGuid
+      type: object
+      properties:
+        titulo:
+          type: string
+          nullable: true
+        circuitoGestaoInstituicaoGuid:
+          type: string
+          format: uuid
+        missao:
+          type: string
+          nullable: true
+        visao:
+          type: string
+          nullable: true
+        valores:
+          type: string
+          nullable: true
+        circuitoGestaoModeloPlanoGuid:
+          type: string
+          format: uuid
+        circuitoGestaoMetas:
+          type: array
+          items:
+            $ref: '#/components/schemas/CriarPlanoFocadoEmProblemaMetaDTO'
+          nullable: true
+      additionalProperties: false
+    CriarPlanoFocadoEmProblemaMetaDTO:
+      required:
+        - circuitoGestaoMetaGuid
+      type: object
+      properties:
+        circuitoGestaoMetaGuid:
+          type: string
+          format: uuid
+        problemas:
+          type: array
+          items:
+            $ref: '#/components/schemas/CriarPlanoFocadoEmProblemaProblemaDTO'
+          nullable: true
+        ofertaEnsino:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfertaEnsinoDTO'
+          nullable: true
+      additionalProperties: false
+    CriarPlanoFocadoEmProblemaProblemaDTO:
+      required:
+        - descricao
+        - problemaGuid
+      type: object
+      properties:
+        descricao:
+          type: string
+          nullable: true
+        problemaGuid:
+          type: string
+          format: uuid
+        acoes:
+          type: array
+          items:
+            $ref: '#/components/schemas/AcaoDTO'
+          nullable: true
+        ofertaEnsino:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfertaEnsinoDTO'
+          nullable: true
+      additionalProperties: false
+    CriarProblemaDTO:
+      required:
+        - descricao
+      type: object
+      properties:
+        descricao:
+          type: string
+          nullable: true
+        instituicaoGuid:
+          type: string
+          format: uuid
+        prioridade:
+          $ref: '#/components/schemas/PrioridadeProblema'
+        governabilidade:
+          type: boolean
+      additionalProperties: false
+    EditarCircuitoGestaoModeloPlanoDTO:
+      type: object
+      properties:
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+        grupoPrioridadeGuid:
+          type: string
+          format: uuid
+        classificadores:
+          type: array
+          items:
+            type: string
+            format: uuid
+          nullable: true
+      additionalProperties: false
+    EditarClassificadorDTO:
+      type: object
+      properties:
+        descricao:
+          type: string
+          nullable: true
+        tipo:
+          $ref: '#/components/schemas/TipoClassificador'
+      additionalProperties: false
+    EditarMelhoriaDTO:
+      required:
+        - descricao
+      type: object
+      properties:
+        descricao:
+          type: string
+          nullable: true
+      additionalProperties: false
+    EditarModeloPlanoDTO:
+      required:
+        - descricao
+        - nome
+      type: object
+      properties:
+        nome:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+        usarAnexos:
+          type: boolean
+        usarClassificadores:
+          type: boolean
+        usarHistoricoAnosAnteriores:
+          type: boolean
+        usarProtocoloICE:
+          type: boolean
+        modelo:
+          $ref: '#/components/schemas/PlanoModelo'
+      additionalProperties: false
+    EditarPlanoFocadoEmAprimoramentoDTO:
+      required:
+        - missao
+        - titulo
+        - valores
+        - visao
+      type: object
+      properties:
+        titulo:
+          type: string
+          nullable: true
+        missao:
+          type: string
+          nullable: true
+        visao:
+          type: string
+          nullable: true
+        valores:
+          type: string
+          nullable: true
+        melhorias:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanoFocadoEmAprimoramentoMelhoriaDTO'
+          nullable: true
+      additionalProperties: false
+    EditarPlanoFocadoEmCausaCircuitoGestaoMetaDTO:
+      required:
+        - circuitoGestaoMetaGuid
+      type: object
+      properties:
+        circuitoGestaoMetaGuid:
+          type: string
+          format: uuid
+        problemas:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditarPlanoFocadoEmCausaProblemaDTO'
+          nullable: true
+      additionalProperties: false
+    EditarPlanoFocadoEmCausaDTO:
+      required:
+        - titulo
+      type: object
+      properties:
+        titulo:
+          type: string
+          nullable: true
+        missao:
+          type: string
+          nullable: true
+        visao:
+          type: string
+          nullable: true
+        valores:
+          type: string
+          nullable: true
+        circuitoGestaoMetas:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditarPlanoFocadoEmCausaCircuitoGestaoMetaDTO'
+          nullable: true
+      additionalProperties: false
+    EditarPlanoFocadoEmCausaProblemaCausaDTO:
+      required:
+        - causa
+      type: object
+      properties:
+        causa:
+          type: string
+          nullable: true
+        acoes:
+          type: array
+          items:
+            $ref: '#/components/schemas/AcaoDTO'
+          nullable: true
+        ofertaEnsino:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfertaEnsinoDTO'
+          nullable: true
+      additionalProperties: false
+    EditarPlanoFocadoEmCausaProblemaDTO:
+      required:
+        - problemaGuid
+      type: object
+      properties:
+        problemaGuid:
+          type: string
+          format: uuid
+        causas:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditarPlanoFocadoEmCausaProblemaCausaDTO'
+          nullable: true
+        ofertaEnsino:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfertaEnsinoDTO'
+          nullable: true
+      additionalProperties: false
+    EditarPlanoFocadoEmMetaCircuitoGestaoMetaDTO:
+      required:
+        - circuitoGestaoMetaGuid
+      type: object
+      properties:
+        circuitoGestaoMetaGuid:
+          type: string
+          format: uuid
+        acoes:
+          type: array
+          items:
+            $ref: '#/components/schemas/AcaoDTO'
+          nullable: true
+        ofertaEnsino:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfertaEnsinoDTO'
+          nullable: true
+      additionalProperties: false
+    EditarPlanoFocadoEmMetaDTO:
+      required:
+        - circuitoGestaoInstituicaoGuid
+        - titulo
+      type: object
+      properties:
+        titulo:
+          type: string
+          nullable: true
+        circuitoGestaoInstituicaoGuid:
+          type: string
+          format: uuid
+        missao:
+          type: string
+          nullable: true
+        visao:
+          type: string
+          nullable: true
+        valores:
+          type: string
+          nullable: true
+        circuitoGestaoMetas:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditarPlanoFocadoEmMetaCircuitoGestaoMetaDTO'
+          nullable: true
+      additionalProperties: false
+    EditarPlanoFocadoEmProblemaDTO:
+      required:
+        - circuitoGestaoInstituicaoGuid
+        - guid
+        - titulo
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        titulo:
+          type: string
+          nullable: true
+        circuitoGestaoInstituicaoGuid:
+          type: string
+          format: uuid
+        missao:
+          type: string
+          nullable: true
+        visao:
+          type: string
+          nullable: true
+        valores:
+          type: string
+          nullable: true
+        circuitoGestaoMetas:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditarPlanoFocadoEmProblemaMetaDTO'
+          nullable: true
+      additionalProperties: false
+    EditarPlanoFocadoEmProblemaMetaDTO:
+      required:
+        - circuitoGestaoMetaGuid
+      type: object
+      properties:
+        circuitoGestaoMetaGuid:
+          type: string
+          format: uuid
+        problemas:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditarPlanoFocadoEmProblemaProblemaDTO'
+          nullable: true
+      additionalProperties: false
+    EditarPlanoFocadoEmProblemaProblemaDTO:
+      required:
+        - problemaGuid
+      type: object
+      properties:
+        problemaGuid:
+          type: string
+          format: uuid
+        acoes:
+          type: array
+          items:
+            $ref: '#/components/schemas/AcaoDTO'
+          nullable: true
+        ofertaEnsino:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfertaEnsinoDTO'
+          nullable: true
+      additionalProperties: false
+    EditarProblemaDTO:
+      required:
+        - descricao
+      type: object
+      properties:
+        descricao:
+          type: string
+          nullable: true
+        prioridade:
+          $ref: '#/components/schemas/PrioridadeProblema'
+      additionalProperties: false
+    GuidApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: string
+          description: Conteúdo do retorno
+          format: uuid
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    Instituicoes:
+      enum:
+        - 1
+        - 2
+        - 3
+      type: integer
+      format: int32
+    MelhoriaViewModel:
+      required:
+        - descricao
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        instituicaoGuid:
+          type: string
+          format: uuid
+        descricao:
+          type: string
+          nullable: true
+      additionalProperties: false
+    MelhoriaViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/MelhoriaViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    MelhoriaViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/MelhoriaViewModel'
+          nullable: true
+      additionalProperties: false
+    MelhoriaViewModelPaginatedResultApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/MelhoriaViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    ModeloPlano:
+      type: object
+      properties:
+        nome:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ModeloPlanoViewModel:
+      required:
+        - descricao
+        - nome
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+        usarAnexos:
+          type: boolean
+        usarClassificadores:
+          type: boolean
+        usarHistoricoAnosAnteriores:
+          type: boolean
+        usarProtocoloICE:
+          type: boolean
+        modelo:
+          $ref: '#/components/schemas/PlanoModelo'
+      additionalProperties: false
+    ModeloPlanoViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/ModeloPlanoViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    ModeloPlanoViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModeloPlanoViewModel'
+          nullable: true
+      additionalProperties: false
+    ModeloPlanoViewModelPaginatedResultApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/ModeloPlanoViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    ObjectApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          description: Conteúdo do retorno
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    OfertaEnsinoCommand:
+      type: object
+      properties:
+        ofertaEnsinoGuid:
+          type: string
+          format: uuid
+        etapaEnsinoGuid:
+          type: string
+          format: uuid
+        modalidadeEnsinoGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    OfertaEnsinoDTO:
+      type: object
+      properties:
+        ofertaEnsinoGuid:
+          type: string
+          format: uuid
+        etapaEnsinoGuid:
+          type: string
+          format: uuid
+        modalidadeEnsinoGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    OfertaEnsinoViewModel:
+      type: object
+      properties:
+        ofertaEnsinoGuid:
+          type: string
+          format: uuid
+        etapaEnsinoGuid:
+          type: string
+          format: uuid
+        modalidadeEnsinoGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    PlanoFocadoEmAprimoramentoCompletoViewModel:
+      required:
+        - missao
+        - titulo
+        - valores
+        - visao
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        titulo:
+          type: string
+          nullable: true
+        circuitoGestaoInstituicaoGuid:
+          type: string
+          format: uuid
+        circuitoGestaoModeloPlanoGuid:
+          type: string
+          format: uuid
+        missao:
+          type: string
+          nullable: true
+        visao:
+          type: string
+          nullable: true
+        valores:
+          type: string
+          nullable: true
+        status:
+          $ref: '#/components/schemas/StatusPlano'
+        melhorias:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanoFocadoEmAprimoramentoMelhoriaViewModel'
+          nullable: true
+      additionalProperties: false
+    PlanoFocadoEmAprimoramentoCompletoViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/PlanoFocadoEmAprimoramentoCompletoViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    PlanoFocadoEmAprimoramentoMelhoriaDTO:
+      type: object
+      properties:
+        melhoriaGuid:
+          type: string
+          format: uuid
+        acoes:
+          type: array
+          items:
+            $ref: '#/components/schemas/AcaoDTO'
+          nullable: true
+        ofertaEnsino:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfertaEnsinoDTO'
+          nullable: true
+      additionalProperties: false
+    PlanoFocadoEmAprimoramentoMelhoriaViewModel:
+      required:
+        - melhoria
+      type: object
+      properties:
+        melhoria:
+          type: string
+          nullable: true
+        melhoriaGuid:
+          type: string
+          format: uuid
+        acoes:
+          type: array
+          items:
+            $ref: '#/components/schemas/AcaoViewModel'
+          nullable: true
+        ofertaEnsino:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfertaEnsinoViewModel'
+          nullable: true
+      additionalProperties: false
+    PlanoFocadoEmAprimoramentoViewModel:
+      required:
+        - missao
+        - situacaoAcoes
+        - situacaoTarefas
+        - titulo
+        - valores
+        - visao
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        titulo:
+          type: string
+          nullable: true
+        circuitoGestaoInstituicaoGuid:
+          type: string
+          format: uuid
+        missao:
+          type: string
+          nullable: true
+        visao:
+          type: string
+          nullable: true
+        valores:
+          type: string
+          nullable: true
+        status:
+          $ref: '#/components/schemas/StatusPlano'
+        quantidadeMelhorias:
+          type: integer
+          format: int32
+        situacaoAcoes:
+          $ref: '#/components/schemas/AcaoSituacaoViewModel'
+        situacaoTarefas:
+          $ref: '#/components/schemas/TarefaSituacaoViewModel'
+      additionalProperties: false
+    PlanoFocadoEmAprimoramentoViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanoFocadoEmAprimoramentoViewModel'
+          nullable: true
+      additionalProperties: false
+    PlanoFocadoEmAprimoramentoViewModelPaginatedResultApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/PlanoFocadoEmAprimoramentoViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    PlanoFocadoEmCausaCompletoCircuitoGestaoMetaViewModel:
+      required:
+        - circuitoGestaoMetaGuid
+      type: object
+      properties:
+        circuitoGestaoMetaGuid:
+          type: string
+          format: uuid
+        circuitoGestaoMeta:
+          type: string
+          nullable: true
+        problemas:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanoFocadoEmCausaProblemaViewModel'
+          nullable: true
+      additionalProperties: false
+    PlanoFocadoEmCausaCompletoViewModel:
+      required:
+        - missao
+        - titulo
+        - valores
+        - visao
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        titulo:
+          type: string
+          nullable: true
+        circuitoGestaoInstituicaoGuid:
+          type: string
+          format: uuid
+        circuitoGestaoModeloPlanoId:
+          type: integer
+          format: int32
+        missao:
+          type: string
+          nullable: true
+        visao:
+          type: string
+          nullable: true
+        valores:
+          type: string
+          nullable: true
+        status:
+          $ref: '#/components/schemas/StatusPlano'
+        metas:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanoFocadoEmCausaCompletoCircuitoGestaoMetaViewModel'
+          nullable: true
+      additionalProperties: false
+    PlanoFocadoEmCausaCompletoViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/PlanoFocadoEmCausaCompletoViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    PlanoFocadoEmCausaDadosProblemaViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        descricao:
+          type: string
+          nullable: true
+        instituicaoGuid:
+          type: string
+          format: uuid
+        prioridade:
+          $ref: '#/components/schemas/PrioridadeProblema'
+        governabilidade:
+          type: boolean
+      additionalProperties: false
+    PlanoFocadoEmCausaProblemaCausaViewModel:
+      required:
+        - causa
+        - guid
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        causa:
+          type: string
+          nullable: true
+        acoes:
+          type: array
+          items:
+            $ref: '#/components/schemas/AcaoViewModel'
+          nullable: true
+        ofertaEnsino:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfertaEnsinoViewModel'
+          nullable: true
+      additionalProperties: false
+    PlanoFocadoEmCausaProblemaViewModel:
+      required:
+        - problema
+      type: object
+      properties:
+        problema:
+          $ref: '#/components/schemas/PlanoFocadoEmCausaDadosProblemaViewModel'
+        causas:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanoFocadoEmCausaProblemaCausaViewModel'
+          nullable: true
+        ofertaEnsino:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfertaEnsinoViewModel'
+          nullable: true
+      additionalProperties: false
+    PlanoFocadoEmCausaViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        titulo:
+          type: string
+          nullable: true
+        circuitoGestaoInstituicaoGuid:
+          type: string
+          format: uuid
+        missao:
+          type: string
+          nullable: true
+        visao:
+          type: string
+          nullable: true
+        valores:
+          type: string
+          nullable: true
+        status:
+          $ref: '#/components/schemas/StatusPlano'
+        quantidadeCausas:
+          type: integer
+          format: int32
+        situacaoAcoes:
+          $ref: '#/components/schemas/AcaoSituacaoViewModel'
+        situacaoTarefas:
+          $ref: '#/components/schemas/TarefaSituacaoViewModel'
+      additionalProperties: false
+    PlanoFocadoEmCausaViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanoFocadoEmCausaViewModel'
+          nullable: true
+      additionalProperties: false
+    PlanoFocadoEmCausaViewModelPaginatedResultApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/PlanoFocadoEmCausaViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    PlanoFocadoEmMetaCompletoCircuitoGestaoMetaViewModel:
+      type: object
+      properties:
+        circuitoGestaoMeta:
+          type: string
+          nullable: true
+        circuitoGestaoMetaGuid:
+          type: string
+          format: uuid
+        acoes:
+          type: array
+          items:
+            $ref: '#/components/schemas/AcaoViewModel'
+          nullable: true
+        ofertaEnsino:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfertaEnsinoCommand'
+          nullable: true
+      additionalProperties: false
+    PlanoFocadoEmMetaCompletoViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        titulo:
+          type: string
+          nullable: true
+        circuitoGestaoInstituicaoGuid:
+          type: string
+          format: uuid
+        circuitoGestaoModeloPlanoId:
+          type: integer
+          format: int32
+        missao:
+          type: string
+          nullable: true
+        visao:
+          type: string
+          nullable: true
+        valores:
+          type: string
+          nullable: true
+        status:
+          $ref: '#/components/schemas/StatusPlano'
+        metas:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanoFocadoEmMetaCompletoCircuitoGestaoMetaViewModel'
+          nullable: true
+      additionalProperties: false
+    PlanoFocadoEmMetaCompletoViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/PlanoFocadoEmMetaCompletoViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    PlanoFocadoEmMetaViewModel:
+      type: object
+      properties:
+        titulo:
+          type: string
+          nullable: true
+        circuitoGestaoInstituicaoGuid:
+          type: string
+          format: uuid
+        missao:
+          type: string
+          nullable: true
+        visao:
+          type: string
+          nullable: true
+        valores:
+          type: string
+          nullable: true
+        status:
+          $ref: '#/components/schemas/StatusPlano'
+        quantidadeMetas:
+          type: integer
+          format: int32
+        situacaoAcoes:
+          $ref: '#/components/schemas/AcaoSituacaoViewModel'
+        situacaoTarefas:
+          $ref: '#/components/schemas/TarefaSituacaoViewModel'
+      additionalProperties: false
+    PlanoFocadoEmMetaViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanoFocadoEmMetaViewModel'
+          nullable: true
+      additionalProperties: false
+    PlanoFocadoEmMetaViewModelPaginatedResultApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/PlanoFocadoEmMetaViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    PlanoFocadoEmProblemaCompletoCircuitoGestaoMetaViewModel:
+      required:
+        - circuitoGestaoMeta
+      type: object
+      properties:
+        circuitoGestaoMeta:
+          type: string
+          nullable: true
+        circuitoGestaoMetaGuid:
+          type: string
+          format: uuid
+        problemas:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanoFocadoEmProblemaCompletoProblemaViewModel'
+          nullable: true
+        ofertaEnsino:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfertaEnsinoViewModel'
+          nullable: true
+      additionalProperties: false
+    PlanoFocadoEmProblemaCompletoProblemaViewModel:
+      required:
+        - descricao
+        - problemaGuid
+      type: object
+      properties:
+        descricao:
+          type: string
+          nullable: true
+        problemaGuid:
+          type: string
+          format: uuid
+        acoes:
+          type: array
+          items:
+            $ref: '#/components/schemas/AcaoViewModel'
+          nullable: true
+        ofertaEnsino:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfertaEnsinoViewModel'
+          nullable: true
+      additionalProperties: false
+    PlanoFocadoEmProblemaCompletoViewModel:
+      required:
+        - missao
+        - titulo
+        - valores
+        - visao
+      type: object
+      properties:
+        titulo:
+          type: string
+          nullable: true
+        circuitoGestaoInstituicaoGuid:
+          type: string
+          format: uuid
+        circuitoGestaoModeloPlanoId:
+          type: integer
+          format: int32
+        missao:
+          type: string
+          nullable: true
+        visao:
+          type: string
+          nullable: true
+        valores:
+          type: string
+          nullable: true
+        status:
+          $ref: '#/components/schemas/StatusPlano'
+        metas:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanoFocadoEmProblemaCompletoCircuitoGestaoMetaViewModel'
+          nullable: true
+      additionalProperties: false
+    PlanoFocadoEmProblemaCompletoViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/PlanoFocadoEmProblemaCompletoViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    PlanoFocadoEmProblemaViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        titulo:
+          type: string
+          nullable: true
+        circuitoGestaoInstituicaoGuid:
+          type: string
+          format: uuid
+        missao:
+          type: string
+          nullable: true
+        visao:
+          type: string
+          nullable: true
+        valores:
+          type: string
+          nullable: true
+        status:
+          $ref: '#/components/schemas/StatusPlano'
+        quantidadeMetas:
+          type: integer
+          format: int32
+        quantidadeProblemas:
+          type: integer
+          format: int32
+        situacaoAcoes:
+          $ref: '#/components/schemas/AcaoSituacaoViewModel'
+        situacaoTarefas:
+          $ref: '#/components/schemas/TarefaSituacaoViewModel'
+      additionalProperties: false
+    PlanoFocadoEmProblemaViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanoFocadoEmProblemaViewModel'
+          nullable: true
+      additionalProperties: false
+    PlanoFocadoEmProblemaViewModelPaginatedResultApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/PlanoFocadoEmProblemaViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    PlanoModelo:
+      enum:
+        - 1
+        - 2
+        - 3
+        - 4
+      type: integer
+      format: int32
+    PrioridadeProblema:
+      enum:
+        - 1
+        - 2
+        - 3
+        - 4
+      type: integer
+      format: int32
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+      additionalProperties: { }
+    ProblemaViewModel:
+      required:
+        - descricao
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        descricao:
+          type: string
+          nullable: true
+        instituicaoGuid:
+          type: string
+          format: uuid
+        prioridade:
+          $ref: '#/components/schemas/PrioridadeProblema'
+        governabilidade:
+          type: boolean
+      additionalProperties: false
+    ProblemaViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/ProblemaViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    ProblemaViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProblemaViewModel'
+          nullable: true
+      additionalProperties: false
+    ProblemaViewModelPaginatedResultApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/ProblemaViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    StatusAcao:
+      enum:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+      type: integer
+      format: int32
+    StatusAcaoProduto:
+      enum:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+      type: integer
+      format: int32
+    StatusAcaoResultado:
+      enum:
+        - 0
+        - 1
+        - 2
+        - 3
+      type: integer
+      format: int32
+    StatusPlano:
+      enum:
+        - 1
+        - 2
+        - 3
+      type: integer
+      format: int32
+    TarefaCustoDTO:
+      required:
+        - custoPrevisto
+        - descricao
+      type: object
+      properties:
+        descricao:
+          type: string
+          nullable: true
+        custoPrevisto:
+          type: number
+          format: double
+        custoReal:
+          type: number
+          format: double
+          nullable: true
+        data:
+          type: string
+          format: date-time
+          nullable: true
+        compradorGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    TarefaCustoViewModel:
+      type: object
+      properties:
+        descricao:
+          type: string
+          nullable: true
+        custoPrevisto:
+          type: number
+          format: double
+        custoReal:
+          type: number
+          format: double
+          nullable: true
+        dataCompra:
+          type: string
+          format: date-time
+          nullable: true
+        compradorGuid:
+          type: string
+          format: uuid
+          nullable: true
+        compradorNome:
+          type: string
+          nullable: true
+      additionalProperties: false
+    TarefaDTO:
+      required:
+        - titulo
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        titulo:
+          type: string
+          nullable: true
+        inicioPrevisto:
+          type: string
+          format: date-time
+        terminoPrevisto:
+          type: string
+          format: date-time
+        inicioRealizado:
+          type: string
+          format: date-time
+          nullable: true
+        terminoRealizado:
+          type: string
+          format: date-time
+          nullable: true
+        responsaveis:
+          type: array
+          items:
+            $ref: '#/components/schemas/TarefaResponsavelDTO'
+          nullable: true
+        custo:
+          $ref: '#/components/schemas/TarefaCustoDTO'
+      additionalProperties: false
+    TarefaResponsavelDTO:
+      type: object
+      properties:
+        pessoaGuid:
+          type: string
+          format: uuid
+        responsavelPrincipal:
+          type: boolean
+      additionalProperties: false
+    TarefaResponsavelViewModel:
+      type: object
+      properties:
+        pessoaGuid:
+          type: string
+          format: uuid
+        responsavelPrincipal:
+          type: boolean
+        pessoaNome:
+          type: string
+          nullable: true
+      additionalProperties: false
+    TarefaSituacaoViewModel:
+      type: object
+      properties:
+        totalTarefas:
+          type: integer
+          format: int32
+        tarefasEmAndamento:
+          type: integer
+          format: int32
+        tarefasPrevistas:
+          type: integer
+          format: int32
+        tarefasNaoIniciadas:
+          type: integer
+          format: int32
+        tarefasConcluidas:
+          type: integer
+          format: int32
+        tarefasConcluidasComAtraso:
+          type: integer
+          format: int32
+        tarefasAtrasadas:
+          type: integer
+          format: int32
+      additionalProperties: false
+    TarefaViewModel:
+      type: object
+      properties:
+        titulo:
+          type: string
+          nullable: true
+        inicioPrevisto:
+          type: string
+          format: date-time
+        terminoPrevisto:
+          type: string
+          format: date-time
+        inicioRealizado:
+          type: string
+          format: date-time
+          nullable: true
+        terminoRealizado:
+          type: string
+          format: date-time
+          nullable: true
+        status:
+          $ref: '#/components/schemas/StatusAcao'
+        responsaveis:
+          type: array
+          items:
+            $ref: '#/components/schemas/TarefaResponsavelViewModel'
+          nullable: true
+        custo:
+          $ref: '#/components/schemas/TarefaCustoViewModel'
+      additionalProperties: false
+    TipoClassificador:
+      enum:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+      type: integer
+      format: int32

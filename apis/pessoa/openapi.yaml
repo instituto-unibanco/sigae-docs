@@ -1454,7 +1454,6 @@ components:
           description: Indica se a requisição foi bem sucedida
         data:
           description: Conteúdo do retorno
-          nullable: true
         errors:
           type: array
           items:
