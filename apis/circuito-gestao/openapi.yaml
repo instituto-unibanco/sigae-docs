@@ -2,7 +2,13 @@ openapi: 3.0.1
 info:
   title: CircuitoGestaoApi
   description: Api de circuito de gestao da SIGAE OPEN SOURCE
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: v1
+  x-logo:
+    url: logo.png
+    altText: Instituto Unibanco SIGAE
 paths:
   /CircuitoGestao/api/Categoria:
     post:
