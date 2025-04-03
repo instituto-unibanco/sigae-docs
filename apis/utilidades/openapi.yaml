@@ -1,0 +1,1237 @@
+openapi: 3.0.1
+info:
+  title: UtilidadesApi
+  description: Api de Utilidades SIGAE OPEN SOURCE
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: v1
+  x-logo:
+    url: logo.png
+    altText: Instituto Unibanco SIGAE
+paths:
+  /Escola:
+    post:
+      tags:
+        - Authorization
+      summary: 'Insere no serviço de autorização uma escola, vinculada a uma regional'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InserirEscolaDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/InserirEscolaDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/InserirEscolaDTO'
+      responses:
+        '200':
+          description: 'Verdadeiro se criado com sucesso, falso se não.'
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Regional:
+    post:
+      tags:
+        - Authorization
+      summary: 'Insere no serviço de autorização uma regional, vinculada a uma secretaria'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InserirRegionalDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/InserirRegionalDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/InserirRegionalDTO'
+      responses:
+        '200':
+          description: 'Verdadeiro se criado com sucesso, falso se não.'
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /ChecarPermissao:
+    post:
+      tags:
+        - Authorization
+      summary: Verifica se a pessoa informada pode performar uma ação especifica
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChecarPermissaoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ChecarPermissaoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/ChecarPermissaoDTO'
+      responses:
+        '200':
+          description: 'Verdadeiro se ela tiver permissão, falso se não.'
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Utilidades/api/Perfil:
+    post:
+      tags:
+        - UtilidadesApi-Perfil
+      summary: Cadastra um perfil com suas permissões
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarPerfilDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CriarPerfilDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CriarPerfilDTO'
+      responses:
+        '200':
+          description: Guid do perfil criado.
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - UtilidadesApi-Perfil
+      summary: Filtrar de forma paginada os perfis
+      parameters:
+        - name: Nome
+          in: query
+          schema:
+            type: string
+        - name: TipoInstituicao
+          in: query
+          schema:
+            $ref: '#/components/schemas/Instituicoes'
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Lista paginada com os perfis
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PerfilViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PerfilViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PerfilViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Utilidades/api/Perfil/{guid}':
+    delete:
+      tags:
+        - UtilidadesApi-Perfil
+      summary: Deleta o perfil
+      parameters:
+        - name: guid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'Verdadeiro se deletado com sucesso, falso se não.'
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    put:
+      tags:
+        - UtilidadesApi-Perfil
+      summary: Edita o perfil com suas permissões
+      parameters:
+        - name: guid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditarPerfilDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/EditarPerfilDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/EditarPerfilDTO'
+      responses:
+        '200':
+          description: Guid do perfil editado
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - UtilidadesApi-Perfil
+      summary: 'Retornar de forma completa um perfil, com suas permissoes relacionadas'
+      parameters:
+        - name: guid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Objeto com o perfil e as permissões
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PerfilCompletoViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PerfilCompletoViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PerfilCompletoViewModelApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Utilidades/api/Permissao:
+    post:
+      tags:
+        - UtilidadesApi-Permissao
+      summary: 'Cadastra em lote as permissões do sistema, junto com as permissões relacionadas'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarPermissaoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CriarPermissaoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CriarPermissaoDTO'
+      responses:
+        '200':
+          description: 'Verdadeiro se criado com sucesso, falso se não.'
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - UtilidadesApi-Permissao
+      summary: Filtrar de forma paginada as permissões
+      parameters:
+        - name: Nome
+          in: query
+          schema:
+            type: string
+        - name: TipoInstituicao
+          in: query
+          schema:
+            $ref: '#/components/schemas/Instituicoes'
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Lista paginada com as permissoes
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PermissaoViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PermissaoViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PermissaoViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Utilidades/api/Permissao/{guid}':
+    delete:
+      tags:
+        - UtilidadesApi-Permissao
+      summary: Deleta a permissão
+      parameters:
+        - name: guid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'Verdadeiro se deletado com sucesso, falso se não.'
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    put:
+      tags:
+        - UtilidadesApi-Permissao
+      summary: Edita a permissão com as permissões relacionadas
+      parameters:
+        - name: guid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditarPermissaoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/EditarPermissaoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/EditarPermissaoDTO'
+      responses:
+        '200':
+          description: Guid da permissao editada
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - UtilidadesApi-Permissao
+      summary: 'Retornar de forma completa uma permissao, com suas permissoes relacionadas e perfis vinculados'
+      parameters:
+        - name: guid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Objeto com a permissao e seus detalhes
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PermissaoCompletoViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PermissaoCompletoViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PermissaoCompletoViewModelApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+components:
+  schemas:
+    ApiError:
+      type: object
+      properties:
+        key:
+          type: string
+          description: Tipo do erro
+          nullable: true
+        message:
+          type: string
+          description: Mensagem do erro
+          nullable: true
+      additionalProperties: false
+    BooleanApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: boolean
+          description: Conteúdo do retorno
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    ChecarPermissaoDTO:
+      type: object
+      properties:
+        pessoaGuid:
+          type: string
+          format: uuid
+        permissao:
+          $ref: '#/components/schemas/Permissoes'
+        tipoRecurso:
+          $ref: '#/components/schemas/TipoRecurso'
+        recursoGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    CriarPerfilDTO:
+      required:
+        - nome
+      type: object
+      properties:
+        nome:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+        permissoes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CriarPerfilPermissaoDTO'
+          nullable: true
+      additionalProperties: false
+    CriarPerfilPermissaoDTO:
+      type: object
+      properties:
+        permissaoGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    CriarPermissaoDTO:
+      type: object
+      properties:
+        permissoes:
+          type: array
+          items:
+            $ref: '#/components/schemas/PermissaoDTO'
+          nullable: true
+      additionalProperties: false
+    EditarPerfilDTO:
+      type: object
+      properties:
+        nome:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+        permissoes:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditarPerfilPermissaoCommand'
+          nullable: true
+      additionalProperties: false
+    EditarPerfilPermissaoCommand:
+      type: object
+      properties:
+        permissaoGuid:
+          type: string
+          format: uuid
+        operacao:
+          $ref: '#/components/schemas/Operacoes'
+      additionalProperties: false
+    EditarPermissaoDTO:
+      type: object
+      properties:
+        nome:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+        permissoesRelacionadas:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditarPermissaoRelacionadaDTO'
+          nullable: true
+      additionalProperties: false
+    EditarPermissaoRelacionadaDTO:
+      type: object
+      properties:
+        permissaoRelacionadaGuid:
+          type: string
+          format: uuid
+        operacao:
+          $ref: '#/components/schemas/Operacoes'
+      additionalProperties: false
+    GuidApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: string
+          description: Conteúdo do retorno
+          format: uuid
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    InserirEscolaDTO:
+      type: object
+      properties:
+        escolaGuid:
+          type: string
+          format: uuid
+        regionalGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    InserirRegionalDTO:
+      type: object
+      properties:
+        regionalGuid:
+          type: string
+          format: uuid
+        secretariaGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    Instituicoes:
+      enum:
+        - 1
+        - 2
+        - 3
+      type: integer
+      format: int32
+    ObjectApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          description: Conteúdo do retorno
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    Operacoes:
+      enum:
+        - 1
+        - 2
+        - 3
+      type: integer
+      format: int32
+    PerfilCompletoViewModel:
+      required:
+        - guid
+        - nome
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+        permissoes:
+          type: array
+          items:
+            $ref: '#/components/schemas/PerfilPermissaoCompletoViewModel'
+          nullable: true
+      additionalProperties: false
+    PerfilCompletoViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/PerfilCompletoViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    PerfilPermissaoCompletoViewModel:
+      required:
+        - guid
+        - nome
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+        relacionadas:
+          type: array
+          items:
+            $ref: '#/components/schemas/PerfilPermissaoRelacionadaCompletoViewModel'
+          nullable: true
+      additionalProperties: false
+    PerfilPermissaoRelacionadaCompletoViewModel:
+      required:
+        - guid
+        - nome
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+      additionalProperties: false
+    PerfilViewModel:
+      required:
+        - guid
+        - nome
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+        quantidadePermissoes:
+          type: integer
+          format: int32
+      additionalProperties: false
+    PerfilViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/PerfilViewModel'
+          nullable: true
+      additionalProperties: false
+    PerfilViewModelPaginatedResultApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/PerfilViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    PerfilVinculadoViewModel:
+      required:
+        - guid
+        - nome
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+      additionalProperties: false
+    PermissaoCompletoViewModel:
+      required:
+        - guid
+        - nome
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+        permissoesRelacionadas:
+          type: array
+          items:
+            $ref: '#/components/schemas/PermissaoRelacionadaCompletoViewModel'
+          nullable: true
+        perfis:
+          type: array
+          items:
+            $ref: '#/components/schemas/PerfilVinculadoViewModel'
+          nullable: true
+      additionalProperties: false
+    PermissaoCompletoViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/PermissaoCompletoViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    PermissaoDTO:
+      type: object
+      properties:
+        nome:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+        permissoesRelacionadas:
+          type: array
+          items:
+            $ref: '#/components/schemas/PermissaoDTO'
+          nullable: true
+      additionalProperties: false
+    PermissaoRelacionadaCompletoViewModel:
+      required:
+        - guid
+        - nome
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+      additionalProperties: false
+    PermissaoRelacionadaViewModel:
+      type: object
+      properties:
+        nome:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+      additionalProperties: false
+    PermissaoViewModel:
+      type: object
+      properties:
+        nome:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+        permissoesRelacionadas:
+          type: array
+          items:
+            $ref: '#/components/schemas/PermissaoRelacionadaViewModel'
+          nullable: true
+      additionalProperties: false
+    PermissaoViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/PermissaoViewModel'
+          nullable: true
+      additionalProperties: false
+    PermissaoViewModelPaginatedResultApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/PermissaoViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    Permissoes:
+      enum:
+        - 1
+        - 2
+      type: integer
+      format: int32
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+      additionalProperties: { }
+    TipoRecurso:
+      enum:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 7
+      type: integer
+      format: int32

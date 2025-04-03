@@ -1,0 +1,4893 @@
+openapi: 3.0.1
+info:
+  title: InstituicaoApi
+  description: Api da Instituicao SIGAE OPEN SOURCE
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: v1
+  x-logo:
+    url: logo.png
+    altText: Instituto Unibanco SIGAE
+paths:
+  /Instituicao/api/Cidade:
+    post:
+      tags:
+        - InstituicaoApi-CIdade
+      summary: Cria um cidade
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/CriarCidadeDTO'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarCidadeDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CriarCidadeDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CriarCidadeDTO'
+      responses:
+        '200':
+          description: Cidade criado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - InstituicaoApi-CIdade
+      summary: Buscar e filtrar todos os cidades
+      parameters:
+        - name: CidadeGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Nome
+          in: query
+          schema:
+            type: string
+        - name: EstadoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: CodigoIBGE
+          in: query
+          schema:
+            type: string
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Listar cidades
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CidadeViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CidadeViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CidadeViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Instituicao/api/Cidade/{guid}':
+    put:
+      tags:
+        - InstituicaoApi-CIdade
+      summary: Atualiza um cidade
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do cidade
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/EditarCidadeDTO'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditarCidadeDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/EditarCidadeDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/EditarCidadeDTO'
+      responses:
+        '200':
+          description: Cidade atualizado
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    delete:
+      tags:
+        - InstituicaoApi-CIdade
+      summary: Deletar um cidade
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do cidade
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Cidade deletado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - InstituicaoApi-CIdade
+      summary: Buscar cidade por guid
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do cidade
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Cidade
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CidadeViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CidadeViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CidadeViewModelApiResponse'
+        '204':
+          description: Cidade não encontrado
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Instituicao/api/Escola/{guid}':
+    get:
+      tags:
+        - InstituicaoApi-Escola
+      summary: Buscar Escola completa por guid
+      parameters:
+        - name: guid
+          in: path
+          description: Guid da Escola
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Escola completa
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/EscolaCompletoViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EscolaCompletoViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/EscolaCompletoViewModelApiResponse'
+        '204':
+          description: Escola não encontrada
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    delete:
+      tags:
+        - InstituicaoApi-Escola
+      summary: Deletar Escola por guid
+      parameters:
+        - name: guid
+          in: path
+          description: Guid da Escola
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'Verdadeiro se deletado, falso se não'
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/EscolaCompletoViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EscolaCompletoViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/EscolaCompletoViewModelApiResponse'
+        '204':
+          description: Escola não encontrada
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    put:
+      tags:
+        - InstituicaoApi-Escola
+      summary: Editar uma Escola
+      parameters:
+        - name: guid
+          in: path
+          description: Guid da Escola
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+                - CodigoINEP
+              type: object
+              properties:
+                Nome:
+                  type: string
+                RegionalGuid:
+                  type: string
+                  format: uuid
+                CodigoINEP:
+                  type: string
+                CNPJ:
+                  type: string
+                Imagem:
+                  type: string
+                  format: binary
+                RemoverImagem:
+                  type: boolean
+                EstadoGuid:
+                  type: string
+                  format: uuid
+                Enderecos:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EditarEscolaEnderecoDTO'
+                Contatos:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EditarEscolaContatoDTO'
+                OfertasEnsino:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EditarEscolaOfertaEnsinoDTO'
+                Localidade:
+                  $ref: '#/components/schemas/Localidade'
+            encoding:
+              Nome:
+                style: form
+              RegionalGuid:
+                style: form
+              CodigoINEP:
+                style: form
+              CNPJ:
+                style: form
+              Imagem:
+                style: form
+              RemoverImagem:
+                style: form
+              EstadoGuid:
+                style: form
+              Enderecos:
+                style: form
+              Contatos:
+                style: form
+              OfertasEnsino:
+                style: form
+              Localidade:
+                style: form
+      responses:
+        '200':
+          description: Guid da Escola
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Instituicao/api/Escola:
+    get:
+      tags:
+        - InstituicaoApi-Escola
+      summary: Get Escolas paginado
+      parameters:
+        - name: RegionalGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Nome
+          in: query
+          schema:
+            type: string
+        - name: CodigoINEP
+          in: query
+          schema:
+            type: string
+        - name: CNPJ
+          in: query
+          schema:
+            type: string
+        - name: EstadoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Localidade
+          in: query
+          schema:
+            $ref: '#/components/schemas/Localidade'
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Escola
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/EscolaViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EscolaViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/EscolaViewModelPaginatedResultApiResponse'
+        '204':
+          description: Escola não encontrada
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    post:
+      tags:
+        - InstituicaoApi-Escola
+      summary: Cadastra uma Escola
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+                - CodigoINEP
+              type: object
+              properties:
+                Nome:
+                  type: string
+                RegionalGuid:
+                  type: string
+                  format: uuid
+                CodigoINEP:
+                  type: string
+                CNPJ:
+                  type: string
+                Imagem:
+                  type: string
+                  format: binary
+                EstadoGuid:
+                  type: string
+                  format: uuid
+                Enderecos:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/CriarEscolaEnderecoDTO'
+                Contatos:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/CriarEscolaContatoDTO'
+                OfertasEnsino:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/CriarEscolaOfertaEnsinoDTO'
+                Localidade:
+                  $ref: '#/components/schemas/Localidade'
+            encoding:
+              Nome:
+                style: form
+              RegionalGuid:
+                style: form
+              CodigoINEP:
+                style: form
+              CNPJ:
+                style: form
+              Imagem:
+                style: form
+              EstadoGuid:
+                style: form
+              Enderecos:
+                style: form
+              Contatos:
+                style: form
+              OfertasEnsino:
+                style: form
+              Localidade:
+                style: form
+      responses:
+        '200':
+          description: Guid da Escola
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Instituicao/api/Estado:
+    post:
+      tags:
+        - InstituicaoApi-Estado
+      summary: Cria um estado
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/CriarEstadoDTO'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarEstadoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CriarEstadoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CriarEstadoDTO'
+      responses:
+        '200':
+          description: Estado criado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - InstituicaoApi-Estado
+      summary: Buscar e filtrar todos os estados
+      parameters:
+        - name: EstadoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Estado
+          in: query
+          schema:
+            type: string
+        - name: Sigla
+          in: query
+          schema:
+            type: string
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Listar estados
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/EstadoViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EstadoViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/EstadoViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Instituicao/api/Estado/{guid}':
+    put:
+      tags:
+        - InstituicaoApi-Estado
+      summary: Atualiza um estado
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do estado
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/EditarEstadoDTO'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditarEstadoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/EditarEstadoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/EditarEstadoDTO'
+      responses:
+        '200':
+          description: Estado atualizado
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    delete:
+      tags:
+        - InstituicaoApi-Estado
+      summary: Deletar um estado
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do estado
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Estado deletado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - InstituicaoApi-Estado
+      summary: Buscar estado por guid
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do estado
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Estado
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/EstadoViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EstadoViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/EstadoViewModelApiResponse'
+        '204':
+          description: Estado não encontrado
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Instituicao/api/InstituicaoInternal:
+    get:
+      tags:
+        - InstituicaoApi-Instituicao
+      summary: Buscar Instituicao por guid
+      parameters:
+        - name: Guid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: TipoInstituicao
+          in: query
+          schema:
+            $ref: '#/components/schemas/Instituicoes'
+      responses:
+        '200':
+          description: Instituicao consultada
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/InstituicaoViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstituicaoViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/InstituicaoViewModelApiResponse'
+        '204':
+          description: Instituicao não encontrada
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Instituicao/api/InstituicaoInternal/estado:
+    get:
+      tags:
+        - InstituicaoApi-Instituicao
+      summary: Buscar Instituicoes por estado
+      parameters:
+        - name: EstadoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Instituicoes consultadas
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/InstituicaoViewModelListApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstituicaoViewModelListApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/InstituicaoViewModelListApiResponse'
+        '204':
+          description: Instituicoes não encontradas
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Instituicao/api/InstituicaoInternal/list:
+    get:
+      tags:
+        - InstituicaoApi-Instituicao
+      summary: Buscar Instituicoes por guids
+      parameters:
+        - name: Instituicoes
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/InstituicaoParaBuscar'
+      responses:
+        '200':
+          description: Instituicoes consultadas
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/InstituicaoViewModelListApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstituicaoViewModelListApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/InstituicaoViewModelListApiResponse'
+        '204':
+          description: Instituicoes não encontradas
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Instituicao/api/InstituicaoInternal/check:
+    get:
+      tags:
+        - InstituicaoApi-Instituicao
+      summary: Checar se Instituicoes existem
+      parameters:
+        - name: Instituicoes
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/InstituicaoParaChecar'
+      responses:
+        '200':
+          description: Instituicoes existem
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+        '204':
+          description: Instituicoes não encontradas
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Instituicao/api/Regional/{guid}':
+    get:
+      tags:
+        - InstituicaoApi-Regional
+      summary: Buscar Regional por guid
+      parameters:
+        - name: guid
+          in: path
+          description: Guid da Regional
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Regional
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/RegionalCompletoViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegionalCompletoViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/RegionalCompletoViewModelApiResponse'
+        '204':
+          description: Regional não encontrada
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    put:
+      tags:
+        - InstituicaoApi-Regional
+      summary: Atualiza Regional
+      parameters:
+        - name: guid
+          in: path
+          description: Guid da Regional
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+                - CodigoINEP
+              type: object
+              properties:
+                Nome:
+                  type: string
+                CodigoINEP:
+                  type: string
+                CNPJ:
+                  type: string
+                Imagem:
+                  type: string
+                  format: binary
+                RemoverImagem:
+                  type: boolean
+                EstadoGuid:
+                  type: string
+                  format: uuid
+                SecretariaGuid:
+                  type: string
+                  format: uuid
+                Enderecos:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EditarRegionalEnderecoDTO'
+                Contatos:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EditarRegionalContatoDTO'
+                Supervisores:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EditarRegionalSupervisorDTO'
+            encoding:
+              Nome:
+                style: form
+              CodigoINEP:
+                style: form
+              CNPJ:
+                style: form
+              Imagem:
+                style: form
+              RemoverImagem:
+                style: form
+              EstadoGuid:
+                style: form
+              SecretariaGuid:
+                style: form
+              Enderecos:
+                style: form
+              Contatos:
+                style: form
+              Supervisores:
+                style: form
+      responses:
+        '200':
+          description: Regional atualizada
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    delete:
+      tags:
+        - InstituicaoApi-Regional
+      summary: Deleta Regional
+      parameters:
+        - name: guid
+          in: path
+          description: Guid da Regional
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Regional deletada
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Instituicao/api/Regional:
+    post:
+      tags:
+        - InstituicaoApi-Regional
+      summary: Cadastra uma Regional
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+                - CodigoINEP
+              type: object
+              properties:
+                Nome:
+                  type: string
+                SecretariaGuid:
+                  type: string
+                  format: uuid
+                CodigoINEP:
+                  type: string
+                CNPJ:
+                  type: string
+                Imagem:
+                  type: string
+                  format: binary
+                EstadoGuid:
+                  type: string
+                  format: uuid
+                Enderecos:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/CriarRegionalEnderecoDTO'
+                Contatos:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/CriarRegionalContatoDTO'
+                Supervisores:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/CriarRegionalSupervisorDTO'
+            encoding:
+              Nome:
+                style: form
+              SecretariaGuid:
+                style: form
+              CodigoINEP:
+                style: form
+              CNPJ:
+                style: form
+              Imagem:
+                style: form
+              EstadoGuid:
+                style: form
+              Enderecos:
+                style: form
+              Contatos:
+                style: form
+              Supervisores:
+                style: form
+      responses:
+        '200':
+          description: Guid da Regional
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - InstituicaoApi-Regional
+      summary: Busca Regionais paginadas
+      parameters:
+        - name: Nome
+          in: query
+          schema:
+            type: string
+        - name: SecretariaGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: CodigoINEP
+          in: query
+          schema:
+            type: string
+        - name: CNPJ
+          in: query
+          schema:
+            type: string
+        - name: EstadoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Regional Paginada
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/RegionalViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegionalViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/RegionalViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Instituicao/api/Secretaria:
+    post:
+      tags:
+        - InstituicaoApi-Secretaria
+      summary: Cria uma secretaria
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+                - CNPJ
+                - CodigoINEP
+                - Nome
+              type: object
+              properties:
+                Guid:
+                  type: string
+                  format: uuid
+                Nome:
+                  type: string
+                CodigoINEP:
+                  type: string
+                CNPJ:
+                  type: string
+                Imagem:
+                  type: string
+                  format: binary
+                EstadoGuid:
+                  type: string
+                  format: uuid
+                EstadoId:
+                  type: integer
+                  format: int32
+                Contatos:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/CriarSecretariaContatosDTO'
+                Enderecos:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/CriarSecretariaEnderecosDTO'
+            encoding:
+              Guid:
+                style: form
+              Nome:
+                style: form
+              CodigoINEP:
+                style: form
+              CNPJ:
+                style: form
+              Imagem:
+                style: form
+              EstadoGuid:
+                style: form
+              EstadoId:
+                style: form
+              Contatos:
+                style: form
+              Enderecos:
+                style: form
+      responses:
+        '200':
+          description: Secretaria criada com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - InstituicaoApi-Secretaria
+      summary: Buscar e filtrar todos as secretarias
+      parameters:
+        - name: Guid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Nome
+          in: query
+          schema:
+            type: string
+        - name: CodigoINEP
+          in: query
+          schema:
+            type: string
+        - name: CNPJ
+          in: query
+          schema:
+            type: string
+        - name: Estado.Nome
+          in: query
+          schema:
+            type: string
+        - name: Estado.UF
+          in: query
+          schema:
+            type: string
+        - name: Estado.Escolas
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Escola'
+        - name: Estado.Regionais
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Regional'
+        - name: Estado.Secretarias
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Secretaria'
+        - name: Estado.Cidades
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Cidade'
+        - name: Estado.EstadoOfertasEnsino
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/EstadoOfertaEnsino'
+        - name: Estado.Guid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Estado.CriadoEm
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: Estado.AtualizadoEm
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: Estado.ExcluidoEm
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: Estado.CriadoPor
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Estado.AtualizadoPor
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Estado.ExcluidoPor
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Estado.Id
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: EstadoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: secretarias paginados
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/SecretariaCompletoViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecretariaCompletoViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/SecretariaCompletoViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Instituicao/api/Secretaria/{guid}':
+    put:
+      tags:
+        - InstituicaoApi-Secretaria
+      summary: Atualiza uma secretaria
+      parameters:
+        - name: guid
+          in: path
+          description: Guid de Secretaria
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+                - CNPJ
+                - CodigoINEP
+                - Nome
+              type: object
+              properties:
+                SecretariaGuid:
+                  type: string
+                  format: uuid
+                Nome:
+                  type: string
+                CodigoINEP:
+                  type: string
+                CNPJ:
+                  type: string
+                Imagem:
+                  type: string
+                  format: binary
+                Estado.Nome:
+                  type: string
+                Estado.UF:
+                  type: string
+                Estado.Escolas:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Escola'
+                Estado.Regionais:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Regional'
+                Estado.Secretarias:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Secretaria'
+                Estado.Cidades:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Cidade'
+                Estado.EstadoOfertasEnsino:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EstadoOfertaEnsino'
+                Estado.Guid:
+                  type: string
+                  format: uuid
+                Estado.CriadoEm:
+                  type: string
+                  format: date-time
+                Estado.AtualizadoEm:
+                  type: string
+                  format: date-time
+                Estado.ExcluidoEm:
+                  type: string
+                  format: date-time
+                Estado.CriadoPor:
+                  type: string
+                  format: uuid
+                Estado.AtualizadoPor:
+                  type: string
+                  format: uuid
+                Estado.ExcluidoPor:
+                  type: string
+                  format: uuid
+                Estado.Id:
+                  type: integer
+                  format: int32
+                EstadoId:
+                  type: integer
+                  format: int32
+                EstadoGuid:
+                  type: string
+                  format: uuid
+                Contatos:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EditarSecretariaContatosDTO'
+                Enderecos:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EditarSecretariaEnderecosDTO'
+            encoding:
+              SecretariaGuid:
+                style: form
+              Nome:
+                style: form
+              CodigoINEP:
+                style: form
+              CNPJ:
+                style: form
+              Imagem:
+                style: form
+              Estado.Nome:
+                style: form
+              Estado.UF:
+                style: form
+              Estado.Escolas:
+                style: form
+              Estado.Regionais:
+                style: form
+              Estado.Secretarias:
+                style: form
+              Estado.Cidades:
+                style: form
+              Estado.EstadoOfertasEnsino:
+                style: form
+              Estado.Guid:
+                style: form
+              Estado.CriadoEm:
+                style: form
+              Estado.AtualizadoEm:
+                style: form
+              Estado.ExcluidoEm:
+                style: form
+              Estado.CriadoPor:
+                style: form
+              Estado.AtualizadoPor:
+                style: form
+              Estado.ExcluidoPor:
+                style: form
+              Estado.Id:
+                style: form
+              EstadoId:
+                style: form
+              EstadoGuid:
+                style: form
+              Contatos:
+                style: form
+              Enderecos:
+                style: form
+      responses:
+        '200':
+          description: Secretaria atualizada
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    delete:
+      tags:
+        - InstituicaoApi-Secretaria
+      summary: Deletar uma secretaria
+      parameters:
+        - name: guid
+          in: path
+          description: Guid de secretaria
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Secretaria deletado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - InstituicaoApi-Secretaria
+      summary: Buscar secretarias por guid
+      parameters:
+        - name: guid
+          in: path
+          description: Guid de secretaria
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Modelo de secretaria
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/SecretariaCompletoViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecretariaCompletoViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/SecretariaCompletoViewModelApiResponse'
+        '204':
+          description: Modelo de secretaria não encontrada
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Instituicao/api/TipoContato:
+    post:
+      tags:
+        - InstituicaoApi-TipoContato
+      summary: Cria um tipo contato
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/CriarTipoContatoDTO'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarTipoContatoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CriarTipoContatoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CriarTipoContatoDTO'
+      responses:
+        '200':
+          description: Tipo contato criado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - InstituicaoApi-TipoContato
+      summary: Buscar e filtrar todos os contatos
+      parameters:
+        - name: Guid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: TipoContato
+          in: query
+          schema:
+            $ref: '#/components/schemas/Contato'
+        - name: Mascara
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Listar contatos
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TipoContatoViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TipoContatoViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TipoContatoViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Instituicao/api/TipoContato/{guid}':
+    put:
+      tags:
+        - InstituicaoApi-TipoContato
+      summary: Atualiza tipo contato
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do tipo contato
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/EditarTipoContatoDTO'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditarTipoContatoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/EditarTipoContatoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/EditarTipoContatoDTO'
+      responses:
+        '200':
+          description: Tipo contato atualizado
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    delete:
+      tags:
+        - InstituicaoApi-TipoContato
+      summary: Deletar um tipo contato
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do tipo contato
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Tipo contato deletado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - InstituicaoApi-TipoContato
+      summary: Buscar tipo contato por guid
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do tipo contato
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Tipo Contato
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TipoContatoViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TipoContatoViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TipoContatoViewModelApiResponse'
+        '204':
+          description: Tipo Contato não encontrado
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+components:
+  schemas:
+    ApiError:
+      type: object
+      properties:
+        key:
+          type: string
+          description: Tipo do erro
+          nullable: true
+        message:
+          type: string
+          description: Mensagem do erro
+          nullable: true
+      additionalProperties: false
+    BooleanApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: boolean
+          description: Conteúdo do retorno
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    Cidade:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        criadoEm:
+          type: string
+          format: date-time
+        atualizadoEm:
+          type: string
+          format: date-time
+          nullable: true
+        excluidoEm:
+          type: string
+          format: date-time
+          nullable: true
+        criadoPor:
+          type: string
+          format: uuid
+        atualizadoPor:
+          type: string
+          format: uuid
+          nullable: true
+        excluidoPor:
+          type: string
+          format: uuid
+          nullable: true
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        estado:
+          $ref: '#/components/schemas/Estado'
+        estadoId:
+          type: integer
+          format: int32
+          readOnly: true
+        codigoIBGE:
+          type: string
+          nullable: true
+        escolaEnderecos:
+          type: array
+          items:
+            $ref: '#/components/schemas/EscolaEndereco'
+          nullable: true
+          readOnly: true
+        regionalEnderecos:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegionalEndereco'
+          nullable: true
+          readOnly: true
+        secretariaEnderecos:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecretariaEndereco'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    CidadeViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        estadoGuid:
+          type: string
+          format: uuid
+        estado:
+          type: string
+          nullable: true
+        codigoIBGE:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CidadeViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/CidadeViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    CidadeViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/CidadeViewModel'
+          nullable: true
+      additionalProperties: false
+    CidadeViewModelPaginatedResultApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/CidadeViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    Contato:
+      enum:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+      type: integer
+      format: int32
+    CriarCidadeDTO:
+      required:
+        - nome
+      type: object
+      properties:
+        nome:
+          type: string
+          nullable: true
+        codigoIBGE:
+          type: string
+          nullable: true
+        estadoGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    CriarEscolaContatoDTO:
+      required:
+        - contato
+      type: object
+      properties:
+        tipoContatoGuid:
+          type: string
+          format: uuid
+        contato:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CriarEscolaEnderecoDTO:
+      required:
+        - bairro
+        - cep
+        - cidadeGuid
+        - logradouro
+        - numero
+        - tipo
+      type: object
+      properties:
+        tipo:
+          $ref: '#/components/schemas/TipoEndereco'
+        cep:
+          type: string
+          nullable: true
+        logradouro:
+          type: string
+          nullable: true
+        numero:
+          type: string
+          nullable: true
+        complemento:
+          type: string
+          nullable: true
+        bairro:
+          type: string
+          nullable: true
+        cidadeGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    CriarEscolaOfertaEnsinoDTO:
+      type: object
+      properties:
+        etapaEnsinoGuid:
+          type: string
+          format: uuid
+        modalidadeEnsinoGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    CriarEstadoDTO:
+      required:
+        - estado
+        - sigla
+      type: object
+      properties:
+        estadoGuid:
+          type: string
+          format: uuid
+        estado:
+          type: string
+          nullable: true
+        sigla:
+          type: string
+          nullable: true
+        ofertaEnsino:
+          type: array
+          items:
+            $ref: '#/components/schemas/CriarOfertaEnsinoDTO'
+          nullable: true
+      additionalProperties: false
+    CriarOfertaEnsinoDTO:
+      type: object
+      properties:
+        ofertaEnsinoGuid:
+          type: string
+          format: uuid
+        etapaEnsinoGuid:
+          type: string
+          format: uuid
+        modalidadeEnsinoGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    CriarRegionalContatoDTO:
+      required:
+        - contato
+      type: object
+      properties:
+        tipoContatoGuid:
+          type: string
+          format: uuid
+        contato:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CriarRegionalEnderecoDTO:
+      required:
+        - bairro
+        - cep
+        - cidadeGuid
+        - logradouro
+        - numero
+        - tipo
+      type: object
+      properties:
+        tipo:
+          $ref: '#/components/schemas/TipoEndereco'
+        cep:
+          type: string
+          nullable: true
+        logradouro:
+          type: string
+          nullable: true
+        numero:
+          type: string
+          nullable: true
+        complemento:
+          type: string
+          nullable: true
+        bairro:
+          type: string
+          nullable: true
+        cidadeGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    CriarRegionalSupervisorDTO:
+      type: object
+      properties:
+        supervisorGuid:
+          type: string
+          format: uuid
+        dataInicio:
+          type: string
+          format: date-time
+        dataFim:
+          type: string
+          format: date-time
+          nullable: true
+      additionalProperties: false
+    CriarSecretariaContatosDTO:
+      required:
+        - contato
+        - descricao
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        secretariaId:
+          type: integer
+          format: int32
+        tipoContatoId:
+          type: integer
+          format: int32
+        tipoContatoGuid:
+          type: string
+          format: uuid
+        contato:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CriarSecretariaEnderecosDTO:
+      required:
+        - bairro
+        - cep
+        - logradouro
+        - numero
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        secretariaId:
+          type: integer
+          format: int32
+        tipoEndereco:
+          $ref: '#/components/schemas/TipoEndereco'
+        cep:
+          type: string
+          nullable: true
+        logradouro:
+          type: string
+          nullable: true
+        numero:
+          type: string
+          nullable: true
+        complemento:
+          type: string
+          nullable: true
+        bairro:
+          type: string
+          nullable: true
+        cidadeGuid:
+          type: string
+          format: uuid
+        cidade:
+          $ref: '#/components/schemas/Cidade'
+        estado:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CriarTipoContatoDTO:
+      required:
+        - mascara
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        tipoContato:
+          $ref: '#/components/schemas/Contato'
+        mascara:
+          type: string
+          nullable: true
+      additionalProperties: false
+    EditarCidadeDTO:
+      required:
+        - nome
+      type: object
+      properties:
+        cidadeGuid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        estadoGuid:
+          type: string
+          format: uuid
+        codigoIBGE:
+          type: string
+          nullable: true
+      additionalProperties: false
+    EditarEscolaContatoDTO:
+      required:
+        - contato
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+          nullable: true
+        tipoContatoGuid:
+          type: string
+          format: uuid
+        contato:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+      additionalProperties: false
+    EditarEscolaEnderecoDTO:
+      required:
+        - bairro
+        - cep
+        - cidadeGuid
+        - logradouro
+        - numero
+        - tipo
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+          nullable: true
+        tipo:
+          $ref: '#/components/schemas/TipoEndereco'
+        cep:
+          type: string
+          nullable: true
+        logradouro:
+          type: string
+          nullable: true
+        numero:
+          type: string
+          nullable: true
+        complemento:
+          type: string
+          nullable: true
+        bairro:
+          type: string
+          nullable: true
+        cidadeGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    EditarEscolaOfertaEnsinoDTO:
+      type: object
+      properties:
+        etapaEnsinoGuid:
+          type: string
+          format: uuid
+        modalidadeEnsinoGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    EditarEstadoDTO:
+      required:
+        - estado
+        - sigla
+      type: object
+      properties:
+        estadoGuid:
+          type: string
+          format: uuid
+        estado:
+          type: string
+          nullable: true
+        sigla:
+          type: string
+          nullable: true
+        ofertaEnsino:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditarOfertaEnsinoDTO'
+          nullable: true
+      additionalProperties: false
+    EditarOfertaEnsinoDTO:
+      type: object
+      properties:
+        ofertaEnsinoGuid:
+          type: string
+          format: uuid
+        etapaEnsinoGuid:
+          type: string
+          format: uuid
+        modalidadeEnsinoGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    EditarRegionalContatoDTO:
+      type: object
+      properties:
+        contatoGuid:
+          type: string
+          format: uuid
+          nullable: true
+        tipoContatoGuid:
+          type: string
+          format: uuid
+        contato:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+      additionalProperties: false
+    EditarRegionalEnderecoDTO:
+      type: object
+      properties:
+        enderecoGuid:
+          type: string
+          format: uuid
+          nullable: true
+        tipoEndereco:
+          $ref: '#/components/schemas/TipoEndereco'
+        logradouro:
+          type: string
+          nullable: true
+        numero:
+          type: string
+          nullable: true
+        complemento:
+          type: string
+          nullable: true
+        bairro:
+          type: string
+          nullable: true
+        cep:
+          type: string
+          nullable: true
+        cidadeGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    EditarRegionalSupervisorDTO:
+      type: object
+      properties:
+        supervisorGuid:
+          type: string
+          format: uuid
+        dataInicio:
+          type: string
+          format: date-time
+        dataFim:
+          type: string
+          format: date-time
+          nullable: true
+        operacao:
+          $ref: '#/components/schemas/Operacoes'
+        escolasSupervisionadas:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditarRegionalSupervisorEscolaSupervisionadaDTO'
+          nullable: true
+      additionalProperties: false
+    EditarRegionalSupervisorEscolaSupervisionadaDTO:
+      type: object
+      properties:
+        escolaGuid:
+          type: string
+          format: uuid
+        dataInicio:
+          type: string
+          format: date-time
+        dataFim:
+          type: string
+          format: date-time
+          nullable: true
+        operacao:
+          $ref: '#/components/schemas/Operacoes'
+      additionalProperties: false
+    EditarSecretariaContatosDTO:
+      required:
+        - contato
+        - descricao
+      type: object
+      properties:
+        contatosGuid:
+          type: string
+          format: uuid
+          nullable: true
+        secretariaId:
+          type: integer
+          format: int32
+        tipoContatoId:
+          type: integer
+          format: int32
+        tipoContatoGuid:
+          type: string
+          format: uuid
+        contato:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+      additionalProperties: false
+    EditarSecretariaEnderecosDTO:
+      required:
+        - bairro
+        - cep
+        - logradouro
+        - numero
+      type: object
+      properties:
+        enderecoGuid:
+          type: string
+          format: uuid
+          nullable: true
+        secretariaId:
+          type: integer
+          format: int32
+        tipoEndereco:
+          $ref: '#/components/schemas/TipoEndereco'
+        cep:
+          type: string
+          nullable: true
+        logradouro:
+          type: string
+          nullable: true
+        numero:
+          type: string
+          nullable: true
+        complemento:
+          type: string
+          nullable: true
+        bairro:
+          type: string
+          nullable: true
+        cidadeId:
+          type: integer
+          format: int32
+        cidadeGuid:
+          type: string
+          format: uuid
+        cidade:
+          type: string
+          nullable: true
+        estado:
+          type: string
+          nullable: true
+      additionalProperties: false
+    EditarTipoContatoDTO:
+      required:
+        - mascara
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        tipoContato:
+          $ref: '#/components/schemas/Contato'
+        mascara:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Escola:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        criadoEm:
+          type: string
+          format: date-time
+        atualizadoEm:
+          type: string
+          format: date-time
+          nullable: true
+        excluidoEm:
+          type: string
+          format: date-time
+          nullable: true
+        criadoPor:
+          type: string
+          format: uuid
+        atualizadoPor:
+          type: string
+          format: uuid
+          nullable: true
+        excluidoPor:
+          type: string
+          format: uuid
+          nullable: true
+        guid:
+          type: string
+          format: uuid
+        regionalId:
+          type: integer
+          format: int32
+          readOnly: true
+        regional:
+          $ref: '#/components/schemas/Regional'
+        nome:
+          type: string
+          nullable: true
+        codigoINEP:
+          type: string
+          nullable: true
+        cnpj:
+          type: string
+          nullable: true
+        imagemUrl:
+          type: string
+          nullable: true
+        estado:
+          $ref: '#/components/schemas/Estado'
+        estadoId:
+          type: integer
+          format: int32
+          readOnly: true
+        supervisores:
+          type: array
+          items:
+            $ref: '#/components/schemas/SupervisorEscola'
+          nullable: true
+          readOnly: true
+        escolaEnderecos:
+          type: array
+          items:
+            $ref: '#/components/schemas/EscolaEndereco'
+          nullable: true
+          readOnly: true
+        escolaContatos:
+          type: array
+          items:
+            $ref: '#/components/schemas/EscolaContato'
+          nullable: true
+          readOnly: true
+        escolaOfertasEnsino:
+          type: array
+          items:
+            $ref: '#/components/schemas/EscolaOfertaEnsino'
+          nullable: true
+          readOnly: true
+        localidade:
+          $ref: '#/components/schemas/Localidade'
+      additionalProperties: false
+    EscolaCompletoViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        regional:
+          $ref: '#/components/schemas/EscolaRegionalCompletoViewModel'
+        codigoINEP:
+          type: string
+          nullable: true
+        cnpj:
+          type: string
+          nullable: true
+        imagemUrl:
+          type: string
+          nullable: true
+        estado:
+          $ref: '#/components/schemas/EscolaEstadoCompletoViewModel'
+        escolaEnderecos:
+          type: array
+          items:
+            $ref: '#/components/schemas/EscolaEnderecoCompletoViewModel'
+          nullable: true
+        escolaContatos:
+          type: array
+          items:
+            $ref: '#/components/schemas/EscolaContatoCompletoViewModel'
+          nullable: true
+        escolaOfertasEnsinos:
+          type: array
+          items:
+            $ref: '#/components/schemas/EscolaOfertasEnsinoViewModel'
+          nullable: true
+      additionalProperties: false
+    EscolaCompletoViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/EscolaCompletoViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    EscolaContato:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        criadoEm:
+          type: string
+          format: date-time
+        atualizadoEm:
+          type: string
+          format: date-time
+          nullable: true
+        excluidoEm:
+          type: string
+          format: date-time
+          nullable: true
+        criadoPor:
+          type: string
+          format: uuid
+        atualizadoPor:
+          type: string
+          format: uuid
+          nullable: true
+        excluidoPor:
+          type: string
+          format: uuid
+          nullable: true
+        guid:
+          type: string
+          format: uuid
+        escolaId:
+          type: integer
+          format: int32
+          readOnly: true
+        escola:
+          $ref: '#/components/schemas/Escola'
+        tipoContatoId:
+          type: integer
+          format: int32
+          readOnly: true
+        tipoContato:
+          $ref: '#/components/schemas/TipoContato'
+        contato:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+      additionalProperties: false
+    EscolaContatoCompletoViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        tipoContato:
+          $ref: '#/components/schemas/EscolaTipoContatoViewModel'
+        contato:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+      additionalProperties: false
+    EscolaEndereco:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        criadoEm:
+          type: string
+          format: date-time
+        atualizadoEm:
+          type: string
+          format: date-time
+          nullable: true
+        excluidoEm:
+          type: string
+          format: date-time
+          nullable: true
+        criadoPor:
+          type: string
+          format: uuid
+        atualizadoPor:
+          type: string
+          format: uuid
+          nullable: true
+        excluidoPor:
+          type: string
+          format: uuid
+          nullable: true
+        guid:
+          type: string
+          format: uuid
+        tipo:
+          $ref: '#/components/schemas/TipoEndereco'
+        cep:
+          type: string
+          nullable: true
+        logradouro:
+          type: string
+          nullable: true
+        numero:
+          type: string
+          nullable: true
+        complemento:
+          type: string
+          nullable: true
+        bairro:
+          type: string
+          nullable: true
+        escola:
+          $ref: '#/components/schemas/Escola'
+        cidade:
+          $ref: '#/components/schemas/Cidade'
+        cidadeId:
+          type: integer
+          format: int32
+          readOnly: true
+        escolaId:
+          type: integer
+          format: int32
+          readOnly: true
+      additionalProperties: false
+    EscolaEnderecoCidadeViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        codigoIBGE:
+          type: string
+          nullable: true
+        estado:
+          $ref: '#/components/schemas/EscolaEstadoCompletoViewModel'
+      additionalProperties: false
+    EscolaEnderecoCompletoViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        tipo:
+          $ref: '#/components/schemas/TipoEndereco'
+        cep:
+          type: string
+          nullable: true
+        logradouro:
+          type: string
+          nullable: true
+        numero:
+          type: string
+          nullable: true
+        complemento:
+          type: string
+          nullable: true
+        bairro:
+          type: string
+          nullable: true
+        cidade:
+          $ref: '#/components/schemas/EscolaEnderecoCidadeViewModel'
+      additionalProperties: false
+    EscolaEstadoCompletoViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        uf:
+          type: string
+          nullable: true
+      additionalProperties: false
+    EscolaOfertaEnsino:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        criadoEm:
+          type: string
+          format: date-time
+        atualizadoEm:
+          type: string
+          format: date-time
+          nullable: true
+        excluidoEm:
+          type: string
+          format: date-time
+          nullable: true
+        criadoPor:
+          type: string
+          format: uuid
+        atualizadoPor:
+          type: string
+          format: uuid
+          nullable: true
+        excluidoPor:
+          type: string
+          format: uuid
+          nullable: true
+        guid:
+          type: string
+          format: uuid
+        escolaId:
+          type: integer
+          format: int32
+          readOnly: true
+        escola:
+          $ref: '#/components/schemas/Escola'
+        etapaEnsinoGuid:
+          type: string
+          format: uuid
+        modalidadeEnsinoGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    EscolaOfertasEnsinoViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        etapaEnsinoGuid:
+          type: string
+          format: uuid
+        modalidadeEnsinoGuid:
+          type: string
+          format: uuid
+        etapaEnsino:
+          type: string
+          nullable: true
+        modalidadeEnsino:
+          type: string
+          nullable: true
+      additionalProperties: false
+    EscolaRegionalCompletoViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        codigoINEP:
+          type: string
+          nullable: true
+      additionalProperties: false
+    EscolaTipoContatoViewModel:
+      type: object
+      properties:
+        mascara:
+          type: string
+          nullable: true
+        tipo:
+          $ref: '#/components/schemas/Contato'
+      additionalProperties: false
+    EscolaViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        regionalGuid:
+          type: string
+          format: uuid
+        regionalNome:
+          type: string
+          nullable: true
+        regionalINEP:
+          type: string
+          nullable: true
+        nome:
+          type: string
+          nullable: true
+        codigoINEP:
+          type: string
+          nullable: true
+        cnpj:
+          type: string
+          nullable: true
+        imagemUrl:
+          type: string
+          nullable: true
+        estadoGuid:
+          type: string
+          format: uuid
+        estado:
+          type: string
+          nullable: true
+        localidade:
+          $ref: '#/components/schemas/Localidade'
+      additionalProperties: false
+    EscolaViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/EscolaViewModel'
+          nullable: true
+      additionalProperties: false
+    EscolaViewModelPaginatedResultApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/EscolaViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    Estado:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        criadoEm:
+          type: string
+          format: date-time
+        atualizadoEm:
+          type: string
+          format: date-time
+          nullable: true
+        excluidoEm:
+          type: string
+          format: date-time
+          nullable: true
+        criadoPor:
+          type: string
+          format: uuid
+        atualizadoPor:
+          type: string
+          format: uuid
+          nullable: true
+        excluidoPor:
+          type: string
+          format: uuid
+          nullable: true
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        uf:
+          type: string
+          nullable: true
+        escolas:
+          type: array
+          items:
+            $ref: '#/components/schemas/Escola'
+          nullable: true
+          readOnly: true
+        regionais:
+          type: array
+          items:
+            $ref: '#/components/schemas/Regional'
+          nullable: true
+          readOnly: true
+        secretarias:
+          type: array
+          items:
+            $ref: '#/components/schemas/Secretaria'
+          nullable: true
+          readOnly: true
+        cidades:
+          type: array
+          items:
+            $ref: '#/components/schemas/Cidade'
+          nullable: true
+          readOnly: true
+        estadoOfertasEnsino:
+          type: array
+          items:
+            $ref: '#/components/schemas/EstadoOfertaEnsino'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    EstadoOfertaEnsino:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        criadoEm:
+          type: string
+          format: date-time
+        atualizadoEm:
+          type: string
+          format: date-time
+          nullable: true
+        excluidoEm:
+          type: string
+          format: date-time
+          nullable: true
+        criadoPor:
+          type: string
+          format: uuid
+        atualizadoPor:
+          type: string
+          format: uuid
+          nullable: true
+        excluidoPor:
+          type: string
+          format: uuid
+          nullable: true
+        guid:
+          type: string
+          format: uuid
+        estadoId:
+          type: integer
+          format: int32
+          readOnly: true
+        estado:
+          $ref: '#/components/schemas/Estado'
+        etapaEnsinoGuid:
+          type: string
+          format: uuid
+        modalidadeEnsinoGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    EstadoViewModel:
+      required:
+        - estado
+        - sigla
+      type: object
+      properties:
+        estadoGuid:
+          type: string
+          format: uuid
+        estado:
+          type: string
+          nullable: true
+        sigla:
+          type: string
+          nullable: true
+      additionalProperties: false
+    EstadoViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/EstadoViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    EstadoViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/EstadoViewModel'
+          nullable: true
+      additionalProperties: false
+    EstadoViewModelPaginatedResultApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/EstadoViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    GuidApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: string
+          description: Conteúdo do retorno
+          format: uuid
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    InstituicaoParaBuscar:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+      additionalProperties: false
+    InstituicaoParaChecar:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+      additionalProperties: false
+    InstituicaoViewModel:
+      required:
+        - inep
+        - nome
+        - tipoInstituicao
+      type: object
+      properties:
+        instituicaoGuid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        inep:
+          type: string
+          nullable: true
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+      additionalProperties: false
+    InstituicaoViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/InstituicaoViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    InstituicaoViewModelListApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/InstituicaoViewModel'
+          description: Conteúdo do retorno
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    Instituicoes:
+      enum:
+        - 1
+        - 2
+        - 3
+      type: integer
+      format: int32
+    Localidade:
+      enum:
+        - 1
+        - 2
+        - 3
+        - 4
+      type: integer
+      format: int32
+    ObjectApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          description: Conteúdo do retorno
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    Operacoes:
+      enum:
+        - 1
+        - 2
+        - 3
+      type: integer
+      format: int32
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+      additionalProperties: { }
+    Regional:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        criadoEm:
+          type: string
+          format: date-time
+        atualizadoEm:
+          type: string
+          format: date-time
+          nullable: true
+        excluidoEm:
+          type: string
+          format: date-time
+          nullable: true
+        criadoPor:
+          type: string
+          format: uuid
+        atualizadoPor:
+          type: string
+          format: uuid
+          nullable: true
+        excluidoPor:
+          type: string
+          format: uuid
+          nullable: true
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        codigoINEP:
+          type: string
+          nullable: true
+        cnpj:
+          type: string
+          nullable: true
+        imagemUrl:
+          type: string
+          nullable: true
+        secretariaId:
+          type: integer
+          format: int32
+          readOnly: true
+        estadoId:
+          type: integer
+          format: int32
+          readOnly: true
+        estado:
+          $ref: '#/components/schemas/Estado'
+        escolas:
+          type: array
+          items:
+            $ref: '#/components/schemas/Escola'
+          nullable: true
+          readOnly: true
+        regionalEnderecos:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegionalEndereco'
+          nullable: true
+          readOnly: true
+        regionalContatos:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegionalContato'
+          nullable: true
+          readOnly: true
+        supervisores:
+          type: array
+          items:
+            $ref: '#/components/schemas/Supervisor'
+          nullable: true
+          readOnly: true
+        secretaria:
+          $ref: '#/components/schemas/Secretaria'
+      additionalProperties: false
+    RegionalCompletoViewModel:
+      type: object
+      properties:
+        regionalGuid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        codigoINEP:
+          type: string
+          nullable: true
+        cnpj:
+          type: string
+          nullable: true
+        imagemUrl:
+          type: string
+          nullable: true
+        estado:
+          $ref: '#/components/schemas/RegionalEstadoCompletoViewModel'
+        regionalEnderecos:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegionalEnderecoViewModel'
+          nullable: true
+        regionalContatos:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegionalContatoViewModel'
+          nullable: true
+        secretariaDados:
+          $ref: '#/components/schemas/SecretariaViewModel'
+      additionalProperties: false
+    RegionalCompletoViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/RegionalCompletoViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    RegionalContato:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        criadoEm:
+          type: string
+          format: date-time
+        atualizadoEm:
+          type: string
+          format: date-time
+          nullable: true
+        excluidoEm:
+          type: string
+          format: date-time
+          nullable: true
+        criadoPor:
+          type: string
+          format: uuid
+        atualizadoPor:
+          type: string
+          format: uuid
+          nullable: true
+        excluidoPor:
+          type: string
+          format: uuid
+          nullable: true
+        guid:
+          type: string
+          format: uuid
+        regionalId:
+          type: integer
+          format: int32
+          readOnly: true
+        regional:
+          $ref: '#/components/schemas/Regional'
+        tipoContatoId:
+          type: integer
+          format: int32
+          readOnly: true
+        tipoContato:
+          $ref: '#/components/schemas/TipoContato'
+        contato:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+      additionalProperties: false
+    RegionalContatoViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        tipoContatoId:
+          type: integer
+          format: int32
+        tipoContato:
+          $ref: '#/components/schemas/RegionalTipoContatoViewModel'
+        contato:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+      additionalProperties: false
+    RegionalEndereco:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        criadoEm:
+          type: string
+          format: date-time
+        atualizadoEm:
+          type: string
+          format: date-time
+          nullable: true
+        excluidoEm:
+          type: string
+          format: date-time
+          nullable: true
+        criadoPor:
+          type: string
+          format: uuid
+        atualizadoPor:
+          type: string
+          format: uuid
+          nullable: true
+        excluidoPor:
+          type: string
+          format: uuid
+          nullable: true
+        guid:
+          type: string
+          format: uuid
+        tipo:
+          $ref: '#/components/schemas/TipoEndereco'
+        cep:
+          type: string
+          nullable: true
+        logradouro:
+          type: string
+          nullable: true
+        numero:
+          type: string
+          nullable: true
+        complemento:
+          type: string
+          nullable: true
+        bairro:
+          type: string
+          nullable: true
+        regional:
+          $ref: '#/components/schemas/Regional'
+        cidade:
+          $ref: '#/components/schemas/Cidade'
+        cidadeId:
+          type: integer
+          format: int32
+          readOnly: true
+        regionalId:
+          type: integer
+          format: int32
+          readOnly: true
+      additionalProperties: false
+    RegionalEnderecoCidadeViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        codigoIBGE:
+          type: string
+          nullable: true
+        estado:
+          $ref: '#/components/schemas/RegionalEstadoCompletoViewModel'
+      additionalProperties: false
+    RegionalEnderecoViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        logradouro:
+          type: string
+          nullable: true
+        numero:
+          type: string
+          nullable: true
+        complemento:
+          type: string
+          nullable: true
+        bairro:
+          type: string
+          nullable: true
+        cep:
+          type: string
+          nullable: true
+        cidade:
+          $ref: '#/components/schemas/RegionalEnderecoCidadeViewModel'
+        estado:
+          type: string
+          nullable: true
+        tipo:
+          $ref: '#/components/schemas/TipoEndereco'
+      additionalProperties: false
+    RegionalEstadoCompletoViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        uf:
+          type: string
+          nullable: true
+      additionalProperties: false
+    RegionalTipoContatoViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        tipo:
+          $ref: '#/components/schemas/Contato'
+        mascara:
+          type: string
+          nullable: true
+      additionalProperties: false
+    RegionalViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        codigoINEP:
+          type: string
+          nullable: true
+        cnpj:
+          type: string
+          nullable: true
+        imagemUrl:
+          type: string
+          nullable: true
+        estado:
+          type: string
+          nullable: true
+      additionalProperties: false
+    RegionalViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegionalViewModel'
+          nullable: true
+      additionalProperties: false
+    RegionalViewModelPaginatedResultApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/RegionalViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    Secretaria:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        criadoEm:
+          type: string
+          format: date-time
+        atualizadoEm:
+          type: string
+          format: date-time
+          nullable: true
+        excluidoEm:
+          type: string
+          format: date-time
+          nullable: true
+        criadoPor:
+          type: string
+          format: uuid
+        atualizadoPor:
+          type: string
+          format: uuid
+          nullable: true
+        excluidoPor:
+          type: string
+          format: uuid
+          nullable: true
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        codigoINEP:
+          type: string
+          nullable: true
+        cnpj:
+          type: string
+          nullable: true
+        imagemUrl:
+          type: string
+          nullable: true
+        estado:
+          $ref: '#/components/schemas/Estado'
+        regionais:
+          type: array
+          items:
+            $ref: '#/components/schemas/Regional'
+          nullable: true
+          readOnly: true
+        secretariaEnderecos:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecretariaEndereco'
+          nullable: true
+          readOnly: true
+        secretariaContatos:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecretariaContato'
+          nullable: true
+          readOnly: true
+        estadoId:
+          type: integer
+          format: int32
+          readOnly: true
+        estadoGuid:
+          type: string
+          format: uuid
+          readOnly: true
+      additionalProperties: false
+    SecretariaCompletoViewModel:
+      required:
+        - cnpj
+        - codigoINEP
+        - imagemURL
+        - nome
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        codigoINEP:
+          type: string
+          nullable: true
+        cnpj:
+          type: string
+          nullable: true
+        imagemURL:
+          type: string
+          nullable: true
+        estado:
+          type: string
+          nullable: true
+        estadoGuid:
+          type: string
+          format: uuid
+        contatos:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecretariaContatosViewModel'
+          nullable: true
+        enderecos:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecretariaEnderecosViewlModel'
+          nullable: true
+        regionais:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecretariaRegionalViewModel'
+          nullable: true
+      additionalProperties: false
+    SecretariaCompletoViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/SecretariaCompletoViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    SecretariaCompletoViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecretariaCompletoViewModel'
+          nullable: true
+      additionalProperties: false
+    SecretariaCompletoViewModelPaginatedResultApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/SecretariaCompletoViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    SecretariaContato:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        criadoEm:
+          type: string
+          format: date-time
+        atualizadoEm:
+          type: string
+          format: date-time
+          nullable: true
+        excluidoEm:
+          type: string
+          format: date-time
+          nullable: true
+        criadoPor:
+          type: string
+          format: uuid
+        atualizadoPor:
+          type: string
+          format: uuid
+          nullable: true
+        excluidoPor:
+          type: string
+          format: uuid
+          nullable: true
+        guid:
+          type: string
+          format: uuid
+        secretariaId:
+          type: integer
+          format: int32
+          readOnly: true
+        secretaria:
+          $ref: '#/components/schemas/Secretaria'
+        tipoContatoId:
+          type: integer
+          format: int32
+          readOnly: true
+        tipoContato:
+          $ref: '#/components/schemas/TipoContato'
+        contato:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+      additionalProperties: false
+    SecretariaContatosViewModel:
+      required:
+        - contato
+        - descricao
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        secretariaId:
+          type: integer
+          format: int32
+        tipoContato:
+          $ref: '#/components/schemas/SecretariaTipoContatoViewModel'
+        contato:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+      additionalProperties: false
+    SecretariaEndereco:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        criadoEm:
+          type: string
+          format: date-time
+        atualizadoEm:
+          type: string
+          format: date-time
+          nullable: true
+        excluidoEm:
+          type: string
+          format: date-time
+          nullable: true
+        criadoPor:
+          type: string
+          format: uuid
+        atualizadoPor:
+          type: string
+          format: uuid
+          nullable: true
+        excluidoPor:
+          type: string
+          format: uuid
+          nullable: true
+        guid:
+          type: string
+          format: uuid
+        tipo:
+          $ref: '#/components/schemas/TipoEndereco'
+        cep:
+          type: string
+          nullable: true
+        logradouro:
+          type: string
+          nullable: true
+        numero:
+          type: string
+          nullable: true
+        complemento:
+          type: string
+          nullable: true
+        bairro:
+          type: string
+          nullable: true
+        secretaria:
+          $ref: '#/components/schemas/Secretaria'
+        secretariaId:
+          type: integer
+          format: int32
+          readOnly: true
+        cidade:
+          $ref: '#/components/schemas/Cidade'
+        cidadeId:
+          type: integer
+          format: int32
+          readOnly: true
+      additionalProperties: false
+    SecretariaEnderecoCidadeViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        codigoIBGE:
+          type: string
+          nullable: true
+        estado:
+          $ref: '#/components/schemas/SecretariaEstadoCompletoViewModel'
+      additionalProperties: false
+    SecretariaEnderecosViewlModel:
+      required:
+        - bairro
+        - cep
+        - logradouro
+        - numero
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        cep:
+          type: string
+          nullable: true
+        logradouro:
+          type: string
+          nullable: true
+        numero:
+          type: string
+          nullable: true
+        complemento:
+          type: string
+          nullable: true
+        bairro:
+          type: string
+          nullable: true
+        cidadeGuid:
+          type: string
+          format: uuid
+        cidade:
+          $ref: '#/components/schemas/SecretariaEnderecoCidadeViewModel'
+        estado:
+          type: string
+          nullable: true
+      additionalProperties: false
+    SecretariaEstadoCompletoViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        uf:
+          type: string
+          nullable: true
+      additionalProperties: false
+    SecretariaRegionalViewModel:
+      required:
+        - inep
+        - nome
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        inep:
+          type: string
+          nullable: true
+      additionalProperties: false
+    SecretariaTipoContatoViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        tipo:
+          $ref: '#/components/schemas/Contato'
+        mascara:
+          type: string
+          nullable: true
+      additionalProperties: false
+    SecretariaViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        estado:
+          type: string
+          nullable: true
+        codigoINEP:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Supervisor:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        criadoEm:
+          type: string
+          format: date-time
+        atualizadoEm:
+          type: string
+          format: date-time
+          nullable: true
+        excluidoEm:
+          type: string
+          format: date-time
+          nullable: true
+        criadoPor:
+          type: string
+          format: uuid
+        atualizadoPor:
+          type: string
+          format: uuid
+          nullable: true
+        excluidoPor:
+          type: string
+          format: uuid
+          nullable: true
+        guid:
+          type: string
+          format: uuid
+        regional:
+          $ref: '#/components/schemas/Regional'
+        regionalId:
+          type: integer
+          format: int32
+          readOnly: true
+        supervisorGuid:
+          type: string
+          format: uuid
+        dataInicio:
+          type: string
+          format: date-time
+        dataFim:
+          type: string
+          format: date-time
+          nullable: true
+        escolasSupervisionadas:
+          type: array
+          items:
+            $ref: '#/components/schemas/SupervisorEscola'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    SupervisorEscola:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        criadoEm:
+          type: string
+          format: date-time
+        atualizadoEm:
+          type: string
+          format: date-time
+          nullable: true
+        excluidoEm:
+          type: string
+          format: date-time
+          nullable: true
+        criadoPor:
+          type: string
+          format: uuid
+        atualizadoPor:
+          type: string
+          format: uuid
+          nullable: true
+        excluidoPor:
+          type: string
+          format: uuid
+          nullable: true
+        guid:
+          type: string
+          format: uuid
+        supervisor:
+          $ref: '#/components/schemas/Supervisor'
+        supervisorId:
+          type: integer
+          format: int32
+          readOnly: true
+        escola:
+          $ref: '#/components/schemas/Escola'
+        escolaId:
+          type: integer
+          format: int32
+          readOnly: true
+        dataInicio:
+          type: string
+          format: date-time
+        dataFim:
+          type: string
+          format: date-time
+          nullable: true
+      additionalProperties: false
+    TipoContato:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        criadoEm:
+          type: string
+          format: date-time
+        atualizadoEm:
+          type: string
+          format: date-time
+          nullable: true
+        excluidoEm:
+          type: string
+          format: date-time
+          nullable: true
+        criadoPor:
+          type: string
+          format: uuid
+        atualizadoPor:
+          type: string
+          format: uuid
+          nullable: true
+        excluidoPor:
+          type: string
+          format: uuid
+          nullable: true
+        guid:
+          type: string
+          format: uuid
+        mascara:
+          type: string
+          nullable: true
+        tipo:
+          $ref: '#/components/schemas/Contato'
+        escolaContatos:
+          type: array
+          items:
+            $ref: '#/components/schemas/EscolaContato'
+          nullable: true
+          readOnly: true
+        regionalContatos:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegionalContato'
+          nullable: true
+          readOnly: true
+        secretariaContatos:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecretariaContato'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    TipoContatoViewModel:
+      required:
+        - mascara
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+          nullable: true
+        tipoContato:
+          $ref: '#/components/schemas/Contato'
+        mascara:
+          type: string
+          nullable: true
+      additionalProperties: false
+    TipoContatoViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/TipoContatoViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    TipoContatoViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/TipoContatoViewModel'
+          nullable: true
+      additionalProperties: false
+    TipoContatoViewModelPaginatedResultApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/TipoContatoViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    TipoEndereco:
+      enum:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+      type: integer
+      format: int32

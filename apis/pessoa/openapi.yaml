@@ -1,0 +1,1859 @@
+openapi: 3.0.1
+info:
+  title: PessoaApi
+  description: Api da Pessoa SIGAE OPEN SOURCE
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: v1
+  x-logo:
+    url: logo.png
+    altText: Instituto Unibanco SIGAE
+paths:
+  /Pessoa/api/Cargo:
+    post:
+      tags:
+        - PessoaApi-Cargo
+      summary: Cria um cargo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarCargoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CriarCargoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CriarCargoDTO'
+      responses:
+        '200':
+          description: Cargo criado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - PessoaApi-Cargo
+      summary: Buscar e filtrar todos os cargos
+      parameters:
+        - name: EstadoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Nome
+          in: query
+          schema:
+            type: string
+        - name: Descricao
+          in: query
+          schema:
+            type: string
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Cargos paginados
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CargoViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CargoViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CargoViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Pessoa/api/Cargo/{guid}':
+    delete:
+      tags:
+        - PessoaApi-Cargo
+      summary: Deletar um cargo
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do cargo
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Cargo deletado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    put:
+      tags:
+        - PessoaApi-Cargo
+      summary: Atualiza cargo
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do cargo
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditarCargoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/EditarCargoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/EditarCargoDTO'
+      responses:
+        '200':
+          description: Cargo atualizado
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - PessoaApi-Cargo
+      summary: Buscar cargo por guid
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do cargo
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Cargo
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/CargoViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CargoViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/CargoViewModelApiResponse'
+        '204':
+          description: Cargo não encontrado
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Pessoa/api/Pessoa:
+    post:
+      tags:
+        - PessoaApi-Pessoa
+      summary: Cria uma pessoa
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+                - CPF
+                - Email
+                - Nome
+              type: object
+              properties:
+                Nome:
+                  type: string
+                NomeSocial:
+                  type: string
+                CPF:
+                  type: string
+                DataNascimento:
+                  type: string
+                  format: date-time
+                Imagem:
+                  type: string
+                  format: binary
+                Sexo:
+                  $ref: '#/components/schemas/Sexo'
+                Email:
+                  type: string
+                Contatos:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/CriarPessoaContatoDTO'
+                Enderecos:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/CriarPessoaEnderecoDTO'
+                Cargos:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/CriarPessoaCargoDTO'
+            encoding:
+              Nome:
+                style: form
+              NomeSocial:
+                style: form
+              CPF:
+                style: form
+              DataNascimento:
+                style: form
+              Imagem:
+                style: form
+              Sexo:
+                style: form
+              Email:
+                style: form
+              Contatos:
+                style: form
+              Enderecos:
+                style: form
+              Cargos:
+                style: form
+      responses:
+        '200':
+          description: Pessoa criada com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - PessoaApi-Pessoa
+      summary: Buscar e filtrar todas as pessoas
+      parameters:
+        - name: Nome
+          in: query
+          schema:
+            type: string
+        - name: Cpf
+          in: query
+          schema:
+            type: string
+        - name: Sexo
+          in: query
+          schema:
+            $ref: '#/components/schemas/Sexo'
+        - name: CidadeGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: EstadoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: InstituicaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: CargoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: TipoInstituicao
+          in: query
+          schema:
+            $ref: '#/components/schemas/Instituicoes'
+        - name: GrupoGestor
+          in: query
+          schema:
+            type: boolean
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Pessoas paginadas
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PessoaViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PessoaViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PessoaViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Pessoa/api/Pessoa/{guid}':
+    put:
+      tags:
+        - PessoaApi-Pessoa
+      summary: Atualiza pessoa
+      parameters:
+        - name: guid
+          in: path
+          description: Guid da pessoa
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+                - CPF
+                - Nome
+              type: object
+              properties:
+                Nome:
+                  type: string
+                NomeSocial:
+                  type: string
+                CPF:
+                  type: string
+                DataNascimento:
+                  type: string
+                  format: date-time
+                Imagem:
+                  type: string
+                  format: binary
+                RemoverImagem:
+                  type: boolean
+                Sexo:
+                  $ref: '#/components/schemas/Sexo'
+                AssinouTermoAceite:
+                  type: boolean
+                AutorizouReceberEmails:
+                  type: boolean
+                Contatos:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EditarPessoaContatoDTO'
+                Enderecos:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EditarPessoaEnderecoDTO'
+                Cargos:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EditarPessoaCargoDTO'
+            encoding:
+              Nome:
+                style: form
+              NomeSocial:
+                style: form
+              CPF:
+                style: form
+              DataNascimento:
+                style: form
+              Imagem:
+                style: form
+              RemoverImagem:
+                style: form
+              Sexo:
+                style: form
+              AssinouTermoAceite:
+                style: form
+              AutorizouReceberEmails:
+                style: form
+              Contatos:
+                style: form
+              Enderecos:
+                style: form
+              Cargos:
+                style: form
+      responses:
+        '200':
+          description: Pessoa atualizada
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    delete:
+      tags:
+        - PessoaApi-Pessoa
+      summary: Deletar uma pessoa
+      parameters:
+        - name: guid
+          in: path
+          description: Guid da pessoa
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Pessoa deletada com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - PessoaApi-Pessoa
+      summary: Buscar pessoa por guid
+      parameters:
+        - name: guid
+          in: path
+          description: Guid da pessoa
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Pessoa
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PessoaCompletoViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PessoaCompletoViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PessoaCompletoViewModelApiResponse'
+        '204':
+          description: Pessoa não encontrada
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Pessoa/api/Pessoa/{guid}/email':
+    put:
+      tags:
+        - PessoaApi-Pessoa
+      summary: Atualiza email de login da pessoa
+      parameters:
+        - name: guid
+          in: path
+          description: Guid da pessoa
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditarPessoaEmailDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/EditarPessoaEmailDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/EditarPessoaEmailDTO'
+      responses:
+        '200':
+          description: Email atualizado
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Pessoa/api/Pessoa/{guid}/senha':
+    put:
+      tags:
+        - PessoaApi-Pessoa
+      summary: Atualiza senha de login da pessoa
+      parameters:
+        - name: guid
+          in: path
+          description: Guid da pessoa
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditarPessoaSenhaDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/EditarPessoaSenhaDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/EditarPessoaSenhaDTO'
+      responses:
+        '200':
+          description: Senha atualizada
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Pessoa/api/TipoContato:
+    post:
+      tags:
+        - PessoaApi-TipoContato
+      summary: Cria um tipo contato
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarTipoContatoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CriarTipoContatoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CriarTipoContatoDTO'
+      responses:
+        '200':
+          description: Tipo contato criado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - PessoaApi-TipoContato
+      summary: Buscar e filtrar todos os contatos
+      parameters:
+        - name: Guid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: TipoContato
+          in: query
+          schema:
+            $ref: '#/components/schemas/Contato'
+        - name: Mascara
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Listar contatos
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TipoContatoViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TipoContatoViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TipoContatoViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Pessoa/api/TipoContato/{guid}':
+    put:
+      tags:
+        - PessoaApi-TipoContato
+      summary: Atualiza tipo contato
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do tipo contato
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditarTipoContatoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/EditarTipoContatoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/EditarTipoContatoDTO'
+      responses:
+        '200':
+          description: Tipo contato atualizado
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    delete:
+      tags:
+        - PessoaApi-TipoContato
+      summary: Deletar um tipo contato
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do tipo contato
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Tipo contato deletado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - PessoaApi-TipoContato
+      summary: Buscar tipo contato por guid
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do tipo contato
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Tipo Contato
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TipoContatoViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TipoContatoViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TipoContatoViewModelApiResponse'
+        '204':
+          description: Tipo Contato não encontrado
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+components:
+  schemas:
+    ApiError:
+      type: object
+      properties:
+        key:
+          type: string
+          description: Tipo do erro
+          nullable: true
+        message:
+          type: string
+          description: Mensagem do erro
+          nullable: true
+      additionalProperties: false
+    CargoViewModel:
+      required:
+        - descricao
+        - nome
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CargoViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/CargoViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    CargoViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/CargoViewModel'
+          nullable: true
+      additionalProperties: false
+    CargoViewModelPaginatedResultApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/CargoViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    Contato:
+      enum:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+      type: integer
+      format: int32
+    CriarCargoDTO:
+      required:
+        - descricao
+        - nome
+      type: object
+      properties:
+        nome:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+        estadoGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    CriarPessoaCargoDTO:
+      type: object
+      properties:
+        cargoGuid:
+          type: string
+          format: uuid
+        instituicaoGuid:
+          type: string
+          format: uuid
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+        dataInicio:
+          type: string
+          format: date-time
+        ofertasEnsino:
+          type: array
+          items:
+            $ref: '#/components/schemas/CriarPessoaCargoOfertaEnsinoDTO'
+          nullable: true
+      additionalProperties: false
+    CriarPessoaCargoOfertaEnsinoDTO:
+      type: object
+      properties:
+        etapaEnsinoGuid:
+          type: string
+          format: uuid
+        modalidadeEnsinoGuid:
+          type: string
+          format: uuid
+        grupoGestor:
+          type: boolean
+      additionalProperties: false
+    CriarPessoaContatoDTO:
+      required:
+        - contato
+        - descricao
+      type: object
+      properties:
+        tipoContatoGuid:
+          type: string
+          format: uuid
+        contato:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CriarPessoaEnderecoDTO:
+      required:
+        - bairro
+        - cep
+        - complemento
+        - logradouro
+        - numero
+      type: object
+      properties:
+        cep:
+          type: string
+          nullable: true
+        logradouro:
+          type: string
+          nullable: true
+        numero:
+          type: string
+          nullable: true
+        complemento:
+          type: string
+          nullable: true
+        bairro:
+          type: string
+          nullable: true
+        cidadeGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    CriarTipoContatoDTO:
+      required:
+        - mascara
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        tipoContato:
+          $ref: '#/components/schemas/Contato'
+        mascara:
+          type: string
+          nullable: true
+      additionalProperties: false
+    EditarCargoDTO:
+      required:
+        - descricao
+        - nome
+      type: object
+      properties:
+        nome:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+      additionalProperties: false
+    EditarPessoaCargoDTO:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        cargoGuid:
+          type: string
+          format: uuid
+        instituicaoGuid:
+          type: string
+          format: uuid
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+        dataInicio:
+          type: string
+          format: date-time
+        operacao:
+          $ref: '#/components/schemas/Operacoes'
+        ofertasEnsino:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditarPessoaCargoOfertaEnsinoDTO'
+          nullable: true
+      additionalProperties: false
+    EditarPessoaCargoOfertaEnsinoDTO:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        etapaEnsinoGuid:
+          type: string
+          format: uuid
+        modalidadeEnsinoGuid:
+          type: string
+          format: uuid
+        grupoGestor:
+          type: boolean
+        operacao:
+          $ref: '#/components/schemas/Operacoes'
+      additionalProperties: false
+    EditarPessoaContatoDTO:
+      required:
+        - contato
+        - descricao
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        tipoContatoGuid:
+          type: string
+          format: uuid
+        contato:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+        operacao:
+          $ref: '#/components/schemas/Operacoes'
+      additionalProperties: false
+    EditarPessoaEmailDTO:
+      required:
+        - email
+      type: object
+      properties:
+        email:
+          type: string
+          nullable: true
+      additionalProperties: false
+    EditarPessoaEnderecoDTO:
+      required:
+        - bairro
+        - cep
+        - complemento
+        - logradouro
+        - numero
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        cep:
+          type: string
+          nullable: true
+        logradouro:
+          type: string
+          nullable: true
+        numero:
+          type: string
+          nullable: true
+        complemento:
+          type: string
+          nullable: true
+        bairro:
+          type: string
+          nullable: true
+        cidadeGuid:
+          type: string
+          format: uuid
+        operacao:
+          $ref: '#/components/schemas/Operacoes'
+      additionalProperties: false
+    EditarPessoaSenhaDTO:
+      required:
+        - senha
+      type: object
+      properties:
+        senha:
+          type: string
+          nullable: true
+      additionalProperties: false
+    EditarTipoContatoDTO:
+      required:
+        - mascara
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        tipoContato:
+          $ref: '#/components/schemas/Contato'
+        mascara:
+          type: string
+          nullable: true
+      additionalProperties: false
+    GuidApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: string
+          description: Conteúdo do retorno
+          format: uuid
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    Instituicoes:
+      enum:
+        - 1
+        - 2
+        - 3
+      type: integer
+      format: int32
+    ObjectApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          description: Conteúdo do retorno
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    Operacoes:
+      enum:
+        - 1
+        - 2
+        - 3
+      type: integer
+      format: int32
+    PessoaCompletoCargoOfertaEnsinoViewModel:
+      required:
+        - etapaEnsino
+        - modalidadeEnsino
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        etapaEnsinoGuid:
+          type: string
+          format: uuid
+        etapaEnsino:
+          type: string
+          nullable: true
+        modalidadeEnsinoGuid:
+          type: string
+          format: uuid
+        modalidadeEnsino:
+          type: string
+          nullable: true
+        grupoGestor:
+          type: boolean
+      additionalProperties: false
+    PessoaCompletoCargoViewModel:
+      required:
+        - cargo
+        - instituicao
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        cargoGuid:
+          type: string
+          format: uuid
+        cargo:
+          type: string
+          nullable: true
+        instituicaoGuid:
+          type: string
+          format: uuid
+        instituicao:
+          type: string
+          nullable: true
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+        dataInicio:
+          type: string
+          format: date-time
+        dataFim:
+          type: string
+          format: date-time
+          nullable: true
+        ofertasEnsino:
+          type: array
+          items:
+            $ref: '#/components/schemas/PessoaCompletoCargoOfertaEnsinoViewModel'
+          nullable: true
+      additionalProperties: false
+    PessoaCompletoContatoViewModel:
+      required:
+        - contato
+        - descricao
+        - tipoContato
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        contato:
+          type: string
+          nullable: true
+        descricao:
+          type: string
+          nullable: true
+        tipoContato:
+          $ref: '#/components/schemas/PessoaCompletoTipoContatoViewModel'
+      additionalProperties: false
+    PessoaCompletoEnderecoViewModel:
+      required:
+        - bairro
+        - cep
+        - cidade
+        - complemento
+        - logradouro
+        - numero
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        cep:
+          type: string
+          nullable: true
+        logradouro:
+          type: string
+          nullable: true
+        numero:
+          type: string
+          nullable: true
+        complemento:
+          type: string
+          nullable: true
+        bairro:
+          type: string
+          nullable: true
+        cidadeGuid:
+          type: string
+          format: uuid
+        cidade:
+          type: string
+          nullable: true
+      additionalProperties: false
+    PessoaCompletoEstadoViewModel:
+      required:
+        - nome
+        - sigla
+      type: object
+      properties:
+        estadoGuid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        sigla:
+          type: string
+          nullable: true
+      additionalProperties: false
+    PessoaCompletoTipoContatoViewModel:
+      required:
+        - mascara
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        tipo:
+          $ref: '#/components/schemas/Contato'
+        mascara:
+          type: string
+          nullable: true
+      additionalProperties: false
+    PessoaCompletoViewModel:
+      required:
+        - cpf
+        - nome
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        nomeSocial:
+          type: string
+          nullable: true
+        cpf:
+          type: string
+          nullable: true
+        dataNascimento:
+          type: string
+          format: date-time
+        imagemUrl:
+          type: string
+          nullable: true
+        sexo:
+          $ref: '#/components/schemas/Sexo'
+        estados:
+          type: array
+          items:
+            $ref: '#/components/schemas/PessoaCompletoEstadoViewModel'
+          nullable: true
+        contatos:
+          type: array
+          items:
+            $ref: '#/components/schemas/PessoaCompletoContatoViewModel'
+          nullable: true
+        enderecos:
+          type: array
+          items:
+            $ref: '#/components/schemas/PessoaCompletoEnderecoViewModel'
+          nullable: true
+        cargos:
+          type: array
+          items:
+            $ref: '#/components/schemas/PessoaCompletoCargoViewModel'
+          nullable: true
+      additionalProperties: false
+    PessoaCompletoViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/PessoaCompletoViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    PessoaEstadoViewModel:
+      required:
+        - nomeEstado
+        - sigla
+      type: object
+      properties:
+        estadoGuid:
+          type: string
+          format: uuid
+        nomeEstado:
+          type: string
+          nullable: true
+        sigla:
+          type: string
+          nullable: true
+      additionalProperties: false
+    PessoaViewModel:
+      required:
+        - cpf
+        - dataNascimento
+        - imagemUrl
+        - nome
+        - sexo
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        cpf:
+          type: string
+          nullable: true
+        dataNascimento:
+          type: string
+          format: date-time
+        imagemUrl:
+          type: string
+          nullable: true
+        sexo:
+          $ref: '#/components/schemas/Sexo'
+        estados:
+          type: array
+          items:
+            $ref: '#/components/schemas/PessoaEstadoViewModel'
+          nullable: true
+      additionalProperties: false
+    PessoaViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/PessoaViewModel'
+          nullable: true
+      additionalProperties: false
+    PessoaViewModelPaginatedResultApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/PessoaViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+      additionalProperties: { }
+    Sexo:
+      enum:
+        - 0
+        - 1
+        - 2
+        - 3
+      type: integer
+      format: int32
+    TipoContatoViewModel:
+      required:
+        - mascara
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        tipoContato:
+          $ref: '#/components/schemas/Contato'
+        mascara:
+          type: string
+          nullable: true
+      additionalProperties: false
+    TipoContatoViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/TipoContatoViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    TipoContatoViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/TipoContatoViewModel'
+          nullable: true
+      additionalProperties: false
+    TipoContatoViewModelPaginatedResultApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/TipoContatoViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
