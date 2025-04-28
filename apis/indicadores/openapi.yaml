@@ -1,0 +1,1780 @@
+openapi: 3.0.1
+info:
+  title: IndicadoresApi
+  description: Api de Indicadores SIGAE OPEN SOURCE
+  version: v1
+paths:
+  '/AvaliacaoResultado/{avaliacaoResultadoGuid}/Instituicao/{instituicaoGuid}/Aulas':
+    get:
+      tags:
+        - IndicadoresApi-IndicadoresResultado
+      summary: Filtra os indicadores de resultado de aulas
+      parameters:
+        - name: avaliacaoResultadoGuid
+          in: path
+          description: Guid da Avaiação de Resultado
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: instituicaoGuid
+          in: path
+          description: Guid da instituição
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: AvaliacaoResultadoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: InstituicaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: TipoInstituicao
+          in: query
+          schema:
+            $ref: '#/components/schemas/Instituicoes'
+        - name: SerieGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: TurnoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: ComponenteCurricularGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Sexo
+          in: query
+          schema:
+            $ref: '#/components/schemas/Sexo'
+        - name: Raca
+          in: query
+          schema:
+            $ref: '#/components/schemas/Raca'
+        - name: OfertasEnsino
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/GuidGuidValueTuple'
+        - name: InstituicoesGuids
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+      responses:
+        '200':
+          description: Lista filtrada com os indicadores de resultado de aulas
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/IndicadorResultadoAulasViewModelIEnumerableApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndicadorResultadoAulasViewModelIEnumerableApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IndicadorResultadoAulasViewModelIEnumerableApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/AvaliacaoResultado/{avaliacaoResultadoGuid}/Instituicao/{instituicaoGuid}/Frequencias':
+    get:
+      tags:
+        - IndicadoresApi-IndicadoresResultado
+      summary: Filtra os indicadores de resultado de frequências
+      parameters:
+        - name: avaliacaoResultadoGuid
+          in: path
+          description: Guid da Avaliação de Resultado
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: instituicaoGuid
+          in: path
+          description: Guid da instituição
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: AvaliacaoResultadoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: InstituicaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: TipoInstituicao
+          in: query
+          schema:
+            $ref: '#/components/schemas/Instituicoes'
+        - name: SerieGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: TurnoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: ComponenteCurricularGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Sexo
+          in: query
+          schema:
+            $ref: '#/components/schemas/Sexo'
+        - name: Raca
+          in: query
+          schema:
+            $ref: '#/components/schemas/Raca'
+        - name: OfertasEnsino
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/GuidGuidValueTuple'
+        - name: InstituicoesGuids
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+      responses:
+        '200':
+          description: Lista filtrada com os indicadores de resultado de frequências
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/IndicadorResultadoFrequenciasViewModelIEnumerableApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndicadorResultadoFrequenciasViewModelIEnumerableApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IndicadorResultadoFrequenciasViewModelIEnumerableApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/AvaliacaoResultado/{avaliacaoResultadoGuid}/Instituicao/{instituicaoGuid}/Notas':
+    get:
+      tags:
+        - IndicadoresApi-IndicadoresResultado
+      summary: Filtra os indicadores de resultado de notas
+      parameters:
+        - name: avaliacaoResultadoGuid
+          in: path
+          description: Guid da Avaliação de Resultado
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: instituicaoGuid
+          in: path
+          description: Guid da instituição
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: AvaliacaoResultadoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: InstituicaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: TipoInstituicao
+          in: query
+          schema:
+            $ref: '#/components/schemas/Instituicoes'
+        - name: SerieGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: TurnoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: ComponenteCurricularGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Sexo
+          in: query
+          schema:
+            $ref: '#/components/schemas/Sexo'
+        - name: Raca
+          in: query
+          schema:
+            $ref: '#/components/schemas/Raca'
+        - name: OfertasEnsino
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/GuidGuidValueTuple'
+        - name: InstituicoesGuids
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+      responses:
+        '200':
+          description: Lista filtrada com os indicadores de resultado de notas
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/IndicadorResultadoNotasViewModelIEnumerableApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndicadorResultadoNotasViewModelIEnumerableApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IndicadorResultadoNotasViewModelIEnumerableApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/AvaliacaoResultado/{avaliacaoResultadoGuid}/Instituicao/{instituicaoGuid}/EfeitoRecuperacao':
+    get:
+      tags:
+        - IndicadoresApi-IndicadoresResultado
+      summary: Filtra os indicadores de resultado de efeito recuperação
+      parameters:
+        - name: avaliacaoResultadoGuid
+          in: path
+          description: Guid da Avaliação de Resultado
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: instituicaoGuid
+          in: path
+          description: Guid da instituição
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: AvaliacaoResultadoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: InstituicaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: TipoInstituicao
+          in: query
+          schema:
+            $ref: '#/components/schemas/Instituicoes'
+        - name: SerieGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: TurnoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: ComponenteCurricularGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Sexo
+          in: query
+          schema:
+            $ref: '#/components/schemas/Sexo'
+        - name: Raca
+          in: query
+          schema:
+            $ref: '#/components/schemas/Raca'
+        - name: OfertasEnsino
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/GuidGuidValueTuple'
+        - name: InstituicoesGuids
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+      responses:
+        '200':
+          description: Lista filtrada com os indicadores de resultado de efeito recuperação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/IndicadorResultadoEfeitoRecuperacaoViewModelIEnumerableApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndicadorResultadoEfeitoRecuperacaoViewModelIEnumerableApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IndicadorResultadoEfeitoRecuperacaoViewModelIEnumerableApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Indicadores/api/IndicadorMetaResultado:
+    post:
+      tags:
+        - IndicadoresApi-IndicadorMetaResultado
+      summary: Criar resultado de meta de indicador
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarIndicadorMetaResultadoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CriarIndicadorMetaResultadoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CriarIndicadorMetaResultadoDTO'
+      responses:
+        '200':
+          description: Guid do registro
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - IndicadoresApi-IndicadorMetaResultado
+      summary: Filtrar resultados de metas de indicadores
+      parameters:
+        - name: IndicadorGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: InstituicaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: TipoInstituicao
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: EtapaEnsinoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: ModalidadeGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: PeriodoInicial
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: PeriodoFinal
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Lista paginada dos resultados
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/IndicadorMetaResultadoViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndicadorMetaResultadoViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IndicadorMetaResultadoViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Indicadores/api/IndicadorMetaResultado/{guid}':
+    put:
+      tags:
+        - IndicadoresApi-IndicadorMetaResultado
+      summary: Atualizar resultado de meta de indicador
+      parameters:
+        - name: guid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtualizarIndicadorMetaResultadoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/AtualizarIndicadorMetaResultadoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/AtualizarIndicadorMetaResultadoDTO'
+      responses:
+        '200':
+          description: Guid atualizado
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    delete:
+      tags:
+        - IndicadoresApi-IndicadorMetaResultado
+      summary: Deletar resultado de meta de indicador
+      parameters:
+        - name: guid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Guid deletado
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - IndicadoresApi-IndicadorMetaResultado
+      summary: Buscar resultado de meta de indicador por Guid
+      parameters:
+        - name: guid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Objeto detalhado
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/IndicadorMetaResultadoViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndicadorMetaResultadoViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IndicadorMetaResultadoViewModelApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Indicadores/api/ProcessamentoIndicadoresResultado:
+    post:
+      tags:
+        - IndicadoresApi-ProcessamentoIndicadorResultado
+      summary: Criar processamento de indicadores resultado
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarProcessamentoIndicadoresResultadoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CriarProcessamentoIndicadoresResultadoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CriarProcessamentoIndicadoresResultadoDTO'
+      responses:
+        '200':
+          description: Guid do registro
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - IndicadoresApi-ProcessamentoIndicadorResultado
+      summary: Filtrar processamentos
+      parameters:
+        - name: DataReferencia
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: CircuitoGestaoEtapaGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Status
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Lista paginada dos processamentos
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProcessamentoIndicadoresResultadoViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessamentoIndicadoresResultadoViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProcessamentoIndicadoresResultadoViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Indicadores/api/ProcessamentoIndicadoresResultado/{guid}':
+    put:
+      tags:
+        - IndicadoresApi-ProcessamentoIndicadorResultado
+      summary: Atualizar processamento de indicadores
+      parameters:
+        - name: guid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtualizarProcessamentoIndicadoresResultadoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/AtualizarProcessamentoIndicadoresResultadoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/AtualizarProcessamentoIndicadoresResultadoDTO'
+      responses:
+        '200':
+          description: Guid atualizado
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    delete:
+      tags:
+        - IndicadoresApi-ProcessamentoIndicadorResultado
+      summary: Deletar processamento
+      parameters:
+        - name: guid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Guid deletado
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - IndicadoresApi-ProcessamentoIndicadorResultado
+      summary: Buscar processamento por Guid
+      parameters:
+        - name: guid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Objeto detalhado
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProcessamentoIndicadoresResultadoViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessamentoIndicadoresResultadoViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProcessamentoIndicadoresResultadoViewModelApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Indicadores/api/ProcessamentoIndicadoresResultado/{guid}/iniciar-importacao-meta-resultado':
+    post:
+      tags:
+        - IndicadoresApi-ProcessamentoIndicadorResultado
+      summary: Iniciar importação de meta resultado para o processamento informado
+      parameters:
+        - name: guid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Importação iniciada com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/StringApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/StringApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+components:
+  schemas:
+    ApiError:
+      required:
+        - key
+        - message
+      type: object
+      properties:
+        key:
+          type: string
+          description: Tipo do erro
+          nullable: true
+        message:
+          type: string
+          description: Mensagem do erro
+          nullable: true
+      additionalProperties: false
+    AtualizarIndicadorMetaResultadoDTO:
+      required:
+        - valor
+      type: object
+      properties:
+        valor:
+          type: number
+          format: double
+        periodoInicial:
+          type: string
+          format: date-time
+        periodoFinal:
+          type: string
+          format: date-time
+        modalidadeGuid:
+          type: string
+          format: uuid
+          nullable: true
+      additionalProperties: false
+    AtualizarProcessamentoIndicadoresResultadoDTO:
+      type: object
+      properties:
+        urlArquivo:
+          type: string
+          nullable: true
+        status:
+          $ref: '#/components/schemas/StatusProcessamento'
+        erro:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CriarIndicadorMetaResultadoDTO:
+      required:
+        - etapaEnsinoGuid
+        - indicadorGuid
+        - instituicaoGuid
+        - periodoFinal
+        - periodoInicial
+        - processamentoGuid
+        - tipoInstituicao
+        - valor
+      type: object
+      properties:
+        indicadorGuid:
+          type: string
+          format: uuid
+        valor:
+          type: number
+          format: double
+        instituicaoGuid:
+          type: string
+          format: uuid
+        tipoInstituicao:
+          type: integer
+          format: int32
+        periodoInicial:
+          type: string
+          format: date-time
+        periodoFinal:
+          type: string
+          format: date-time
+        processamentoGuid:
+          type: string
+          format: uuid
+        etapaEnsinoGuid:
+          type: string
+          format: uuid
+        modalidadeGuid:
+          type: string
+          format: uuid
+          nullable: true
+      additionalProperties: false
+    CriarProcessamentoIndicadoresResultadoDTO:
+      required:
+        - circuitoGestaoEtapaGuid
+        - dataReferencia
+        - status
+        - urlArquivo
+      type: object
+      properties:
+        dataReferencia:
+          type: string
+          format: date-time
+        circuitoGestaoEtapaGuid:
+          type: string
+          format: uuid
+        urlArquivo:
+          type: string
+          nullable: true
+        status:
+          $ref: '#/components/schemas/StatusProcessamento'
+        erro:
+          type: string
+          nullable: true
+      additionalProperties: false
+    GuidApiResponse:
+      required:
+        - errors
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: string
+          description: Conteúdo do retorno
+          format: uuid
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    GuidGuidValueTuple:
+      type: object
+      additionalProperties: false
+    IndicadorMetaResultadoViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        indicadorGuid:
+          type: string
+          format: uuid
+        valor:
+          type: number
+          format: double
+        instituicaoGuid:
+          type: string
+          format: uuid
+        tipoInstituicao:
+          type: integer
+          format: int32
+        periodoInicial:
+          type: string
+          format: date-time
+        periodoFinal:
+          type: string
+          format: date-time
+        processamentoGuid:
+          type: string
+          format: uuid
+        etapaEnsinoGuid:
+          type: string
+          format: uuid
+        modalidadeGuid:
+          type: string
+          format: uuid
+          nullable: true
+      additionalProperties: false
+    IndicadorMetaResultadoViewModelApiResponse:
+      required:
+        - errors
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/IndicadorMetaResultadoViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    IndicadorMetaResultadoViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/IndicadorMetaResultadoViewModel'
+          nullable: true
+      additionalProperties: false
+    IndicadorMetaResultadoViewModelPaginatedResultApiResponse:
+      required:
+        - errors
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/IndicadorMetaResultadoViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    IndicadorResultadoAulasViewModel:
+      type: object
+      properties:
+        percentualAulas:
+          type: number
+          format: double
+        percentualAulasPorPeriodoSerie:
+          type: number
+          format: double
+        percentualAulasMediaRede:
+          type: number
+          format: double
+        percentualAulasPeriodoDisciplina:
+          type: number
+          format: double
+        indicadorGuid:
+          type: string
+          format: uuid
+        instituicaoGuid:
+          type: string
+          format: uuid
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+        serieGuid:
+          type: string
+          format: uuid
+          nullable: true
+        turnoGuid:
+          type: string
+          format: uuid
+          nullable: true
+        turmaGuid:
+          type: string
+          format: uuid
+          nullable: true
+        componenteCurricularGuid:
+          type: string
+          format: uuid
+          nullable: true
+        sexo:
+          $ref: '#/components/schemas/Sexo'
+        raca:
+          $ref: '#/components/schemas/Raca'
+      additionalProperties: false
+    IndicadorResultadoAulasViewModelIEnumerableApiResponse:
+      required:
+        - errors
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/IndicadorResultadoAulasViewModel'
+          description: Conteúdo do retorno
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    IndicadorResultadoEfeitoRecuperacaoViewModel:
+      type: object
+      properties:
+        instituicaoGuid:
+          type: string
+          format: uuid
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+        serieGuid:
+          type: string
+          format: uuid
+          nullable: true
+        turnoGuid:
+          type: string
+          format: uuid
+          nullable: true
+        turmaGuid:
+          type: string
+          format: uuid
+          nullable: true
+        componenteCurricularGuid:
+          type: string
+          format: uuid
+          nullable: true
+        sexo:
+          $ref: '#/components/schemas/Sexo'
+        raca:
+          $ref: '#/components/schemas/Raca'
+        percentualDeAlunosComNotaAbaixoDaMediaAntesDaRecuperacaoPorDisciplina:
+          type: number
+          format: double
+        percentualDeAlunosComNotaAbaixoDaMediaDepoisDaRecuperacaoPorDisciplina:
+          type: number
+          format: double
+        quantidadeDeAlunosComNotaAbaixoDaMediaAntesDaRecuperacaoPorDisciplina:
+          type: integer
+          format: int32
+        quantidadeDeAlunosComNotaAbaixoDaMediaDepoisDaRecuperacaoPorDisciplina:
+          type: integer
+          format: int32
+        percentualDeAlunosComNotaAbaixoDaMediaAntesDaRecuperacaoPorAnoSerie:
+          type: number
+          format: double
+        percentualDeAlunosComNotaAbaixoDaMediaDepoisDaRecuperacaoPorAnoSerie:
+          type: number
+          format: double
+        quantidadeDeAlunosComNotaAbaixoDaMediaAntesDaRecuperacaoPorAnoSerie:
+          type: integer
+          format: int32
+        quantidadeDeAlunosComNotaAbaixoDaMediaDepoisDaRecuperacaoPorAnoSerie:
+          type: integer
+          format: int32
+        mediaDeNotasAntesDaRecuperacaoPorDisciplina:
+          type: number
+          format: double
+        mediaDeNotasDepoisDaRecuperacaoPorDisciplina:
+          type: number
+          format: double
+        quantidadeDeAlunosAntesDaRecuperacaoPorDisciplina:
+          type: integer
+          format: int32
+        percentualDeMediaDeNotasDepoisDaRecuperacaoPorDisciplina:
+          type: number
+          format: double
+        quantidadeDeAlunosAntesDaRecuperacaoPorAnoSerie:
+          type: integer
+          format: int32
+        mediaDeNotasDepoisDaRecuperacaoPorAnoSerie:
+          type: number
+          format: double
+        mediaDeNotasAntesDaRecuperacaoPorDisciplinaSexoERaca:
+          type: number
+          format: double
+        quantidadeDeAlunosAntesDaRecuperacaoPorDisciplinaSexoERaca:
+          type: integer
+          format: int32
+        mediaDeNotasDepoisDaRecuperacaoPorDisciplinaSexoERaca:
+          type: number
+          format: double
+        quantidadeDeAlunosDepoisDaRecuperacaoPorDisciplinaSexoERaca:
+          type: integer
+          format: int32
+      additionalProperties: false
+    IndicadorResultadoEfeitoRecuperacaoViewModelIEnumerableApiResponse:
+      required:
+        - errors
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/IndicadorResultadoEfeitoRecuperacaoViewModel'
+          description: Conteúdo do retorno
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    IndicadorResultadoFrequenciasViewModel:
+      type: object
+      properties:
+        percentualFrequencias:
+          type: number
+          format: double
+        percentualFrequenciasPorPeriodoSerie:
+          type: number
+          format: double
+        percentualFrequenciasMediaRede:
+          type: number
+          format: double
+        percentualFrequenciasPeriodoDisciplina:
+          type: number
+          format: double
+        indicadorGuid:
+          type: string
+          format: uuid
+        instituicaoGuid:
+          type: string
+          format: uuid
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+        serieGuid:
+          type: string
+          format: uuid
+          nullable: true
+        turnoGuid:
+          type: string
+          format: uuid
+          nullable: true
+        turmaGuid:
+          type: string
+          format: uuid
+          nullable: true
+        componenteCurricularGuid:
+          type: string
+          format: uuid
+          nullable: true
+        sexo:
+          $ref: '#/components/schemas/Sexo'
+        raca:
+          $ref: '#/components/schemas/Raca'
+      additionalProperties: false
+    IndicadorResultadoFrequenciasViewModelIEnumerableApiResponse:
+      required:
+        - errors
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/IndicadorResultadoFrequenciasViewModel'
+          description: Conteúdo do retorno
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    IndicadorResultadoNotasViewModel:
+      type: object
+      properties:
+        instituicaoGuid:
+          type: string
+          format: uuid
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+        serieGuid:
+          type: string
+          format: uuid
+          nullable: true
+        turnoGuid:
+          type: string
+          format: uuid
+          nullable: true
+        turmaGuid:
+          type: string
+          format: uuid
+          nullable: true
+        componenteCurricularGuid:
+          type: string
+          format: uuid
+          nullable: true
+        sexo:
+          $ref: '#/components/schemas/Sexo'
+        raca:
+          $ref: '#/components/schemas/Raca'
+        percentualNotas:
+          type: number
+          format: double
+        percentualDeAlunosSemNotaAbaixoDaMediaPorPeriodoESerie:
+          type: number
+          format: double
+        quantidadeDeAlunosSemNotaAbaixoDaMediaPorPeriodoESerie:
+          type: integer
+          format: int32
+        percentualDeAlunosCom1NotaAbaixoDaMediaPorPeriodoESerie:
+          type: number
+          format: double
+        quantidadeDeAlunosCom1NotaAbaixoDaMediaPorPeriodoESerie:
+          type: integer
+          format: int32
+        percentualDeAlunosCom2NotasAbaixoDaMediaPorPeriodoESerie:
+          type: number
+          format: double
+        quantidadeDeAlunosCom2NotasAbaixoDaMediaPorPeriodoESerie:
+          type: integer
+          format: int32
+        percentualDeAlunosCom3OuMaisNotasAbaixoDaMediaPorPeriodoESerie:
+          type: number
+          format: double
+        quantidadeDeAlunosCom3OuMaisNotasAbaixoDaMediaPorPeriodoESerie:
+          type: integer
+          format: int32
+        percentualDeAlunosSemInformacaoDeNotasPorPeriodoESerie:
+          type: number
+          format: double
+        quantidadeDeAlunosSemInformacaoDeNotasPorPeriodoESerie:
+          type: integer
+          format: int32
+        percentualDeAlunosSemNotaAbaixoDaMediaNaInstituicao:
+          type: number
+          format: double
+        percentualDeAlunosCom1NotaAbaixoDaMediaNaInstituicao:
+          type: number
+          format: double
+        percentualDeAlunosCom2NotasAbaixoDaMediaNaInstituicao:
+          type: number
+          format: double
+        percentualDeAlunosCom3OuMaisNotasAbaixoDaMediaNaInstituicao:
+          type: number
+          format: double
+        percentualDeAlunosSemInformacaoDeNotasNaInstituicao:
+          type: number
+          format: double
+        quantidadeDeAlunos:
+          type: integer
+          format: int32
+        mediaDeNotasPorDisciplinaSexoERaca:
+          type: number
+          format: double
+        quantidadeDeAlunosPorDisciplinaSexoERaca:
+          type: integer
+          format: int32
+      additionalProperties: false
+    IndicadorResultadoNotasViewModelIEnumerableApiResponse:
+      required:
+        - errors
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/IndicadorResultadoNotasViewModel'
+          description: Conteúdo do retorno
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    Instituicoes:
+      enum:
+        - 1
+        - 2
+        - 3
+      type: integer
+      format: int32
+    ObjectApiResponse:
+      required:
+        - errors
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          description: Conteúdo do retorno
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+      additionalProperties: { }
+    ProcessamentoIndicadoresResultadoViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        dataReferencia:
+          type: string
+          format: date-time
+        circuitoGestaoEtapaGuid:
+          type: string
+          format: uuid
+        urlArquivo:
+          type: string
+          nullable: true
+        status:
+          $ref: '#/components/schemas/StatusProcessamento'
+        erro:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ProcessamentoIndicadoresResultadoViewModelApiResponse:
+      required:
+        - errors
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/ProcessamentoIndicadoresResultadoViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    ProcessamentoIndicadoresResultadoViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProcessamentoIndicadoresResultadoViewModel'
+          nullable: true
+      additionalProperties: false
+    ProcessamentoIndicadoresResultadoViewModelPaginatedResultApiResponse:
+      required:
+        - errors
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/ProcessamentoIndicadoresResultadoViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    Raca:
+      enum:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+      type: integer
+      format: int32
+    Sexo:
+      enum:
+        - 0
+        - 1
+        - 2
+        - 3
+      type: integer
+      format: int32
+    StatusProcessamento:
+      enum:
+        - 1
+        - 2
+        - 3
+        - 4
+      type: integer
+      format: int32
+    StringApiResponse:
+      required:
+        - errors
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: string
+          description: Conteúdo do retorno
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false

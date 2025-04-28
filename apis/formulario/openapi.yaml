@@ -1,0 +1,1195 @@
+openapi: 3.0.1
+info:
+  title: FormularioApi
+  description: Api da Formulario SIGAE OPEN SOURCE
+  version: v1
+paths:
+  /Formulario/api/Formulario:
+    post:
+      tags:
+        - FormularioApi-Formulario
+      summary: Cria uma Formulario
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarFormularioDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CriarFormularioDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CriarFormularioDTO'
+      responses:
+        '200':
+          description: Formulario criada com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - FormularioApi-Formulario
+      summary: Buscar e filtrar todas as formulários
+      parameters:
+        - name: Nome
+          in: query
+          schema:
+            type: string
+        - name: Versao
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: Guid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Formulários paginados
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/FormularioViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FormularioViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/FormularioViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Formulario/api/Formulario/{guid}':
+    put:
+      tags:
+        - FormularioApi-Formulario
+      summary: Atualiza Formulario
+      parameters:
+        - name: guid
+          in: path
+          description: Guid da Formulario
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditarFormularioDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/EditarFormularioDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/EditarFormularioDTO'
+      responses:
+        '200':
+          description: Formulario atualizada
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    delete:
+      tags:
+        - FormularioApi-Formulario
+      summary: Deletar uma Formulario
+      parameters:
+        - name: guid
+          in: path
+          description: Guid da Formulario
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Formulario deletada com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - FormularioApi-Formulario
+      summary: Buscar Formulario por guid
+      parameters:
+        - name: guid
+          in: path
+          description: Guid da Formulario
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Formulario
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/FormularioViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FormularioViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/FormularioViewModelApiResponse'
+        '204':
+          description: Formulario não encontrada
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Formulario/api/Formulario/{formularioOrigemGuid}/Clonar':
+    post:
+      tags:
+        - FormularioApi-Formulario
+      summary: Clona um formulário existente com novo nome e versão 1
+      parameters:
+        - name: formularioOrigemGuid
+          in: path
+          description: GUID do formulário original
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: novoNome
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Formulário clonado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '404':
+          description: Formulário de origem não encontrado
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+  '/Formulario/api/FormularioInternal/{guid}':
+    get:
+      tags:
+        - FormularioApi-FormularioInternal
+      summary: Buscar Formulario por guid
+      parameters:
+        - name: guid
+          in: path
+          description: Guid da Formulario
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Formulario
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/FormularioViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FormularioViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/FormularioViewModelApiResponse'
+        '204':
+          description: Formulario não encontrada
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Formulario/api/FormularioInternal/{guid}/Existe':
+    get:
+      tags:
+        - FormularioApi-FormularioInternal
+      summary: Verifica se o Formulário existe
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do Formulário
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'True se existe, False se não existe'
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Formulario/api/FormularioResposta/{guid}':
+    get:
+      tags:
+        - FormularioApi-FormularioResposta
+      summary: Buscar Formulario Resposta por guid
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do Formulario Resposta
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Formulario Resposta
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/FormularioRespostaCompletoViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FormularioRespostaCompletoViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/FormularioRespostaCompletoViewModelApiResponse'
+        '204':
+          description: Formulario Resposta não encontrado
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    delete:
+      tags:
+        - FormularioApi-FormularioResposta
+      summary: Deletar um Formulario Resposta
+      parameters:
+        - name: guid
+          in: path
+          description: Guid da Formulario Resposta
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Formulario Resposta deletada com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    put:
+      tags:
+        - FormularioApi-FormularioResposta
+      summary: Atualiza Formulario Resposta
+      parameters:
+        - name: guid
+          in: path
+          description: Guid da Formulario
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditarFormularioRespostaDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/EditarFormularioRespostaDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/EditarFormularioRespostaDTO'
+      responses:
+        '200':
+          description: Formulario Resposta atualizada
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Formulario/api/FormularioResposta:
+    get:
+      tags:
+        - FormularioApi-FormularioResposta
+      summary: Buscar e filtrar todas as Formulario Respostas
+      parameters:
+        - name: FormularioVersao
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PessoaGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: FormularioGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Formulários Respostas paginados
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/FormularioRespostaViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FormularioRespostaViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/FormularioRespostaViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    post:
+      tags:
+        - FormularioApi-FormularioResposta
+      summary: Cria um Formulario Resposta
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarFormularioRespostaDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CriarFormularioRespostaDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CriarFormularioRespostaDTO'
+      responses:
+        '200':
+          description: Formulario Resposta criada com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Formulario/api/FormularioRespostaInternal/{guid}':
+    get:
+      tags:
+        - FormularioApi-FormularioRespostaInternal
+      summary: Buscar Formulario Resposta por guid
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do Formulario Resposta
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Formulario Resposta
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/FormularioRespostaCompletoViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FormularioRespostaCompletoViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/FormularioRespostaCompletoViewModelApiResponse'
+        '204':
+          description: Formulario Resposta não encontrado
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Formulario/api/FormularioRespostaInternal/Existe/{guid}':
+    get:
+      tags:
+        - FormularioApi-FormularioRespostaInternal
+      summary: Verifica se Formulario Resposta existe
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do Formulario Resposta
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'True se existe, False se não existe'
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+components:
+  schemas:
+    ApiError:
+      required:
+        - key
+        - message
+      type: object
+      properties:
+        key:
+          type: string
+          description: Tipo do erro
+          nullable: true
+        message:
+          type: string
+          description: Mensagem do erro
+          nullable: true
+      additionalProperties: false
+    BooleanApiResponse:
+      required:
+        - errors
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: boolean
+          description: Conteúdo do retorno
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    CriarFormularioDTO:
+      type: object
+      properties:
+        nome:
+          type: string
+          nullable: true
+        schemaJson:
+          type: string
+          nullable: true
+        rascunho:
+          type: boolean
+      additionalProperties: false
+    CriarFormularioRespostaDTO:
+      required:
+        - formularioGuid
+        - formularioVersao
+        - pessoaGuid
+        - respostaJson
+      type: object
+      properties:
+        formularioGuid:
+          type: string
+          format: uuid
+        respostaJson:
+          type: string
+          nullable: true
+        formularioVersao:
+          type: integer
+          format: int32
+        pessoaGuid:
+          type: string
+          format: uuid
+        etapa:
+          $ref: '#/components/schemas/FormularioRespostaCircuitoGestaoEtapaDTO'
+        etapaReuniao:
+          $ref: '#/components/schemas/FormularioRespostaCircuitoGestaoEtapaReuniaoDTO'
+        modeloPlano:
+          $ref: '#/components/schemas/FormularioRespostaCircuitoGestaoModeloPlanoDTO'
+      additionalProperties: false
+    EditarFormularioDTO:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        schemaJson:
+          type: string
+          nullable: true
+        rascunho:
+          type: boolean
+      additionalProperties: false
+    EditarFormularioRespostaDTO:
+      required:
+        - formularioVersao
+        - respostaJson
+      type: object
+      properties:
+        respostaJson:
+          type: string
+          nullable: true
+        formularioVersao:
+          type: integer
+          format: int32
+      additionalProperties: false
+    FormularioRespostaCircuitoGestaoEtapaDTO:
+      type: object
+      properties:
+        circuitoGestaoEtapaGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    FormularioRespostaCircuitoGestaoEtapaReuniaoDTO:
+      type: object
+      properties:
+        circuitoGestaoEtapaReuniaoGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    FormularioRespostaCircuitoGestaoEtapaReuniaoViewModel:
+      type: object
+      properties:
+        circuitoGestaoEtapaReuniaoGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    FormularioRespostaCircuitoGestaoEtapaViewModel:
+      type: object
+      properties:
+        circuitoGestaoEtapaGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    FormularioRespostaCircuitoGestaoModeloPlanoDTO:
+      type: object
+      properties:
+        circuitoGestaoModeloPlanoGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    FormularioRespostaCircuitoGestaoModeloPlanoViewModel:
+      type: object
+      properties:
+        circuitoGestaoModeloPlanoGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    FormularioRespostaCompletoViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        respostaJson:
+          type: string
+          nullable: true
+        formularioVersao:
+          type: integer
+          format: int32
+        pessoaGuid:
+          type: string
+          format: uuid
+        formulario:
+          $ref: '#/components/schemas/FormularioRespostaFormularioViewModel'
+        etapa:
+          $ref: '#/components/schemas/FormularioRespostaCircuitoGestaoEtapaViewModel'
+        etapaReuniao:
+          $ref: '#/components/schemas/FormularioRespostaCircuitoGestaoEtapaReuniaoViewModel'
+        modeloPlano:
+          $ref: '#/components/schemas/FormularioRespostaCircuitoGestaoModeloPlanoViewModel'
+      additionalProperties: false
+    FormularioRespostaCompletoViewModelApiResponse:
+      required:
+        - errors
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/FormularioRespostaCompletoViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    FormularioRespostaFormularioViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        versao:
+          type: integer
+          format: int32
+        nome:
+          type: string
+          nullable: true
+        schemaJson:
+          type: string
+          nullable: true
+      additionalProperties: false
+    FormularioRespostaViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        respostaJson:
+          type: string
+          nullable: true
+        formularioVersao:
+          type: integer
+          format: int32
+        pessoaGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    FormularioRespostaViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/FormularioRespostaViewModel'
+          nullable: true
+      additionalProperties: false
+    FormularioRespostaViewModelPaginatedResultApiResponse:
+      required:
+        - errors
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/FormularioRespostaViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    FormularioViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        versao:
+          type: integer
+          format: int32
+        nome:
+          type: string
+          nullable: true
+        schemaJson:
+          type: string
+          nullable: true
+      additionalProperties: false
+    FormularioViewModelApiResponse:
+      required:
+        - errors
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/FormularioViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    FormularioViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/FormularioViewModel'
+          nullable: true
+      additionalProperties: false
+    FormularioViewModelPaginatedResultApiResponse:
+      required:
+        - errors
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/FormularioViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    GuidApiResponse:
+      required:
+        - errors
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: string
+          description: Conteúdo do retorno
+          format: uuid
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    ObjectApiResponse:
+      required:
+        - errors
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          description: Conteúdo do retorno
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+      additionalProperties: { }
