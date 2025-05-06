@@ -1607,7 +1607,7 @@ paths:
                           type:
                           - integer
                           - 'null'
-                          example:
+                          example: 
                       required:
                       - id
                       - year
@@ -2986,6 +2986,58 @@ paths:
       tags:
       - ClassroomQuestionAccuracyRates
       parameters:
+      - in: path
+        name: edition_id
+        required: true
+        description: Edition Id
+        schema:
+          type: integer
+      - in: query
+        name: entity_id
+        required: true
+        description: Relation ID
+        schema:
+          type: integer
+      - in: query
+        name: entity_type
+        required: true
+        description: Relation Type
+        schema:
+          type: string
+      - in: query
+        name: include[]
+        required: true
+        schema:
+          type: object
+      - in: query
+        name: fields[]
+        required: false
+        schema:
+          type: object
+      - in: query
+        name: q[]
+        required: false
+        description: Ransack filters
+      - in: header
+        name: Access-token
+        required: true
+        description: Token
+        value: ''
+      - in: header
+        name: Client
+        required: true
+        description: Token of client
+        value: ''
+      - in: header
+        name: UID
+        required: true
+        description: E-mail
+        value: ''
+      - in: header
+        name: Profile-ID
+        required: true
+        description: Profile
+        value: 1
       - in: header
         name: Access-token
         required: true
@@ -3010,88 +3062,6 @@ paths:
         description: Profile
         schema:
           type: integer
-      - in: path
-        name: edition_id
-        required: true
-        description: Edition Id
-        schema:
-          type: integer
-      - in: path
-        name: classroom_id
-        required: true
-        description: Classroom Id
-        schema:
-          type: integer
-      - in: path
-        name: subject_id
-        required: true
-        description: Subject Id
-        schema:
-          type: integer
-      - in: path
-        name: grade_id
-        required: true
-        description: Grade Id
-        schema:
-          type: integer
-      - in: path
-        name: difficulty
-        required: true
-        description: Difficult level
-        value: '1'
-        schema:
-          type: integer
-      - in: query
-        name: entity_id
-        required: true
-        description: Relation ID
-        schema:
-          type: integer
-      - in: query
-        name: entity_type
-        required: true
-        description: Relation Type
-        schema:
-          type: string
-      - in: query
-        name: include[]
-        required: true
-        value: classroom_question_accuracy_rates
-        schema:
-          type: object
-      - in: query
-        name: include[]classroom_question_accuracy_rates[]
-        explode: true
-        value: skill
-      - in: query
-        name: fields[]
-        required: false
-        schema:
-          type: object
-      - in: query
-        name: fields[]classroom_question_accuracy_rates[]
-        explode: true
-        style: form
-        required: false
-        description: Fields
-        schema:
-          type: array
-          items:
-            type: string
-      - in: query
-        name: fields[]classroom_question_accuracy_rates[]skill[]
-        explode: true
-        style: form
-        required: false
-        description: Fields
-        schema:
-          type: array
-          items:
-            type: string
-      - in: query
-        name: q[]
-        required: false
-        description: Ransack filters
       responses:
         '401':
           description: unauthorized
@@ -3904,7 +3874,7 @@ paths:
     delete:
       summary: Delete a teacher
       tags:
-      - Teacher
+      - Classrooms
       parameters:
       - in: path
         name: classroom_id
@@ -5744,6 +5714,97 @@ paths:
           description: forbidden
         '200':
           description: ok
+  "/api/v3/districts":
+    get:
+      summary: Retrieves districts
+      tags:
+      - Districts
+      parameters:
+      - in: query
+        name: include[]
+        required: false
+        value: districts
+      - in: query
+        name: fields[]
+        explode: true
+        style: form
+        required: false
+        description: Fields
+        schema:
+          type: array
+          items:
+            type: string
+      - in: header
+        name: Access-token
+        required: true
+        description: Token
+        value: ''
+      - in: header
+        name: Client
+        required: true
+        description: Token of client
+        value: ''
+      - in: header
+        name: UID
+        required: true
+        description: E-mail
+        value: ''
+      - in: header
+        name: Profile-ID
+        required: true
+        description: Profile
+        value: 1
+      responses:
+        '200':
+          description: district found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  districts:
+                    type: array
+                    items:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      sector_count:
+                        type: integer
+                        nullable: true
+                      students_per_performance_level:
+                        type: array
+                        nullable: true
+                        items:
+                          type: object
+                          properties:
+                            label:
+                              type: string
+                            lower_boundary:
+                              type: number
+                            upper_boundary:
+                              type: number
+                            value:
+                              type: integer
+                          required:
+                          - label
+                          - lower_boundary
+                          - upper_boundary
+                          - value
+                      worst_skills_count:
+                        type: object
+                        nullable: true
+                        properties:
+                          priority:
+                            type: integer
+                          quantity:
+                            type: integer
+                        required:
+                        - priority
+                        - quantity
+                      lowest_skill_probability:
+                        type: number
+                        nullable: true
   "/api/v3/districts/{id}":
     parameters:
     - name: id
@@ -6186,7 +6247,7 @@ paths:
     patch:
       summary: Update a foco answer
       tags:
-      - Foco Exam Student Profile
+      - FocoAnswers
       parameters:
       - in: path
         name: id
@@ -6651,7 +6712,7 @@ paths:
     delete:
       summary: Deletes a Foco Exam Edition
       tags:
-      - Foco Exam Editions
+      - FocoExamEditions
       parameters:
       - name: id
         in: path
@@ -8247,6 +8308,81 @@ paths:
                     - Para continuar, efetue login ou registre-se.
                   summary: failed
                   description: A failed response
+  "/api/v3/homes":
+    get:
+      summary: Retrieves customization home
+      tags:
+      - Homes
+      parameters:
+      - in: header
+        name: origin
+        required: true
+        value: localhost
+        schema:
+          type: string
+      - in: query
+        name: include[]
+        required: true
+        value: homes
+      - in: query
+        name: q[]
+        required: false
+        description: Filtro do ransack
+      - in: query
+        name: fields[]
+        explode: true
+        style: form
+        required: false
+        description: Fields
+        schema:
+          type: array
+          items:
+            type: string
+      - in: header
+        name: Access-token
+        required: true
+        description: Token
+        value: ''
+      - in: header
+        name: Client
+        required: true
+        description: Token of client
+        value: ''
+      - in: header
+        name: UID
+        required: true
+        description: E-mail
+        value: ''
+      - in: header
+        name: Profile-ID
+        required: true
+        description: Profile
+        value: 1
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  applicationName:
+                    type: string
+                  homeBanner:
+                    type: string
+                  clientName:
+                    type: string
+                  departmentName:
+                    type: string
+                  supportUrl:
+                    type: string
+                  smallText:
+                    type: string
+                  custom_preregister:
+                    type: boolean
+                  custom_preregister_message:
+                    type: string
+                    nullable: true
   "/api/v3/schools/{school_id}/indicator_students":
     get:
       summary: Retrieves all students
@@ -8395,6 +8531,47 @@ paths:
                           type: number
                         priority_value:
                           type: number
+  "/api/v3/jobs":
+    post:
+      summary: Run jobs
+      tags:
+      - Job
+      parameters:
+      - in: header
+        name: X-API-KEY
+        required: true
+        description: API Key
+        value: ''
+      responses:
+        '200':
+          description: ok
+        '422':
+          description: unprocessable_entity
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              examples:
+                example:
+                  value:
+                    errors:
+                    - Para continuar, efetue login ou registre-se.
+                  summary: failed
+                  description: A failed response
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                job_name:
+                  type: string
+                  description: ''
+                  required: true
+                job_parameters:
+                  type: string
+                  description: '["arg1", "arg2"]'
+                  required: false
   "/api/v3/schools/{school_id}/journeys":
     get:
       summary: Retrieves all journeys
@@ -9326,6 +9503,46 @@ paths:
       responses:
         '200':
           description: ok
+  "/api/v3/permissions":
+    post:
+      summary: Create permissions
+      tags:
+      - Permissions
+      parameters:
+      - in: header
+        name: Access-token
+        required: true
+        description: Token
+        value: ''
+      - in: header
+        name: Client
+        required: true
+        description: Token of client
+        value: ''
+      - in: header
+        name: UID
+        required: true
+        description: E-mail
+        value: ''
+      - in: header
+        name: Profile-ID
+        required: true
+        description: Profile
+        value: 1
+      responses:
+        '201':
+          description: created
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              examples:
+                example:
+                  value:
+                    errors:
+                    - Para continuar, efetue login ou registre-se.
+                  summary: failed
+                  description: A failed response
   "/api/v3/schools/{school_id}/plans":
     get:
       summary: Retrieves all plans
@@ -9962,6 +10179,290 @@ paths:
                           type: integer
                         group_type:
                           type: string
+  "/api/v3/users/profiles":
+    get:
+      summary: Retrieve all profiles
+      tags:
+      - Profiles
+      parameters:
+      - in: query
+        name: include[]
+        required: true
+        value: plans
+      - in: query
+        name: q[]
+        required: false
+        description: Filtro do ransack
+      - in: header
+        name: Access-token
+        required: true
+        description: Token
+        value: ''
+      - in: header
+        name: Client
+        required: true
+        description: Token of client
+        value: ''
+      - in: header
+        name: UID
+        required: true
+        description: E-mail
+        value: ''
+      - in: header
+        name: Profile-ID
+        required: true
+        description: Profile
+        value: 1
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  profiles:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                          required: true
+                        role:
+                          type: string
+                          example: ''
+                          required: true
+                        active:
+                          type: boolean
+                          example: true
+                          required: true
+                        personable:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 1
+                              description: ''
+                              required: true
+                            name:
+                              type: string
+                              example: 1
+                              description: ''
+                              required: true
+                            district_id:
+                              type: integer
+                              example: 1
+                              description: ''
+                              required: true
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              examples:
+                example:
+                  value:
+                    errors:
+                    - Para continuar, efetue login ou registre-se.
+                  summary: failed
+                  description: A failed response
+  "/api/v3/users/profiles/{id}":
+    get:
+      summary: Retrieves a profile by ID
+      tags:
+      - Profiles
+      parameters:
+      - in: path
+        name: id
+        required: true
+        value: 1
+        schema:
+          type: integer
+      - in: query
+        name: include[]
+        required: true
+        value: plans
+      - in: query
+        name: fields[]
+        explode: true
+        style: form
+        required: false
+        description: Fields
+        schema:
+          type: array
+          items:
+            type: string
+      - in: header
+        name: Access-token
+        required: true
+        description: Token
+        value: ''
+      - in: header
+        name: Client
+        required: true
+        description: Token of client
+        value: ''
+      - in: header
+        name: UID
+        required: true
+        description: E-mail
+        value: ''
+      - in: header
+        name: Profile-ID
+        required: true
+        description: Profile
+        value: 1
+      - in: header
+        name: Access-token
+        required: true
+        description: Token
+        value: ''
+      - in: header
+        name: Client
+        required: true
+        description: Token of client
+        value: ''
+      - in: header
+        name: UID
+        required: true
+        description: E-mail
+        value: ''
+      - in: header
+        name: Profile-ID
+        required: true
+        description: Profile
+        value: 1
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  role:
+                    type: string
+                    nullable: true
+                  personable:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      district_id:
+                        type: integer
+                    required:
+                    - id
+                    - name
+                    - district_id
+                  active:
+                    type: boolean
+                required:
+                - personable
+                - active
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              examples:
+                example:
+                  value:
+                    errors:
+                    - Para continuar, efetue login ou registre-se.
+                  summary: failed
+                  description: A failed response
+        '404':
+          description: not_found
+    put:
+      summary: Update a current profile by ID
+      tags:
+      - Profiles
+      parameters:
+      - in: path
+        name: id
+        required: true
+        value: 1
+        schema:
+          type: integer
+      - in: header
+        name: Access-token
+        required: true
+        description: Token
+        value: ''
+      - in: header
+        name: Client
+        required: true
+        description: Token of client
+        value: ''
+      - in: header
+        name: UID
+        required: true
+        description: E-mail
+        value: ''
+      - in: header
+        name: Profile-ID
+        required: true
+        description: Profile
+        value: 1
+      - in: header
+        name: Access-token
+        required: true
+        description: Token
+        value: ''
+      - in: header
+        name: Client
+        required: true
+        description: Token of client
+        value: ''
+      - in: header
+        name: UID
+        required: true
+        description: E-mail
+        value: ''
+      - in: header
+        name: Profile-ID
+        required: true
+        description: Profile
+        value: 1
+      responses:
+        '204':
+          description: success
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              examples:
+                example:
+                  value:
+                    errors:
+                    - Para continuar, efetue login ou registre-se.
+                  summary: failed
+                  description: A failed response
+        '404':
+          description: not_found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                function:
+                  type: string
+                expectations:
+                  type: string
+                subject_id:
+                  type: integer
+                profile_classrooms_attributes:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    classroom_id:
+                      type: integer
+                    subject_id:
+                      type: integer
   "/api/v3/profiles/grades":
     get:
       summary: Retrieves all grades from profile
@@ -10872,6 +11373,90 @@ paths:
                     - Para continuar, efetue login ou registre-se.
                   summary: failed
                   description: A failed response
+  "/api/v3/schools/{school_id}":
+    get:
+      summary: Retrieves a school
+      tags:
+      - School
+      parameters:
+      - in: path
+        name: school_id
+        required: true
+        value: '1'
+        schema:
+          type: string
+      - in: query
+        name: entity_type
+        required: true
+        value: school
+        schema:
+          type: string
+      - in: query
+        name: entity_id
+        required: true
+        value: 1
+        schema:
+          type: integer
+      - in: query
+        name: fields[]
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - in: query
+        name: include[]
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - in: header
+        name: Access-token
+        required: true
+        description: Token
+        value: ''
+      - in: header
+        name: Client
+        required: true
+        description: Token of client
+        value: ''
+      - in: header
+        name: UID
+        required: true
+        description: E-mail
+        value: ''
+      - in: header
+        name: Profile-ID
+        required: true
+        description: Profile
+        value: 1
+      responses:
+        '200':
+          description: school found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  grades:
+                    type: array
+                    nullable: true
+                  subjects:
+                    type: array
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                        description: Subject ID
+                        required: false
+                      name:
+                        type: string
+                        example: Matemática
+                        description: Subject name
+                        required: false
+                      sub:
+                        nullable: true
   "/api/v3/schools/{school_id}/teachers":
     get:
       summary: Retrieves all teachers
@@ -11399,6 +11984,123 @@ paths:
       responses:
         '200':
           description: Skill retrieved successfully
+  "/api/v3/states/{id}":
+    parameters:
+    - name: id
+      in: path
+      value: '7'
+      description: State ID
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Retrieves a state
+      tags:
+      - States
+      parameters:
+      - in: header
+        name: origin
+        required: true
+        value: localhost
+      - in: query
+        name: include[]
+        required: false
+        value: state
+      - in: query
+        name: fields[]
+        explode: true
+        style: form
+        required: false
+        description: Fields
+        schema:
+          type: array
+          items:
+            type: string
+      - in: header
+        name: Access-token
+        required: true
+        description: Token
+        value: ''
+      - in: header
+        name: Client
+        required: true
+        description: Token of client
+        value: ''
+      - in: header
+        name: UID
+        required: true
+        description: E-mail
+        value: ''
+      - in: header
+        name: Profile-ID
+        required: true
+        description: Profile
+        value: 1
+      responses:
+        '200':
+          description: state found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                    description: State ID
+                  district_label:
+                    type: string
+                    example: Rede
+                    description: District desired nickname
+                  sector_label:
+                    type: string
+                    example: Regional
+                    description: Sector desired nickname
+                  school_label:
+                    type: string
+                    example: Escola
+                    description: School desired nickname
+                  indicatorName:
+                    type: string
+                    example: IDEBES
+                    description: Indicator desired nickname
+                  district_id:
+                    type: integer
+                    example: 2
+                    description: District ID
+                  state_logo:
+                    type: string
+                    example: localhost/logo-state.jpg
+                    description: Path to logo file
+                  name:
+                    type: string
+                    example: Espírito Santo
+                    description: State name
+                  uf:
+                    type: string
+                    example: ES
+                    description: State short name
+                  main_resource_id:
+                    type: integer
+                    example: 1
+                    description: The first resource ID found for user
+                  map_zoom:
+                    type: double
+                    example: 2.3
+                    description: Zoom configuration
+                  map_style:
+                    type: string
+                    example: '1234'
+                  featured_tri_exam_id:
+                    type: integer
+                    example: 1
+                    nullable: true
+                    description: The first feature ID in case of TRI
+                  featured_tct_exam_id:
+                    type: integer
+                    example: 1
+                    nullable: true
+                    description: The first feature ID in case of TCT
   "/api/v3/subjects":
     get:
       summary: Retrieves all subjects
