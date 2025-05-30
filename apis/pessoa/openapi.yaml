@@ -1,19 +1,13 @@
 openapi: 3.0.1
 info:
-  title: PessoaApi
-  description: Api da Pessoa SIGAE OPEN SOURCE
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: PessoasApi
+  description: API de Pessoas SIGAE OPEN SOURCE
   version: v1
-  x-logo:
-    url: logo.png
-    altText: Instituto Unibanco SIGAE
 paths:
-  /Pessoa/api/Cargo:
+  /Pessoas/api/Cargo:
     post:
       tags:
-        - PessoaApi-Cargo
+        - PessoasApi-Cargo
       summary: Cria um cargo
       requestBody:
         content:
@@ -65,7 +59,7 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
     get:
       tags:
-        - PessoaApi-Cargo
+        - PessoasApi-Cargo
       summary: Buscar e filtrar todos os cargos
       parameters:
         - name: EstadoGuid
@@ -81,6 +75,10 @@ paths:
           in: query
           schema:
             type: string
+        - name: TipoInstituicao
+          in: query
+          schema:
+            $ref: '#/components/schemas/Instituicoes'
         - name: Page
           in: query
           schema:
@@ -128,10 +126,10 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  '/Pessoa/api/Cargo/{guid}':
+  '/Pessoas/api/Cargo/{guid}':
     delete:
       tags:
-        - PessoaApi-Cargo
+        - PessoasApi-Cargo
       summary: Deletar um cargo
       parameters:
         - name: guid
@@ -180,7 +178,7 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
     put:
       tags:
-        - PessoaApi-Cargo
+        - PessoasApi-Cargo
       summary: Atualiza cargo
       parameters:
         - name: guid
@@ -240,7 +238,7 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
     get:
       tags:
-        - PessoaApi-Cargo
+        - PessoasApi-Cargo
       summary: Buscar cargo por guid
       parameters:
         - name: guid
@@ -289,10 +287,10 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  /Pessoa/api/Pessoa:
+  /Pessoas/api/Pessoa:
     post:
       tags:
-        - PessoaApi-Pessoa
+        - PessoasApi-Pessoa
       summary: Cria uma pessoa
       requestBody:
         content:
@@ -392,7 +390,7 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
     get:
       tags:
-        - PessoaApi-Pessoa
+        - PessoasApi-Pessoa
       summary: Buscar e filtrar todas as pessoas
       parameters:
         - name: Nome
@@ -400,6 +398,10 @@ paths:
           schema:
             type: string
         - name: Cpf
+          in: query
+          schema:
+            type: string
+        - name: Email
           in: query
           schema:
             type: string
@@ -435,6 +437,24 @@ paths:
           in: query
           schema:
             type: boolean
+        - name: PerfilGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: FiltrarSomenteNaInstituicao
+          in: query
+          schema:
+            type: boolean
+        - name: Status
+          in: query
+          schema:
+            $ref: '#/components/schemas/StatusPessoa'
+        - name: CircuitoGestaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
         - name: Page
           in: query
           schema:
@@ -482,10 +502,10 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  '/Pessoa/api/Pessoa/{guid}':
+  '/Pessoas/api/Pessoa/{guid}':
     put:
       tags:
-        - PessoaApi-Pessoa
+        - PessoasApi-Pessoa
       summary: Atualiza pessoa
       parameters:
         - name: guid
@@ -600,7 +620,7 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
     delete:
       tags:
-        - PessoaApi-Pessoa
+        - PessoasApi-Pessoa
       summary: Deletar uma pessoa
       parameters:
         - name: guid
@@ -649,7 +669,7 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
     get:
       tags:
-        - PessoaApi-Pessoa
+        - PessoasApi-Pessoa
       summary: Buscar pessoa por guid
       parameters:
         - name: guid
@@ -698,10 +718,10 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  '/Pessoa/api/Pessoa/{guid}/email':
+  '/Pessoas/api/Pessoa/{guid}/email':
     put:
       tags:
-        - PessoaApi-Pessoa
+        - PessoasApi-Pessoa
       summary: Atualiza email de login da pessoa
       parameters:
         - name: guid
@@ -759,10 +779,10 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  '/Pessoa/api/Pessoa/{guid}/senha':
+  '/Pessoas/api/Pessoa/{guid}/senha':
     put:
       tags:
-        - PessoaApi-Pessoa
+        - PessoasApi-Pessoa
       summary: Atualiza senha de login da pessoa
       parameters:
         - name: guid
@@ -820,10 +840,239 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  /Pessoa/api/TipoContato:
+  /Pessoas/api/PessoaInternal/pessoas:
+    get:
+      tags:
+        - PessoasApi-Pessoa
+      summary: Busca os dados do cargo com filtros
+      parameters:
+        - name: pessoasGuids
+          in: query
+          description: Objeto com os filtros
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+      responses:
+        '200':
+          description: Cargo criado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PessoaInternalViewModelIEnumerableApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PessoaInternalViewModelIEnumerableApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PessoaInternalViewModelIEnumerableApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Pessoas/api/PessoaCargoInternal:
+    get:
+      tags:
+        - PessoasApi-PessoaCargoInternal
+      summary: Busca os dados do cargo com filtros
+      parameters:
+        - name: pessoaCargo
+          in: query
+          description: Objeto com os filtros
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/PessoaCargoFiltroDTO'
+      responses:
+        '200':
+          description: Cargo criado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PessoaCargoViewModelIEnumerableApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PessoaCargoViewModelIEnumerableApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PessoaCargoViewModelIEnumerableApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Pessoas/api/PessoaCargoInternal/grupoGestor:
+    get:
+      tags:
+        - PessoasApi-PessoaCargoInternal
+      summary: Busca os dados do grupo gestor
+      parameters:
+        - name: instituicoesGuids
+          in: query
+          description: Objeto com os filtros
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+      responses:
+        '200':
+          description: Cargo criado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GrupoGestorInternalViewModelIEnumerableApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GrupoGestorInternalViewModelIEnumerableApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GrupoGestorInternalViewModelIEnumerableApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Pessoas/api/Supervisor:
+    get:
+      tags:
+        - PessoasApi-Supervisor
+      summary: Buscar e filtrar os supervisores
+      parameters:
+        - name: Nome
+          in: query
+          schema:
+            type: string
+        - name: RegionalGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: SecretariaGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: EscolasGuids
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+        - name: DataInicio
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: DataFim
+          in: query
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Pessoas paginadas
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/SupervisorViewModelIEnumerableApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SupervisorViewModelIEnumerableApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/SupervisorViewModelIEnumerableApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Pessoas/api/TipoContato:
     post:
       tags:
-        - PessoaApi-TipoContato
+        - PessoasApi-TipoContato
       summary: Cria um tipo contato
       requestBody:
         content:
@@ -875,7 +1124,7 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
     get:
       tags:
-        - PessoaApi-TipoContato
+        - PessoasApi-TipoContato
       summary: Buscar e filtrar todos os contatos
       parameters:
         - name: Guid
@@ -889,7 +1138,6 @@ paths:
             $ref: '#/components/schemas/Contato'
         - name: Mascara
           in: query
-          required: true
           schema:
             type: string
       responses:
@@ -929,10 +1177,10 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  '/Pessoa/api/TipoContato/{guid}':
+  '/Pessoas/api/TipoContato/{guid}':
     put:
       tags:
-        - PessoaApi-TipoContato
+        - PessoasApi-TipoContato
       summary: Atualiza tipo contato
       parameters:
         - name: guid
@@ -992,7 +1240,7 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
     delete:
       tags:
-        - PessoaApi-TipoContato
+        - PessoasApi-TipoContato
       summary: Deletar um tipo contato
       parameters:
         - name: guid
@@ -1041,7 +1289,7 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
     get:
       tags:
-        - PessoaApi-TipoContato
+        - PessoasApi-TipoContato
       summary: Buscar tipo contato por guid
       parameters:
         - name: guid
@@ -1108,6 +1356,7 @@ components:
       required:
         - descricao
         - nome
+        - tipoInstituicao
       type: object
       properties:
         guid:
@@ -1119,6 +1368,8 @@ components:
         descricao:
           type: string
           nullable: true
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
       additionalProperties: false
     CargoViewModelApiResponse:
       type: object
@@ -1171,6 +1422,19 @@ components:
           description: Lista de erros
           nullable: true
       additionalProperties: false
+    CidadeDaPessoaViewModel:
+      type: object
+      properties:
+        cidadeGuid:
+          type: string
+          format: uuid
+        nomeCidade:
+          type: string
+          nullable: true
+        estadoGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
     Contato:
       enum:
         - 1
@@ -1196,6 +1460,8 @@ components:
         estadoGuid:
           type: string
           format: uuid
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
       additionalProperties: false
     CriarPessoaCargoDTO:
       type: object
@@ -1211,6 +1477,8 @@ components:
         dataInicio:
           type: string
           format: date-time
+        grupoGestor:
+          type: boolean
         ofertasEnsino:
           type: array
           items:
@@ -1226,8 +1494,6 @@ components:
         modalidadeEnsinoGuid:
           type: string
           format: uuid
-        grupoGestor:
-          type: boolean
       additionalProperties: false
     CriarPessoaContatoDTO:
       required:
@@ -1299,6 +1565,8 @@ components:
         descricao:
           type: string
           nullable: true
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
       additionalProperties: false
     EditarPessoaCargoDTO:
       type: object
@@ -1319,6 +1587,8 @@ components:
           format: date-time
         operacao:
           $ref: '#/components/schemas/Operacoes'
+        grupoGestor:
+          type: boolean
         ofertasEnsino:
           type: array
           items:
@@ -1337,8 +1607,6 @@ components:
         modalidadeEnsinoGuid:
           type: string
           format: uuid
-        grupoGestor:
-          type: boolean
         operacao:
           $ref: '#/components/schemas/Operacoes'
       additionalProperties: false
@@ -1428,6 +1696,59 @@ components:
           type: string
           nullable: true
       additionalProperties: false
+    EscolasSupervisorViewModel:
+      type: object
+      properties:
+        escolaGuid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        inep:
+          type: string
+          nullable: true
+      additionalProperties: false
+    EstadoDaPessoaViewModel:
+      type: object
+      properties:
+        estadoGuid:
+          type: string
+          format: uuid
+        nomeEstado:
+          type: string
+          nullable: true
+        sigla:
+          type: string
+          nullable: true
+      additionalProperties: false
+    GrupoGestorInternalViewModel:
+      type: object
+      properties:
+        instituicaoGuid:
+          type: string
+          format: uuid
+        possuiGrupoGestor:
+          type: boolean
+      additionalProperties: false
+    GrupoGestorInternalViewModelIEnumerableApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/GrupoGestorInternalViewModel'
+          description: Conteúdo do retorno
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
     GuidApiResponse:
       type: object
       properties:
@@ -1474,6 +1795,64 @@ components:
         - 3
       type: integer
       format: int32
+    PessoaCargoFiltroDTO:
+      type: object
+      properties:
+        pessoaGuid:
+          type: string
+          format: uuid
+        instituicoesGuids:
+          type: array
+          items:
+            type: string
+            format: uuid
+          nullable: true
+      additionalProperties: false
+    PessoaCargoViewModel:
+      required:
+        - pessoaGuid
+        - pessoaNome
+      type: object
+      properties:
+        pessoaGuid:
+          type: string
+          format: uuid
+        pessoaNome:
+          type: string
+          nullable: true
+        cargoGuid:
+          type: string
+          format: uuid
+        cargoNome:
+          type: string
+          nullable: true
+        grupoGestor:
+          type: boolean
+        instituicaoGuid:
+          type: string
+          format: uuid
+        instituicaoNome:
+          type: string
+          nullable: true
+      additionalProperties: false
+    PessoaCargoViewModelIEnumerableApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PessoaCargoViewModel'
+          description: Conteúdo do retorno
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
     PessoaCompletoCargoOfertaEnsinoViewModel:
       required:
         - etapaEnsino
@@ -1495,8 +1874,6 @@ components:
         modalidadeEnsino:
           type: string
           nullable: true
-        grupoGestor:
-          type: boolean
       additionalProperties: false
     PessoaCompletoCargoViewModel:
       required:
@@ -1528,6 +1905,8 @@ components:
           type: string
           format: date-time
           nullable: true
+        grupoGestor:
+          type: boolean
         ofertasEnsino:
           type: array
           items:
@@ -1587,6 +1966,12 @@ components:
         cidade:
           type: string
           nullable: true
+        estadoGuid:
+          type: string
+          format: uuid
+        estadoNome:
+          type: string
+          nullable: true
       additionalProperties: false
     PessoaCompletoEstadoViewModel:
       required:
@@ -1601,6 +1986,19 @@ components:
           type: string
           nullable: true
         sigla:
+          type: string
+          nullable: true
+      additionalProperties: false
+    PessoaCompletoLoginViewModel:
+      type: object
+      properties:
+        email:
+          type: string
+          nullable: true
+        telefone:
+          type: string
+          nullable: true
+        username:
           type: string
           nullable: true
       additionalProperties: false
@@ -1644,6 +2042,10 @@ components:
           nullable: true
         sexo:
           $ref: '#/components/schemas/Sexo'
+        status:
+          $ref: '#/components/schemas/StatusPessoa'
+        pessoaLogin:
+          $ref: '#/components/schemas/PessoaCompletoLoginViewModel'
         estados:
           type: array
           items:
@@ -1680,19 +2082,73 @@ components:
           description: Lista de erros
           nullable: true
       additionalProperties: false
-    PessoaEstadoViewModel:
+    PessoaInternalViewModel:
       required:
-        - nomeEstado
-        - sigla
+        - cpf
+        - nome
       type: object
       properties:
-        estadoGuid:
+        pessoaGuid:
           type: string
           format: uuid
-        nomeEstado:
+        nome:
           type: string
           nullable: true
-        sigla:
+        cpf:
+          type: string
+          nullable: true
+      additionalProperties: false
+    PessoaInternalViewModelIEnumerableApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PessoaInternalViewModel'
+          description: Conteúdo do retorno
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    PessoaListagemCargoViewModel:
+      type: object
+      properties:
+        cargoGuid:
+          type: string
+          format: uuid
+        nomeCargo:
+          type: string
+          nullable: true
+        grupoGestor:
+          type: boolean
+      additionalProperties: false
+    PessoaLoginViewModel:
+      type: object
+      properties:
+        email:
+          type: string
+          nullable: true
+        telefone:
+          type: string
+          nullable: true
+        username:
+          type: string
+          nullable: true
+      additionalProperties: false
+    PessoaPerfilViewModel:
+      type: object
+      properties:
+        perfilGuid:
+          type: string
+          format: uuid
+          nullable: true
+        nomePerfil:
           type: string
           nullable: true
       additionalProperties: false
@@ -1722,10 +2178,29 @@ components:
           nullable: true
         sexo:
           $ref: '#/components/schemas/Sexo'
+        status:
+          $ref: '#/components/schemas/StatusPessoa'
+        pessoaLogin:
+          $ref: '#/components/schemas/PessoaLoginViewModel'
         estados:
           type: array
           items:
-            $ref: '#/components/schemas/PessoaEstadoViewModel'
+            $ref: '#/components/schemas/EstadoDaPessoaViewModel'
+          nullable: true
+        cidades:
+          type: array
+          items:
+            $ref: '#/components/schemas/CidadeDaPessoaViewModel'
+          nullable: true
+        cargos:
+          type: array
+          items:
+            $ref: '#/components/schemas/PessoaListagemCargoViewModel'
+          nullable: true
+        perfis:
+          type: array
+          items:
+            $ref: '#/components/schemas/PessoaPerfilViewModel'
           nullable: true
       additionalProperties: false
     PessoaViewModelPaginatedResult:
@@ -1792,6 +2267,45 @@ components:
         - 3
       type: integer
       format: int32
+    StatusPessoa:
+      enum:
+        - 0
+        - 1
+      type: integer
+      format: int32
+    SupervisorViewModel:
+      type: object
+      properties:
+        supervisorGuid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        escolas:
+          type: array
+          items:
+            $ref: '#/components/schemas/EscolasSupervisorViewModel'
+          nullable: true
+      additionalProperties: false
+    SupervisorViewModelIEnumerableApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SupervisorViewModel'
+          description: Conteúdo do retorno
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
     TipoContatoViewModel:
       required:
         - mascara
@@ -1857,3 +2371,14 @@ components:
           description: Lista de erros
           nullable: true
       additionalProperties: false
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://dev-wzpq2pvdskr0u2np.us.auth0.com/authorize?audience=https%3A%2F%2Flitedev.sigae.org.br%2F
+          scopes:
+            openid: OpenId
+security:
+  - oauth2:
+      - openid

@@ -1,19 +1,13 @@
 openapi: 3.0.1
 info:
-  title: ReuniaoApi
-  description: Api da Reunião SIGAE OPEN SOURCE
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: ReuniõesApi
+  description: API de Reuniões SIGAE OPEN SOURCE
   version: v1
-  x-logo:
-    url: logo.png
-    altText: Instituto Unibanco SIGAE
 paths:
-  '/Reuniao/api/ReuniaoSolicitacaoReagendamento/{guid}':
+  '/Reunioes/api/ReuniaoSolicitacaoReagendamento/{guid}':
     get:
       tags:
-        - Reuniao-Reagendamento
+        - Reunioes-Reagendamento
       summary: Buscar Reunião Solicitação Reagendamento por GUID
       parameters:
         - name: guid
@@ -64,7 +58,7 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
     delete:
       tags:
-        - Reuniao-Reagendamento
+        - Reunioes-Reagendamento
       summary: Deletar uma Reunião Solicitação Reagendamento.
       parameters:
         - name: guid
@@ -113,7 +107,7 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
     put:
       tags:
-        - Reuniao-Reagendamento
+        - Reunioes-Reagendamento
       summary: Atualiza Reunião Solicitação Reagendamento.
       parameters:
         - name: guid
@@ -171,10 +165,10 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  /Reuniao/api/ReuniaoSolicitacaoReagendamento:
+  /Reunioes/api/ReuniaoSolicitacaoReagendamento:
     get:
       tags:
-        - Reuniao-Reagendamento
+        - Reunioes-Reagendamento
       summary: Buscar Reunião Solicitação Reagendamento por filtros
       parameters:
         - name: ReuniaoGuid
@@ -246,7 +240,7 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
     post:
       tags:
-        - Reuniao-Reagendamento
+        - Reunioes-Reagendamento
       summary: Cria Reunião Solicitação Reagendamento.
       requestBody:
         content:
@@ -296,10 +290,10 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  /Reuniao/api/Reuniao:
+  /Reunioes/api/Reuniao:
     post:
       tags:
-        - ReuniaoApi-Reuniao
+        - ReunioesApi-Reuniao
       summary: Cria uma reunião
       requestBody:
         content:
@@ -448,7 +442,7 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
     get:
       tags:
-        - ReuniaoApi-Reuniao
+        - ReunioesApi-Reuniao
       summary: Buscar e filtrar todas as reuniões
       parameters:
         - name: Titulo
@@ -470,8 +464,10 @@ paths:
         - name: OrganizadorGuid
           in: query
           schema:
-            type: string
-            format: uuid
+            type: array
+            items:
+              type: string
+              format: uuid
         - name: DataInicio
           in: query
           schema:
@@ -486,30 +482,78 @@ paths:
           in: query
           schema:
             type: boolean
+        - name: Pendencia
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Pendencias'
         - name: CircuitoGestaoEtapaReuniaoGuid
           in: query
           schema:
-            type: string
-            format: uuid
+            type: array
+            items:
+              type: string
+              format: uuid
+        - name: CircuitoGestaoEtapaGuid
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
         - name: StatusEtapaCircuitoGestao
           in: query
           schema:
-            $ref: '#/components/schemas/StatusReuniao'
+            type: array
+            items:
+              $ref: '#/components/schemas/StatusReuniao'
         - name: InstituicaoGuid
           in: query
           schema:
             type: string
             format: uuid
+        - name: TipoInstituicao
+          in: query
+          schema:
+            $ref: '#/components/schemas/Instituicoes'
+        - name: EscolaGuid
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+        - name: RegionalGuid
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
         - name: ParticipanteGuid
           in: query
           schema:
-            type: string
-            format: uuid
+            type: array
+            items:
+              type: string
+              format: uuid
         - name: PublicoAlvoGuid
           in: query
           schema:
             type: string
             format: uuid
+        - name: VisaoDados
+          in: query
+          schema:
+            $ref: '#/components/schemas/ReunioesVisaoEnum'
+        - name: Tags
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
         - name: Page
           in: query
           schema:
@@ -557,10 +601,10 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  '/Reuniao/api/Reuniao/{guid}':
+  '/Reunioes/api/Reuniao/{guid}':
     put:
       tags:
-        - ReuniaoApi-Reuniao
+        - ReunioesApi-Reuniao
       summary: Atualiza reunião
       parameters:
         - name: guid
@@ -717,7 +761,7 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
     delete:
       tags:
-        - ReuniaoApi-Reuniao
+        - ReunioesApi-Reuniao
       summary: Deletar uma reunião
       parameters:
         - name: guid
@@ -766,7 +810,7 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
     get:
       tags:
-        - ReuniaoApi-Reuniao
+        - ReunioesApi-Reuniao
       summary: Buscar reunião por guid
       parameters:
         - name: guid
@@ -815,10 +859,10 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  '/Reuniao/api/Reuniao/{guid}/participantes':
+  '/Reunioes/api/Reuniao/{guid}/participantes':
     get:
       tags:
-        - ReuniaoApi-Reuniao
+        - ReunioesApi-Reuniao
       summary: Buscar e filtrar todos os participantes de uma reunião
       parameters:
         - name: guid
@@ -863,6 +907,58 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ReuniaoParticipanteViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Reunioes/api/ReuniaoInternal/AvaliacaoStatus:
+    get:
+      tags:
+        - ReunioesApi-ReuniaoInternal
+      summary: Buscar todas as reuniões de um circuito gestão.
+      parameters:
+        - name: circuitoGestaoEtapaReuniaoGuids
+          in: query
+          description: Guids dos circuito gestão etapa reunião
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+      responses:
+        '200':
+          description: Reuniões
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ReuniaoAvaliacaoStatusViewModelIEnumerableApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReuniaoAvaliacaoStatusViewModelIEnumerableApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ReuniaoAvaliacaoStatusViewModelIEnumerableApiResponse'
         '400':
           description: Erro de validação
           content:
@@ -1157,6 +1253,14 @@ components:
           type: string
           format: date-time
       additionalProperties: false
+    Etapas:
+      enum:
+        - 1
+        - 2
+        - 3
+        - 4
+      type: integer
+      format: int32
     GuidApiResponse:
       required:
         - errors
@@ -1207,6 +1311,12 @@ components:
         - 3
       type: integer
       format: int32
+    Pendencias:
+      enum:
+        - 1
+        - 2
+      type: integer
+      format: int32
     ProblemDetails:
       type: object
       properties:
@@ -1227,6 +1337,59 @@ components:
           type: string
           nullable: true
       additionalProperties: { }
+    ReuniaoAnexoViewModel:
+      required:
+        - anexoUrl
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        anexoUrl:
+          type: string
+          nullable: true
+        anexoNome:
+          type: string
+          nullable: true
+        anexoTamanhoEmKb:
+          type: number
+          format: double
+        anexoTipo:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ReuniaoAvaliacaoStatusViewModel:
+      type: object
+      properties:
+        assinado:
+          type: boolean
+        instituicoesGuids:
+          type: array
+          items:
+            type: string
+            format: uuid
+          nullable: true
+      additionalProperties: false
+    ReuniaoAvaliacaoStatusViewModelIEnumerableApiResponse:
+      required:
+        - errors
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReuniaoAvaliacaoStatusViewModel'
+          description: Conteúdo do retorno
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
     ReuniaoCompletoAnexoViewModel:
       required:
         - anexoUrl
@@ -1236,6 +1399,15 @@ components:
           type: string
           format: uuid
         anexoUrl:
+          type: string
+          nullable: true
+        anexoNome:
+          type: string
+          nullable: true
+        anexoTamanhoEmKb:
+          type: number
+          format: double
+        anexoTipo:
           type: string
           nullable: true
       additionalProperties: false
@@ -1271,6 +1443,18 @@ components:
           format: int32
         status:
           $ref: '#/components/schemas/StatusReuniao'
+      additionalProperties: false
+    ReuniaoCompletoCircuitoGestaoEtapaViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        etapa:
+          $ref: '#/components/schemas/Etapas'
       additionalProperties: false
     ReuniaoCompletoDiscussaoPautaViewModel:
       required:
@@ -1343,7 +1527,7 @@ components:
         - nome
       type: object
       properties:
-        instituicaoGuid:
+        secretariaGuid:
           type: string
           format: uuid
         nome:
@@ -1351,6 +1535,12 @@ components:
           nullable: true
         tipoInstituicao:
           $ref: '#/components/schemas/Instituicoes'
+        regionalGuid:
+          type: string
+          format: uuid
+        escolaGuid:
+          type: string
+          format: uuid
       additionalProperties: false
     ReuniaoCompletoPautaPadraoViewModel:
       required:
@@ -1385,6 +1575,8 @@ components:
           items:
             $ref: '#/components/schemas/ReuniaoCompletoDiscussaoPautaViewModel'
           nullable: true
+        pautaNaoDiscutida:
+          type: boolean
       additionalProperties: false
     ReuniaoCompletoPeriodicidadeViewModel:
       type: object
@@ -1471,6 +1663,8 @@ components:
           $ref: '#/components/schemas/ReuniaoCompletoPeriodicidadeViewModel'
         ata:
           $ref: '#/components/schemas/ReuniaoCompletoAtaViewModel'
+        circuitoGestaoEtapa:
+          $ref: '#/components/schemas/ReuniaoCompletoCircuitoGestaoEtapaViewModel'
         tags:
           type: array
           items:
@@ -1524,46 +1718,25 @@ components:
           description: Lista de erros
           nullable: true
       additionalProperties: false
-    ReuniaoCompletoViewModelDados:
+    ReuniaoParticipanteCargoViewModel:
+      required:
+        - descricao
       type: object
       properties:
-        guid:
+        cargoGuid:
           type: string
           format: uuid
-        titulo:
+          nullable: true
+        descricao:
           type: string
           nullable: true
-        local:
-          type: string
-          nullable: true
-        tipo:
-          $ref: '#/components/schemas/TipoReuniao'
-        remoto:
-          type: boolean
-        organizadorGuid:
+        instituicaoGuid:
           type: string
           format: uuid
-        dataInicio:
+          nullable: true
+        instituicaoNome:
           type: string
-          format: date-time
-        dataFim:
-          type: string
-          format: date-time
-        rascunho:
-          type: boolean
-      additionalProperties: false
-    ReuniaoIndicadoresViewModel:
-      type: object
-      properties:
-        totalInstituicoes:
-          type: integer
-          format: int32
-        totalParticipantes:
-          type: integer
-          format: int32
-        totalPublicosAlvo:
-          type: integer
-          format: int32
+          nullable: true
       additionalProperties: false
     ReuniaoParticipanteViewModel:
       required:
@@ -1583,6 +1756,15 @@ components:
           format: date-time
           nullable: true
         ressalva:
+          type: string
+          nullable: true
+        cargo:
+          $ref: '#/components/schemas/ReuniaoParticipanteCargoViewModel'
+        publicoAlvoGuid:
+          type: string
+          format: uuid
+          nullable: true
+        publicoAlvo:
           type: string
           nullable: true
       additionalProperties: false
@@ -1624,6 +1806,18 @@ components:
           description: Lista de erros
           nullable: true
       additionalProperties: false
+    ReuniaoPautaViewModel:
+      required:
+        - descricao
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        descricao:
+          type: string
+          nullable: true
+      additionalProperties: false
     ReuniaoSolicitacaoReagendamentoCompletoViewModel:
       type: object
       properties:
@@ -1647,7 +1841,7 @@ components:
           type: string
           format: date-time
         reuniao:
-          $ref: '#/components/schemas/ReuniaoCompletoViewModelDados'
+          $ref: '#/components/schemas/ReuniaoSolicitacaoReagendamentoReuniaoCompletoViewModel'
       additionalProperties: false
     ReuniaoSolicitacaoReagendamentoCompletoViewModelApiResponse:
       required:
@@ -1665,6 +1859,34 @@ components:
             $ref: '#/components/schemas/ApiError'
           description: Lista de erros
           nullable: true
+      additionalProperties: false
+    ReuniaoSolicitacaoReagendamentoReuniaoCompletoViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        titulo:
+          type: string
+          nullable: true
+        local:
+          type: string
+          nullable: true
+        tipo:
+          $ref: '#/components/schemas/TipoReuniao'
+        remoto:
+          type: boolean
+        organizadorGuid:
+          type: string
+          format: uuid
+        dataInicio:
+          type: string
+          format: date-time
+        dataFim:
+          type: string
+          format: date-time
+        rascunho:
+          type: boolean
       additionalProperties: false
     ReuniaoSolicitacaoReagendamentoViewModel:
       required:
@@ -1742,7 +1964,6 @@ components:
       additionalProperties: false
     ReuniaoViewModel:
       required:
-        - indicadores
         - local
         - organizador
         - titulo
@@ -1775,14 +1996,40 @@ components:
           format: date-time
         rascunho:
           type: boolean
+        pendencia:
+          $ref: '#/components/schemas/Pendencias'
+        circuitoGestaoEtapaReuniaoGuid:
+          type: string
+          format: uuid
+          nullable: true
+        circuitoGestaoEtapaReuniao:
+          type: string
+          nullable: true
+        circuitoGestaoEtapaGuid:
+          type: string
+          format: uuid
+          nullable: true
+        circuitoGestaoEtapa:
+          type: string
+          nullable: true
+        etapa:
+          $ref: '#/components/schemas/Etapas'
         statusEtapaCircuitoGestao:
           $ref: '#/components/schemas/StatusReuniao'
-        indicadores:
-          $ref: '#/components/schemas/ReuniaoIndicadoresViewModel'
         tags:
           type: array
           items:
             $ref: '#/components/schemas/ReuniaoTagsViewModels'
+          nullable: true
+        anexos:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReuniaoAnexoViewModel'
+          nullable: true
+        pautas:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReuniaoPautaViewModel'
           nullable: true
       additionalProperties: false
     ReuniaoViewModelPaginatedResult:
@@ -1823,6 +2070,14 @@ components:
           description: Lista de erros
           nullable: true
       additionalProperties: false
+    ReunioesVisaoEnum:
+      enum:
+        - 0
+        - 1
+        - 2
+        - 3
+      type: integer
+      format: int32
     StatusEncaminhamento:
       enum:
         - 1
@@ -1851,3 +2106,14 @@ components:
         - 2
       type: integer
       format: int32
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://dev-wzpq2pvdskr0u2np.us.auth0.com/authorize?audience=https%3A%2F%2Flitedev.sigae.org.br%2F
+          scopes:
+            openid: OpenId
+security:
+  - oauth2:
+      - openid

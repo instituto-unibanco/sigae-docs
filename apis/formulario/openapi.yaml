@@ -1,13 +1,21 @@
 openapi: 3.0.1
 info:
-  title: FormularioApi
-  description: Api da Formulario SIGAE OPEN SOURCE
+  title: FormulariosApi
+  description: API de Formularios SIGAE OPEN SOURCE
   version: v1
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: https://api.sigae.org.br/Formularios
+    description: Servidor principal
+
 paths:
-  /Formulario/api/Formulario:
+  /Formularios/api/Formulario:
     post:
       tags:
-        - FormularioApi-Formulario
+        - FormulariosApi-Formulario
       summary: Cria uma Formulario
       requestBody:
         content:
@@ -59,7 +67,7 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
     get:
       tags:
-        - FormularioApi-Formulario
+        - FormulariosApi-Formulario
       summary: Buscar e filtrar todas as formulários
       parameters:
         - name: Nome
@@ -123,10 +131,10 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  '/Formulario/api/Formulario/{guid}':
+  '/Formularios/api/Formulario/{guid}':
     put:
       tags:
-        - FormularioApi-Formulario
+        - FormulariosApi-Formulario
       summary: Atualiza Formulario
       parameters:
         - name: guid
@@ -186,7 +194,7 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
     delete:
       tags:
-        - FormularioApi-Formulario
+        - FormulariosApi-Formulario
       summary: Deletar uma Formulario
       parameters:
         - name: guid
@@ -235,7 +243,7 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
     get:
       tags:
-        - FormularioApi-Formulario
+        - FormulariosApi-Formulario
       summary: Buscar Formulario por guid
       parameters:
         - name: guid
@@ -284,10 +292,10 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  '/Formulario/api/Formulario/{formularioOrigemGuid}/Clonar':
+  '/Formularios/api/Formulario/{formularioOrigemGuid}/Clonar':
     post:
       tags:
-        - FormularioApi-Formulario
+        - FormulariosApi-Formulario
       summary: Clona um formulário existente com novo nome e versão 1
       parameters:
         - name: formularioOrigemGuid
@@ -326,10 +334,10 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ObjectApiResponse'
-  '/Formulario/api/FormularioInternal/{guid}':
+  '/Formularios/api/FormularioInternal/{guid}':
     get:
       tags:
-        - FormularioApi-FormularioInternal
+        - FormulariosApi-FormularioInternal
       summary: Buscar Formulario por guid
       parameters:
         - name: guid
@@ -378,10 +386,64 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  '/Formulario/api/FormularioInternal/{guid}/Existe':
+  /Formularios/api/FormularioInternal:
     get:
       tags:
-        - FormularioApi-FormularioInternal
+        - FormulariosApi-FormularioInternal
+      summary: Buscar Formulario por guids
+      parameters:
+        - name: guids
+          in: query
+          description: Guid dos Formularios
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+      responses:
+        '200':
+          description: Formulario
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/FormularioGuidNomeViewModelIEnumerableApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FormularioGuidNomeViewModelIEnumerableApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/FormularioGuidNomeViewModelIEnumerableApiResponse'
+        '204':
+          description: Formulario não encontrada
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Formularios/api/FormularioInternal/{guid}/Existe':
+    get:
+      tags:
+        - FormulariosApi-FormularioInternal
       summary: Verifica se o Formulário existe
       parameters:
         - name: guid
@@ -428,10 +490,10 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  '/Formulario/api/FormularioResposta/{guid}':
+  '/Formularios/api/FormularioResposta/{guid}':
     get:
       tags:
-        - FormularioApi-FormularioResposta
+        - FormulariosApi-FormularioResposta
       summary: Buscar Formulario Resposta por guid
       parameters:
         - name: guid
@@ -482,7 +544,7 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
     delete:
       tags:
-        - FormularioApi-FormularioResposta
+        - FormulariosApi-FormularioResposta
       summary: Deletar um Formulario Resposta
       parameters:
         - name: guid
@@ -531,7 +593,7 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
     put:
       tags:
-        - FormularioApi-FormularioResposta
+        - FormulariosApi-FormularioResposta
       summary: Atualiza Formulario Resposta
       parameters:
         - name: guid
@@ -589,10 +651,10 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  /Formulario/api/FormularioResposta:
+  /Formularios/api/FormularioResposta:
     get:
       tags:
-        - FormularioApi-FormularioResposta
+        - FormulariosApi-FormularioResposta
       summary: Buscar e filtrar todas as Formulario Respostas
       parameters:
         - name: FormularioVersao
@@ -659,7 +721,7 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
     post:
       tags:
-        - FormularioApi-FormularioResposta
+        - FormulariosApi-FormularioResposta
       summary: Cria um Formulario Resposta
       requestBody:
         content:
@@ -709,10 +771,10 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  '/Formulario/api/FormularioRespostaInternal/{guid}':
+  '/Formularios/api/FormularioRespostaInternal/{guid}':
     get:
       tags:
-        - FormularioApi-FormularioRespostaInternal
+        - FormulariosApi-FormularioRespostaInternal
       summary: Buscar Formulario Resposta por guid
       parameters:
         - name: guid
@@ -761,10 +823,10 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  '/Formulario/api/FormularioRespostaInternal/Existe/{guid}':
+  '/Formularios/api/FormularioRespostaInternal/Existe/{guid}':
     get:
       tags:
-        - FormularioApi-FormularioRespostaInternal
+        - FormulariosApi-FormularioRespostaInternal
       summary: Verifica se Formulario Resposta existe
       parameters:
         - name: guid
@@ -912,6 +974,36 @@ components:
         formularioVersao:
           type: integer
           format: int32
+      additionalProperties: false
+    FormularioGuidNomeViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+      additionalProperties: false
+    FormularioGuidNomeViewModelIEnumerableApiResponse:
+      required:
+        - errors
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FormularioGuidNomeViewModel'
+          description: Conteúdo do retorno
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
       additionalProperties: false
     FormularioRespostaCircuitoGestaoEtapaDTO:
       type: object
@@ -1193,3 +1285,15 @@ components:
           type: string
           nullable: true
       additionalProperties: { }
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://dev-wzpq2pvdskr0u2np.us.auth0.com/authorize?audience=https%3A%2F%2Flitedev.sigae.org.br%2F
+          scopes:
+            openid: OpenId
+
+security:
+  - oauth2:
+      - openid
