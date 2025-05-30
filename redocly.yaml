@@ -1,32 +1,35 @@
-# See https://redocly.com/docs/cli/configuration/ for more information.
 apis:
-  circuito-gestao: 
+  circuito-gestao:
     root: ./apis/circuito-gestao/openapi.yaml
   devolutivas-pedagogicas:
     root: ./apis/devolutivas-pedagogicas/openapi.yaml
+  formulario:
+    root: ./apis/formulario/openapi.yaml
+  indicadores:
+    root: ./apis/indicadores/openapi.yaml
+  instituicao:
+    root: ./apis/instituicao/openapi.yaml
+  pessoa:
+    root: ./apis/pessoa/openapi.yaml
   plano-acao:
     root: ./apis/plano-acao/openapi.yaml
+  reuniao:
+    root: ./apis/reuniao/openapi.yaml
+  utilidades:
+    root: ./apis/utilidades/openapi.yaml
+
+
 extends:
   - recommended
+
 rules:
   no-unused-components: error
   no-server-example.com: off
-  no-empty-servers: warn            
+  no-empty-servers: off
   security-defined: off
   operation-operationId: off
   tag-description: off
-theme:
-  openapi:
-    theme:
-      colors:
-        primary:
-          main: "#32329f"
-      rightPanel:
-        backgroundColor: "#172b4e"
-    generateCodeSamples:
-      languages:
-        - lang: curl
-        - lang: Node.js
-        - lang: JavaScript
-        - lang: PHP
-        - lang: Python
+
+  # Desativa os dois warnings atuais:
+  info-license: off
+  no-ambiguous-paths: off

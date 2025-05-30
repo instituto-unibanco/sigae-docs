@@ -1,19 +1,13 @@
 openapi: 3.0.1
 info:
   title: UtilidadesApi
-  description: Api de Utilidades SIGAE OPEN SOURCE
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: API da Utilidades SIGAE OPEN SOURCE
   version: v1
-  x-logo:
-    url: logo.png
-    altText: Instituto Unibanco SIGAE
 paths:
-  /Escola:
+  /Utilidades/api/Authorization/Escola:
     post:
       tags:
-        - Authorization
+        - UtilidadesApi-Authorization
       summary: 'Insere no serviço de autorização uma escola, vinculada a uma regional'
       requestBody:
         content:
@@ -63,10 +57,10 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  /Regional:
+  /Utilidades/api/Authorization/Regional:
     post:
       tags:
-        - Authorization
+        - UtilidadesApi-Authorization
       summary: 'Insere no serviço de autorização uma regional, vinculada a uma secretaria'
       requestBody:
         content:
@@ -116,10 +110,10 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  /ChecarPermissao:
+  /Utilidades/api/Authorization/ChecarPermissao:
     post:
       tags:
-        - Authorization
+        - UtilidadesApi-Authorization
       summary: Verifica se a pessoa informada pode performar uma ação especifica
       requestBody:
         content:
@@ -145,6 +139,1112 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/BooleanApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Utilidades/api/Authorization:
+    get:
+      tags:
+        - UtilidadesApi-Authorization
+      summary: Busca as informações de autorização (perfis) com historico de acordo com filtros
+      parameters:
+        - name: PessoaGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: InstituicaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: TipoInstituicao
+          in: query
+          schema:
+            $ref: '#/components/schemas/Instituicoes'
+      responses:
+        '200':
+          description: Lista com os perfis
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/AutorizacaoComHistoricoViewModelIEnumerableApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutorizacaoComHistoricoViewModelIEnumerableApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/AutorizacaoComHistoricoViewModelIEnumerableApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Utilidades/api/AuthorizationInternal/Paginado:
+    get:
+      tags:
+        - UtilidadesApi-AuthorizationInternal
+      summary: Busca as informações de autorização (perfis) de acordo com filtros paginado
+      parameters:
+        - name: PessoasGuids
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+        - name: Perfis
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+        - name: InstituicoesGuids
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Lista com os perfis
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/AutorizacaoViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutorizacaoViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/AutorizacaoViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Utilidades/api/AuthorizationInternal/ChecarPermissao:
+    get:
+      tags:
+        - UtilidadesApi-AuthorizationInternal
+      summary: Verifica se a pessoa informada pode performar uma ação especifica
+      parameters:
+        - name: PessoaGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Permissao.Permissao
+          in: query
+          schema:
+            type: string
+        - name: Permissao.PermissaoInterna
+          in: query
+          schema:
+            type: string
+        - name: TipoRecurso
+          in: query
+          schema:
+            $ref: '#/components/schemas/TipoRecurso'
+        - name: RecursoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'Verdadeiro se ela tiver permissão, falso se não.'
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BooleanApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Utilidades/api/Biblioteca/Pasta:
+    post:
+      tags:
+        - UtilidadesApi-Biblioteca
+      summary: Cria uma pasta
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarPastaDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CriarPastaDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CriarPastaDTO'
+      responses:
+        '200':
+          description: Pasta criada com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - UtilidadesApi-Biblioteca
+      summary: Buscar e filtrar todas as pastas
+      parameters:
+        - name: Nome
+          in: query
+          schema:
+            type: string
+        - name: PastaSuperiorGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Pastas paginadas
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PastaViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PastaViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PastaViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Utilidades/api/Biblioteca/Pasta/{guid}':
+    delete:
+      tags:
+        - UtilidadesApi-Biblioteca
+      summary: Deletar uma pasta
+      parameters:
+        - name: guid
+          in: path
+          description: Guid da pasta
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Pasta deletada com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - UtilidadesApi-Biblioteca
+      summary: Buscar pasta por guid
+      parameters:
+        - name: guid
+          in: path
+          description: Guid da pasta
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Pasta
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PastaViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PastaViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PastaViewModelApiResponse'
+        '204':
+          description: Pasta não encontrada
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Utilidades/api/Biblioteca/Arquivo:
+    post:
+      tags:
+        - UtilidadesApi-Biblioteca
+      summary: Faz upload de arquivo na biblioteca
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UploadArquivoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/UploadArquivoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/UploadArquivoDTO'
+      responses:
+        '200':
+          description: Arquivo criado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - UtilidadesApi-Biblioteca
+      summary: Buscar e filtrar todos os arquivos
+      parameters:
+        - name: Nome
+          in: query
+          schema:
+            type: string
+        - name: PastaGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Arquivos paginados
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ArquivoViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArquivoViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ArquivoViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Utilidades/api/Biblioteca/Arquivo/{guid}':
+    delete:
+      tags:
+        - UtilidadesApi-Biblioteca
+      summary: Deletar um arquivo
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do arquivo
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Arquivo deletado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - UtilidadesApi-Biblioteca
+      summary: Buscar arquivo por guid
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do arquivo
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Arquivo
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ArquivoViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArquivoViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ArquivoViewModelApiResponse'
+        '204':
+          description: Arquivo não encontrado
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Utilidades/api/Biblioteca/Conteudo:
+    get:
+      tags:
+        - UtilidadesApi-Biblioteca
+      summary: 'Lista pastas e arquivos paginado, filtrando por nome ou tipo'
+      parameters:
+        - name: PastaSuperiorGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Nome
+          in: query
+          schema:
+            type: string
+        - name: TipoConteudoBiblioteca
+          in: query
+          schema:
+            $ref: '#/components/schemas/TipoConteudoBiblioteca'
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Conteúdo paginado
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ConteudoBibliotecaViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConteudoBibliotecaViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ConteudoBibliotecaViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Utilidades/api/Biblioteca/BuscarArvoreHabilidades:
+    get:
+      tags:
+        - UtilidadesApi-Biblioteca
+      summary: Busca as informações de autorização (perfis) com historico de acordo com filtros
+      responses:
+        '200':
+          description: Lista com os perfis
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/AutorizacaoComHistoricoViewModelIEnumerableApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutorizacaoComHistoricoViewModelIEnumerableApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/AutorizacaoComHistoricoViewModelIEnumerableApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Utilidades/api/ConteudoExterno:
+    post:
+      tags:
+        - UtilidadesApi-ConteudoExterno
+      summary: Cria um novo conteúdo externo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarConteudoExternoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CriarConteudoExternoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CriarConteudoExternoDTO'
+      responses:
+        '200':
+          description: Conteúdo externo criado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - UtilidadesApi-ConteudoExterno
+      summary: Busca e filtra todos os conteúdos externos com paginação
+      parameters:
+        - name: Titulo
+          in: query
+          schema:
+            type: string
+        - name: TipoConteudoExterno
+          in: query
+          schema:
+            $ref: '#/components/schemas/TipoConteudoExterno'
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Conteúdos externos paginados
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ConteudoExternoViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConteudoExternoViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ConteudoExternoViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Utilidades/api/ConteudoExterno/{guid}':
+    put:
+      tags:
+        - UtilidadesApi-ConteudoExterno
+      summary: Atualiza um conteúdo externo
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do conteúdo externo
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditarConteudoExternoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/EditarConteudoExternoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/EditarConteudoExternoDTO'
+      responses:
+        '200':
+          description: Conteúdo externo atualizado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    delete:
+      tags:
+        - UtilidadesApi-ConteudoExterno
+      summary: Deleta um conteúdo externo
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do conteúdo externo
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Conteúdo externo deletado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - UtilidadesApi-ConteudoExterno
+      summary: Busca um conteúdo externo completo por guid
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do conteúdo externo
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Conteúdo externo encontrado
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ConteudoExternoCompletoViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConteudoExternoCompletoViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ConteudoExternoCompletoViewModelApiResponse'
+        '204':
+          description: Conteúdo externo não encontrado
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Utilidades/api/Menu/Lateral/Pessoa/{pessoaGuid}':
+    get:
+      tags:
+        - UtilidadesApi-Menu
+      summary: Retorna o menu lateral para a pessoa logada
+      parameters:
+        - name: pessoaGuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Menu lateral da pessoa
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MenuLateralViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MenuLateralViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MenuLateralViewModelApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Utilidades/api/Menu/Contexto/Pessoa/{pessoaGuid}':
+    get:
+      tags:
+        - UtilidadesApi-Menu
+      summary: Retorna o menu de contexto para a pessoa logada
+      parameters:
+        - name: pessoaGuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Menu lateral da pessoa
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MenuContextoViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MenuContextoViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MenuContextoViewModelApiResponse'
         '400':
           description: Erro de validação
           content:
@@ -438,6 +1538,70 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
+  /Utilidades/api/PerfilInternal:
+    get:
+      tags:
+        - UtilidadesApi-PerfilInternal
+      summary: Busca os perfis de uma pessoa de acordo com filtros
+      parameters:
+        - name: PessoasGuids
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
+        - name: TipoInstituicao
+          in: query
+          schema:
+            $ref: '#/components/schemas/Instituicoes'
+        - name: InstituicaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: PerfilGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Lista com os perfis
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PessoaPerfilViewModelIEnumerableApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PessoaPerfilViewModelIEnumerableApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PessoaPerfilViewModelIEnumerableApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
   /Utilidades/api/Permissao:
     post:
       tags:
@@ -707,6 +1871,726 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
+  /Utilidades/api/Tag:
+    post:
+      tags:
+        - UtilidadesApi-Tag
+      summary: Cria uma tag
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarTagDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CriarTagDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CriarTagDTO'
+      responses:
+        '200':
+          description: Tag criada com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - UtilidadesApi-Tag
+      summary: Buscar e filtrar todas as tags
+      parameters:
+        - name: Nome
+          in: query
+          schema:
+            type: string
+        - name: Contexto
+          in: query
+          schema:
+            $ref: '#/components/schemas/Contexto'
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Tags paginadas
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TagViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TagViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Utilidades/api/Tag/{guid}':
+    delete:
+      tags:
+        - UtilidadesApi-Tag
+      summary: Deletar uma tag
+      parameters:
+        - name: guid
+          in: path
+          description: Guid da tag
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Tag deletada com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    put:
+      tags:
+        - UtilidadesApi-Tag
+      summary: Atualiza uma tag
+      parameters:
+        - name: guid
+          in: path
+          description: Guid da tag
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditarTagDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/EditarTagDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/EditarTagDTO'
+      responses:
+        '200':
+          description: Tag atualizada com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - UtilidadesApi-Tag
+      summary: Buscar tag por guid
+      parameters:
+        - name: guid
+          in: path
+          description: Guid da tag
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Tag
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TagViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TagViewModelApiResponse'
+        '204':
+          description: Tag não encontrada
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Utilidades/api/Termo:
+    post:
+      tags:
+        - UtilidadesApi-Termo
+      summary: Cria um novo termo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarTermoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CriarTermoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CriarTermoDTO'
+      responses:
+        '200':
+          description: Termo criado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - UtilidadesApi-Termo
+      summary: Busca e filtra todos os termos com paginação
+      parameters:
+        - name: Titulo
+          in: query
+          schema:
+            type: string
+        - name: EstadoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Termos paginados
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TermoViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TermoViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TermoViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Utilidades/api/Termo/{guid}':
+    put:
+      tags:
+        - UtilidadesApi-Termo
+      summary: Atualiza um termo
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do termo
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditarTermoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/EditarTermoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/EditarTermoDTO'
+      responses:
+        '200':
+          description: Termo atualizado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    delete:
+      tags:
+        - UtilidadesApi-Termo
+      summary: Deleta um termo
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do termo
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Termo deletado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - UtilidadesApi-Termo
+      summary: Busca um termo completo por guid
+      parameters:
+        - name: guid
+          in: path
+          description: Guid do termo
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Termo encontrado
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TermoCompletoViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TermoCompletoViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TermoCompletoViewModelApiResponse'
+        '204':
+          description: Termo não encontrado
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Utilidades/api/UploadArquivo:
+    post:
+      tags:
+        - UtilidadesApi-Upload
+      summary: Gerar url pré-assinado
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UploadPreAssinadoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/UploadPreAssinadoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/UploadPreAssinadoDTO'
+      responses:
+        '200':
+          description: Url gerado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/UploadPreAssinadoResponseApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadPreAssinadoResponseApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/UploadPreAssinadoResponseApiResponse'
+        '400':
+          description: Erro ao gerar url
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/UploadPreAssinadoResponseApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadPreAssinadoResponseApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/UploadPreAssinadoResponseApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Utilidades/api/UploadArquivoInternal:
+    post:
+      tags:
+        - UtilidadesApi-UploadInternal
+      summary: Upload arquivo - FormFile
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+                - FormFile
+                - NomeArquivo
+              type: object
+              properties:
+                FormFile:
+                  type: string
+                  format: binary
+                NomeArquivo:
+                  type: string
+                PrefixoPasta:
+                  type: string
+            encoding:
+              FormFile:
+                style: form
+              NomeArquivo:
+                style: form
+              PrefixoPasta:
+                style: form
+      responses:
+        '200':
+          description: Upload realizado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/StringApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/StringApiResponse'
+        '400':
+          description: Erro ao realizar o upload
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/StringApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/StringApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Utilidades/api/UploadArquivoInternal/base64:
+    post:
+      tags:
+        - UtilidadesApi-UploadInternal
+      summary: Upload arquivo - Base64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UploadArquivoBase64DTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/UploadArquivoBase64DTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/UploadArquivoBase64DTO'
+      responses:
+        '200':
+          description: Upload realizado com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/StringApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/StringApiResponse'
+        '400':
+          description: Erro ao realizar o upload
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/StringApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/StringApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
 components:
   schemas:
     ApiError:
@@ -719,6 +2603,176 @@ components:
         message:
           type: string
           description: Mensagem do erro
+          nullable: true
+      additionalProperties: false
+    ArquivoViewModel:
+      required:
+        - nome
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        tipo:
+          type: string
+          nullable: true
+        tamanhoEmBytes:
+          type: integer
+          format: int64
+        caminho:
+          type: string
+          nullable: true
+        pastaGuid:
+          type: string
+          format: uuid
+          nullable: true
+      additionalProperties: false
+    ArquivoViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/ArquivoViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    ArquivoViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArquivoViewModel'
+          nullable: true
+      additionalProperties: false
+    ArquivoViewModelPaginatedResultApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/ArquivoViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    AutorizacaoComHistoricoViewModel:
+      required:
+        - perfil
+      type: object
+      properties:
+        pessoaGuid:
+          type: string
+          format: uuid
+        perfil:
+          type: string
+          nullable: true
+        perfilGuid:
+          type: string
+          format: uuid
+        statusPerfil:
+          $ref: '#/components/schemas/StatusPerfil'
+        dataInativacao:
+          type: string
+          format: date-time
+          nullable: true
+      additionalProperties: false
+    AutorizacaoComHistoricoViewModelIEnumerableApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AutorizacaoComHistoricoViewModel'
+          description: Conteúdo do retorno
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    AutorizacaoViewModel:
+      type: object
+      properties:
+        pessoaGuid:
+          type: string
+          format: uuid
+        perfil:
+          type: string
+          nullable: true
+        perfilGuid:
+          type: string
+          format: uuid
+          nullable: true
+        instituicaoGuid:
+          type: string
+          format: uuid
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+      additionalProperties: false
+    AutorizacaoViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/AutorizacaoViewModel'
+          nullable: true
+      additionalProperties: false
+    AutorizacaoViewModelPaginatedResultApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/AutorizacaoViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
           nullable: true
       additionalProperties: false
     BooleanApiResponse:
@@ -744,12 +2798,244 @@ components:
           type: string
           format: uuid
         permissao:
-          $ref: '#/components/schemas/Permissoes'
+          $ref: '#/components/schemas/PermissaoItem'
         tipoRecurso:
           $ref: '#/components/schemas/TipoRecurso'
         recursoGuid:
           type: string
           format: uuid
+      additionalProperties: false
+    ConteudoBibliotecaViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        caminho:
+          type: string
+          nullable: true
+        pastaSuperiorGuid:
+          type: string
+          format: uuid
+          nullable: true
+        tipoConteudo:
+          $ref: '#/components/schemas/TipoConteudoBiblioteca'
+        tamanhoEmBytes:
+          type: integer
+          format: int64
+          nullable: true
+        tipoArquivo:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ConteudoBibliotecaViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConteudoBibliotecaViewModel'
+          nullable: true
+      additionalProperties: false
+    ConteudoBibliotecaViewModelPaginatedResultApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/ConteudoBibliotecaViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    ConteudoExternoCompletoViewModel:
+      required:
+        - ordem
+        - rota
+        - tipoConteudoExterno
+        - titulo
+        - url
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        titulo:
+          type: string
+          nullable: true
+        rota:
+          type: string
+          nullable: true
+        ordem:
+          type: integer
+          format: int32
+        url:
+          type: string
+          nullable: true
+        tipoConteudoExterno:
+          type: string
+          nullable: true
+        conteudosExternosEtapas:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConteudoExternoEtapaViewModel'
+          nullable: true
+      additionalProperties: false
+    ConteudoExternoCompletoViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/ConteudoExternoCompletoViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    ConteudoExternoEtapaViewModel:
+      required:
+        - circuitoGestaoEtapaGuid
+      type: object
+      properties:
+        conteudosExternosEtapasGuid:
+          type: string
+          format: uuid
+        circuitoGestaoEtapaGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    ConteudoExternoViewModel:
+      required:
+        - titulo
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        titulo:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ConteudoExternoViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConteudoExternoViewModel'
+          nullable: true
+      additionalProperties: false
+    ConteudoExternoViewModelPaginatedResultApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/ConteudoExternoViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    Contexto:
+      enum:
+        - 1
+        - 2
+        - 3
+        - 4
+      type: integer
+      format: int32
+    CriarConteudoExternoDTO:
+      required:
+        - ordem
+        - rota
+        - tipoConteudoExterno
+        - titulo
+        - url
+      type: object
+      properties:
+        titulo:
+          type: string
+          nullable: true
+        tipoConteudoExterno:
+          $ref: '#/components/schemas/TipoConteudoExterno'
+        rota:
+          type: string
+          nullable: true
+        ordem:
+          type: integer
+          format: int32
+        url:
+          type: string
+          nullable: true
+        conteudosEtapas:
+          type: array
+          items:
+            $ref: '#/components/schemas/CriarConteudoExternoEtapaDTO'
+          nullable: true
+      additionalProperties: false
+    CriarConteudoExternoEtapaDTO:
+      required:
+        - circuitoGestaoEtapaGuid
+      type: object
+      properties:
+        circuitoGestaoEtapaGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    CriarPastaDTO:
+      type: object
+      properties:
+        instituicaoGuid:
+          type: string
+          format: uuid
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+        nome:
+          type: string
+          nullable: true
+        pastaSuperiorGuid:
+          type: string
+          format: uuid
+          nullable: true
       additionalProperties: false
     CriarPerfilDTO:
       required:
@@ -785,6 +3071,97 @@ components:
           items:
             $ref: '#/components/schemas/PermissaoDTO'
           nullable: true
+      additionalProperties: false
+    CriarTagDTO:
+      required:
+        - contexto
+        - nome
+      type: object
+      properties:
+        nome:
+          type: string
+          nullable: true
+        contexto:
+          $ref: '#/components/schemas/Contexto'
+      additionalProperties: false
+    CriarTermoDTO:
+      required:
+        - titulo
+      type: object
+      properties:
+        titulo:
+          type: string
+          nullable: true
+        termoLocalizado:
+          type: array
+          items:
+            $ref: '#/components/schemas/CriarTermoLocalizadoDTO'
+          nullable: true
+      additionalProperties: false
+    CriarTermoLocalizadoDTO:
+      required:
+        - titulo
+        - validoDe
+      type: object
+      properties:
+        titulo:
+          type: string
+          nullable: true
+        validoDe:
+          type: string
+          format: date-time
+        validoAte:
+          type: string
+          format: date-time
+          nullable: true
+        estadoGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    EditarConteudoExternoDTO:
+      required:
+        - ordem
+        - rota
+        - tipoConteudoExterno
+        - titulo
+        - url
+      type: object
+      properties:
+        titulo:
+          type: string
+          nullable: true
+        tipoConteudoExterno:
+          $ref: '#/components/schemas/TipoConteudoExterno'
+        rota:
+          type: string
+          nullable: true
+        ordem:
+          type: integer
+          format: int32
+        url:
+          type: string
+          nullable: true
+        conteudosExternosEtapas:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditarConteudoExternoEtapaDTO'
+          nullable: true
+      additionalProperties: false
+    EditarConteudoExternoEtapaDTO:
+      required:
+        - circuitoGestaoEtapaGuid
+        - operacao
+      type: object
+      properties:
+        conteudoExternoEtapaGuid:
+          type: string
+          format: uuid
+          nullable: true
+        circuitoGestaoEtapaGuid:
+          type: string
+          format: uuid
+        operacao:
+          $ref: '#/components/schemas/Operacoes'
       additionalProperties: false
     EditarPerfilDTO:
       type: object
@@ -838,6 +3215,59 @@ components:
         operacao:
           $ref: '#/components/schemas/Operacoes'
       additionalProperties: false
+    EditarTagDTO:
+      required:
+        - contexto
+        - nome
+      type: object
+      properties:
+        nome:
+          type: string
+          nullable: true
+        contexto:
+          $ref: '#/components/schemas/Contexto'
+      additionalProperties: false
+    EditarTermoDTO:
+      required:
+        - titulo
+      type: object
+      properties:
+        titulo:
+          type: string
+          nullable: true
+        termosLocalizados:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditarTermoLocalizadoDTO'
+          nullable: true
+      additionalProperties: false
+    EditarTermoLocalizadoDTO:
+      required:
+        - operacao
+        - titulo
+        - validoDe
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+          nullable: true
+        titulo:
+          type: string
+          nullable: true
+        validoDe:
+          type: string
+          format: date-time
+        validoAte:
+          type: string
+          format: date-time
+          nullable: true
+        estadoGuid:
+          type: string
+          format: uuid
+        operacao:
+          $ref: '#/components/schemas/Operacoes'
+      additionalProperties: false
     GuidApiResponse:
       type: object
       properties:
@@ -882,6 +3312,114 @@ components:
         - 3
       type: integer
       format: int32
+    ItemMenu:
+      required:
+        - nome
+      type: object
+      properties:
+        nome:
+          type: string
+          nullable: true
+      additionalProperties: false
+    MenuContextoCircuitoGestaoViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        moduloGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    MenuContextoInstituicaoViewModel:
+      type: object
+      properties:
+        instituicaoGuid:
+          type: string
+          format: uuid
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+        modulosGuids:
+          type: array
+          items:
+            type: string
+            format: uuid
+          nullable: true
+      additionalProperties: false
+    MenuContextoModuloViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        estadoGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    MenuContextoViewModel:
+      type: object
+      properties:
+        modulos:
+          type: array
+          items:
+            $ref: '#/components/schemas/MenuContextoModuloViewModel'
+          nullable: true
+        instituicoes:
+          type: array
+          items:
+            $ref: '#/components/schemas/MenuContextoInstituicaoViewModel'
+          nullable: true
+        circuitosGestao:
+          type: array
+          items:
+            $ref: '#/components/schemas/MenuContextoCircuitoGestaoViewModel'
+          nullable: true
+      additionalProperties: false
+    MenuContextoViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/MenuContextoViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    MenuLateralViewModel:
+      type: object
+      properties:
+        itensMenu:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemMenu'
+          nullable: true
+      additionalProperties: false
+    MenuLateralViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/MenuLateralViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
     ObjectApiResponse:
       type: object
       properties:
@@ -904,6 +3442,76 @@ components:
         - 3
       type: integer
       format: int32
+    PastaViewModel:
+      required:
+        - nome
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        caminho:
+          type: string
+          nullable: true
+        pastaSuperiorGuid:
+          type: string
+          format: uuid
+          nullable: true
+      additionalProperties: false
+    PastaViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/PastaViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    PastaViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/PastaViewModel'
+          nullable: true
+      additionalProperties: false
+    PastaViewModelPaginatedResultApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/PastaViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
     PerfilCompletoViewModel:
       required:
         - guid
@@ -1115,6 +3723,16 @@ components:
             $ref: '#/components/schemas/PermissaoDTO'
           nullable: true
       additionalProperties: false
+    PermissaoItem:
+      type: object
+      properties:
+        permissao:
+          type: string
+          nullable: true
+        permissaoInterna:
+          type: string
+          nullable: true
+      additionalProperties: false
     PermissaoRelacionadaCompletoViewModel:
       required:
         - guid
@@ -1198,12 +3816,39 @@ components:
           description: Lista de erros
           nullable: true
       additionalProperties: false
-    Permissoes:
-      enum:
-        - 1
-        - 2
-      type: integer
-      format: int32
+    PessoaPerfilViewModel:
+      required:
+        - perfil
+      type: object
+      properties:
+        pessoaGuid:
+          type: string
+          format: uuid
+        perfil:
+          type: string
+          nullable: true
+        perfilGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    PessoaPerfilViewModelIEnumerableApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PessoaPerfilViewModel'
+          description: Conteúdo do retorno
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
     ProblemDetails:
       type: object
       properties:
@@ -1224,6 +3869,217 @@ components:
           type: string
           nullable: true
       additionalProperties: { }
+    StatusPerfil:
+      enum:
+        - 1
+        - 2
+      type: integer
+      format: int32
+    StringApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: string
+          description: Conteúdo do retorno
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    TagViewModel:
+      required:
+        - contexto
+        - nome
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+        contexto:
+          $ref: '#/components/schemas/Contexto'
+      additionalProperties: false
+    TagViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/TagViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    TagViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagViewModel'
+          nullable: true
+      additionalProperties: false
+    TagViewModelPaginatedResultApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/TagViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    TermoCompletoViewModel:
+      required:
+        - titulo
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        titulo:
+          type: string
+          nullable: true
+        termosLocalizados:
+          type: array
+          items:
+            $ref: '#/components/schemas/TermoLocalizadoViewModel'
+          nullable: true
+      additionalProperties: false
+    TermoCompletoViewModelApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/TermoCompletoViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    TermoLocalizadoViewModel:
+      required:
+        - estadoNome
+        - estadoUF
+        - titulo
+        - validoDe
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        titulo:
+          type: string
+          nullable: true
+        validoDe:
+          type: string
+          format: date-time
+        validoAte:
+          type: string
+          format: date-time
+          nullable: true
+        estadoGuid:
+          type: string
+          format: uuid
+        estadoNome:
+          type: string
+          nullable: true
+        estadoUF:
+          type: string
+          nullable: true
+      additionalProperties: false
+    TermoViewModel:
+      required:
+        - titulo
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        titulo:
+          type: string
+          nullable: true
+      additionalProperties: false
+    TermoViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/TermoViewModel'
+          nullable: true
+      additionalProperties: false
+    TermoViewModelPaginatedResultApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/TermoViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    TipoConteudoBiblioteca:
+      enum:
+        - 1
+        - 2
+      type: integer
+      format: int32
+    TipoConteudoExterno:
+      enum:
+        - 1
+        - 2
+      type: integer
+      format: int32
     TipoRecurso:
       enum:
         - 1
@@ -1235,3 +4091,105 @@ components:
         - 7
       type: integer
       format: int32
+    UploadArquivoBase64DTO:
+      required:
+        - base64
+        - contentType
+        - nomeArquivo
+      type: object
+      properties:
+        base64:
+          type: string
+          nullable: true
+        contentType:
+          type: string
+          nullable: true
+        nomeArquivo:
+          type: string
+          nullable: true
+        prefixoPasta:
+          type: string
+          nullable: true
+      additionalProperties: false
+    UploadArquivoDTO:
+      required:
+        - caminhoArquivo
+        - tipoArquivo
+      type: object
+      properties:
+        pastaGuid:
+          type: string
+          format: uuid
+          nullable: true
+        instituicaoGuid:
+          type: string
+          format: uuid
+        tipoArquivo:
+          type: string
+          nullable: true
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+        caminhoArquivo:
+          type: string
+          nullable: true
+        tamanhoEmBytes:
+          type: integer
+          format: int64
+        nome:
+          type: string
+          nullable: true
+      additionalProperties: false
+    UploadPreAssinadoDTO:
+      required:
+        - fileKey
+      type: object
+      properties:
+        fileKey:
+          type: string
+          nullable: true
+        expiraEm:
+          type: integer
+          format: int32
+      additionalProperties: false
+    UploadPreAssinadoResponse:
+      required:
+        - fileKey
+        - url
+      type: object
+      properties:
+        url:
+          type: string
+          nullable: true
+        expiraEm:
+          type: string
+          format: date-span
+        fileKey:
+          type: string
+          nullable: true
+      additionalProperties: false
+    UploadPreAssinadoResponseApiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/UploadPreAssinadoResponse'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://your-env-here/authorize
+          scopes:
+            openid: OpenId
+security:
+  - oauth2:
+      - openid

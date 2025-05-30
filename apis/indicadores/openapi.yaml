@@ -4,7 +4,909 @@ info:
   description: Api de Indicadores SIGAE OPEN SOURCE
   version: v1
 paths:
-  '/AvaliacaoResultado/{avaliacaoResultadoGuid}/Instituicao/{instituicaoGuid}/Aulas':
+  '/AvaliacaoResultado/{avaliacaoResultadoGuid}/Instituicao/{instituicaoGuid}':
+    get:
+      tags:
+        - Indicadores-SituacaoEficacia
+      summary: Recupera os indicadores de eficacia de uma instituição
+      parameters:
+        - name: avaliacaoResultadoGuid
+          in: path
+          description: Guid da Avaliação de Resultado
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: instituicaoGuid
+          in: path
+          description: Guid da instituição
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: TipoInstituicao
+          in: query
+          schema:
+            $ref: '#/components/schemas/Instituicoes'
+      responses:
+        '200':
+          description: Indicadores de eficácia da instituição
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/SituacaoEficaciaInstituicaoViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SituacaoEficaciaInstituicaoViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/SituacaoEficaciaInstituicaoViewModelApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/AvaliacaoResultado/{avaliacaoResultadoGuid}/Secretaria/{instituicaoGuid}/Regionais':
+    get:
+      tags:
+        - Indicadores-SituacaoEficacia
+      summary: Recupera os indicadores de eficacia das regionais
+      parameters:
+        - name: avaliacaoResultadoGuid
+          in: path
+          description: Guid da Avaliação de Resultado
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: instituicaoGuid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Indicadores de eficácia das regionais
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/SituacaoEficaciaRegionaisViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SituacaoEficaciaRegionaisViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/SituacaoEficaciaRegionaisViewModelApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/AvaliacaoResultado/{avaliacaoResultadoGuid}/Instituicao/{instituicaoGuid}/Escolas':
+    get:
+      tags:
+        - Indicadores-SituacaoEficacia
+      summary: 'Recupera os indicadores de eficacia das escolas, geral ou por regional'
+      parameters:
+        - name: avaliacaoResultadoGuid
+          in: path
+          description: Guid da Avaliação de Resultado
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: RegionalGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: instituicaoGuid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Indicadores de eficácia das escolas
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/SituacaoEficaciaEscolasViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SituacaoEficaciaEscolasViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/SituacaoEficaciaEscolasViewModelApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Indicadores/api/IndicadorExecucaoPlano/Tarefas/AvaliacaoResultado/{avaliacaoGuid}/Instituicao/{instituicaoGuid}':
+    get:
+      tags:
+        - IndicadoresApi-IndicadoresExecucaoPlano
+      summary: Busca os indicadores de tarefas por instituição
+      parameters:
+        - name: avaliacaoGuid
+          in: path
+          description: Guid da Avaliação de Resultado
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: instituicaoGuid
+          in: path
+          description: Guid da instituição
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: PlanoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: IndicadorGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: AvaliacaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: InstituicaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: TipoInstituicao
+          in: query
+          schema:
+            $ref: '#/components/schemas/Instituicoes'
+        - name: OfertasEnsino
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/OfertasEnsinoDTO'
+      responses:
+        '200':
+          description: Objeto com os indicadores de tarefas por instituição
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/IndicadorExecucaoTarefaViewModelIEnumerableApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndicadorExecucaoTarefaViewModelIEnumerableApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IndicadorExecucaoTarefaViewModelIEnumerableApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Indicadores/api/IndicadorExecucaoPlano/Produtos/AvaliacaoResultado/{avaliacaoGuid}/Instituicao/{instituicaoGuid}':
+    get:
+      tags:
+        - IndicadoresApi-IndicadoresExecucaoPlano
+      summary: Busca os indicadores de produtos por instituição
+      parameters:
+        - name: avaliacaoGuid
+          in: path
+          description: Guid da Avaliação de Resultado
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: instituicaoGuid
+          in: path
+          description: Guid da instituição
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: PlanoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: IndicadorGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Valor
+          in: query
+          schema:
+            type: number
+            format: double
+        - name: AvaliacaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: InstituicaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: TipoInstituicao
+          in: query
+          schema:
+            $ref: '#/components/schemas/Instituicoes'
+        - name: OfertasEnsino
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/OfertasEnsinoDTO'
+      responses:
+        '200':
+          description: Objeto com os indicadores de produtos por instituição
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/IndicadorExecucaoProdutoViewModelIEnumerableApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndicadorExecucaoProdutoViewModelIEnumerableApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IndicadorExecucaoProdutoViewModelIEnumerableApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Indicadores/api/IndicadorExecucaoPlano/Tarefas/AvaliacaoResultado/{avaliacaoGuid}/Regional/{regionalGuid}/Escolas':
+    get:
+      tags:
+        - IndicadoresApi-IndicadoresExecucaoPlano
+      summary: Busca os indicadores de tarefas por regional
+      parameters:
+        - name: avaliacaoGuid
+          in: path
+          description: Guid da Avaliação de Resultado
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: regionalGuid
+          in: path
+          description: Guid da regional
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: PlanoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: IndicadorGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: AvaliacaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: InstituicaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: TipoInstituicao
+          in: query
+          schema:
+            $ref: '#/components/schemas/Instituicoes'
+        - name: OfertasEnsino
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/OfertasEnsinoDTO'
+      responses:
+        '200':
+          description: Objeto com os indicadores de tarefas por regional
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/IndicadorExecucaoTarefaViewModelIEnumerableApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndicadorExecucaoTarefaViewModelIEnumerableApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IndicadorExecucaoTarefaViewModelIEnumerableApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Indicadores/api/IndicadorExecucaoPlano/Produtos/AvaliacaoResultado/{avaliacaoGuid}/Regional/{regionalGuid}/Escolas':
+    get:
+      tags:
+        - IndicadoresApi-IndicadoresExecucaoPlano
+      summary: Busca os indicadores de produtos por regional
+      parameters:
+        - name: avaliacaoGuid
+          in: path
+          description: Guid da Avaliação de Resultado
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: regionalGuid
+          in: path
+          description: Guid da regional
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: PlanoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: IndicadorGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Valor
+          in: query
+          schema:
+            type: number
+            format: double
+        - name: AvaliacaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: InstituicaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: TipoInstituicao
+          in: query
+          schema:
+            $ref: '#/components/schemas/Instituicoes'
+        - name: OfertasEnsino
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/OfertasEnsinoDTO'
+      responses:
+        '200':
+          description: Objeto com os indicadores de produtos por regional
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/IndicadorExecucaoProdutoViewModelIEnumerableApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndicadorExecucaoProdutoViewModelIEnumerableApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IndicadorExecucaoProdutoViewModelIEnumerableApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Indicadores/api/IndicadorExecucaoPlano/Tarefas/AvaliacaoResultado/{avaliacaoGuid}/Secretaria/{instituicaoGuid}/Escolas':
+    get:
+      tags:
+        - IndicadoresApi-IndicadoresExecucaoPlano
+      summary: Busca os indicadores de tarefas das escolas por secretaria
+      parameters:
+        - name: avaliacaoGuid
+          in: path
+          description: Guid da Avaliação de Resultado
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: instituicaoGuid
+          in: path
+          description: Guid da secretaria
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: PlanoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: IndicadorGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: AvaliacaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: InstituicaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: TipoInstituicao
+          in: query
+          schema:
+            $ref: '#/components/schemas/Instituicoes'
+        - name: OfertasEnsino
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/OfertasEnsinoDTO'
+      responses:
+        '200':
+          description: Objeto com os indicadores de tarefas das escolas por secretaria
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/IndicadorExecucaoTarefaViewModelIEnumerableApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndicadorExecucaoTarefaViewModelIEnumerableApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IndicadorExecucaoTarefaViewModelIEnumerableApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Indicadores/api/IndicadorExecucaoPlano/Produtos/AvaliacaoResultado/{avaliacaoGuid}/Secretaria/{secretariaGuid}/Escolas':
+    get:
+      tags:
+        - IndicadoresApi-IndicadoresExecucaoPlano
+      summary: Busca os indicadores de produtos das escolas por secretaria
+      parameters:
+        - name: avaliacaoGuid
+          in: path
+          description: Guid da Avaliação de Resultado
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: secretariaGuid
+          in: path
+          description: Guid da secretaria
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: PlanoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: IndicadorGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Valor
+          in: query
+          schema:
+            type: number
+            format: double
+        - name: AvaliacaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: InstituicaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: TipoInstituicao
+          in: query
+          schema:
+            $ref: '#/components/schemas/Instituicoes'
+        - name: OfertasEnsino
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/OfertasEnsinoDTO'
+      responses:
+        '200':
+          description: Objeto com os indicadores de produtos das escolas por secretaria
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/IndicadorExecucaoProdutoViewModelIEnumerableApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndicadorExecucaoProdutoViewModelIEnumerableApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IndicadorExecucaoProdutoViewModelIEnumerableApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Indicadores/api/IndicadorExecucaoPlano/Tarefas/AvaliacaoResultado/{avaliacaoGuid}/Secretaria/{secretariaGuid}/Regionais':
+    get:
+      tags:
+        - IndicadoresApi-IndicadoresExecucaoPlano
+      summary: Busca os indicadores de tarefas das regionais por secretaria
+      parameters:
+        - name: avaliacaoGuid
+          in: path
+          description: Guid da Avaliação de Resultado
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: secretariaGuid
+          in: path
+          description: Guid da secretaria
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: PlanoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: IndicadorGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: AvaliacaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: InstituicaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: TipoInstituicao
+          in: query
+          schema:
+            $ref: '#/components/schemas/Instituicoes'
+        - name: OfertasEnsino
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/OfertasEnsinoDTO'
+      responses:
+        '200':
+          description: Objeto com os indicadores de tarefas das regionais por secretaria
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/IndicadorExecucaoTarefaViewModelIEnumerableApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndicadorExecucaoTarefaViewModelIEnumerableApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IndicadorExecucaoTarefaViewModelIEnumerableApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Indicadores/api/IndicadorExecucaoPlano/Produtos/AvaliacaoResultado/{avaliacaoGuid}/Secretaria/{secretariaGuid}/Regionais':
+    get:
+      tags:
+        - IndicadoresApi-IndicadoresExecucaoPlano
+      summary: Busca os indicadores de produtos das regionais por secretaria
+      parameters:
+        - name: avaliacaoGuid
+          in: path
+          description: Guid da Avaliação de Resultado
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: secretariaGuid
+          in: path
+          description: Guid da secretaria
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: PlanoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: IndicadorGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Valor
+          in: query
+          schema:
+            type: number
+            format: double
+        - name: AvaliacaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: InstituicaoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: TipoInstituicao
+          in: query
+          schema:
+            $ref: '#/components/schemas/Instituicoes'
+        - name: OfertasEnsino
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/OfertasEnsinoDTO'
+      responses:
+        '200':
+          description: Objeto com os indicadores de produtos das regionais por secretaria
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/IndicadorExecucaoProdutoViewModelIEnumerableApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndicadorExecucaoProdutoViewModelIEnumerableApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IndicadorExecucaoProdutoViewModelIEnumerableApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Indicadores/api/IndicadorResultado/AvaliacaoResultado/{avaliacaoResultadoGuid}/Instituicao/{instituicaoGuid}/Aulas':
     get:
       tags:
         - IndicadoresApi-IndicadoresResultado
@@ -12,7 +914,7 @@ paths:
       parameters:
         - name: avaliacaoResultadoGuid
           in: path
-          description: Guid da Avaiação de Resultado
+          description: Guid da Avaliação de Resultado
           required: true
           schema:
             type: string
@@ -61,12 +963,16 @@ paths:
           in: query
           schema:
             $ref: '#/components/schemas/Raca'
-        - name: OfertasEnsino
+        - name: EtapaEnsinoGuid
           in: query
           schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/GuidGuidValueTuple'
+            type: string
+            format: uuid
+        - name: ModalidadeEnsinoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
         - name: InstituicoesGuids
           in: query
           schema:
@@ -111,7 +1017,7 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  '/AvaliacaoResultado/{avaliacaoResultadoGuid}/Instituicao/{instituicaoGuid}/Frequencias':
+  '/Indicadores/api/IndicadorResultado/AvaliacaoResultado/{avaliacaoResultadoGuid}/Instituicao/{instituicaoGuid}/Frequencias':
     get:
       tags:
         - IndicadoresApi-IndicadoresResultado
@@ -168,12 +1074,16 @@ paths:
           in: query
           schema:
             $ref: '#/components/schemas/Raca'
-        - name: OfertasEnsino
+        - name: EtapaEnsinoGuid
           in: query
           schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/GuidGuidValueTuple'
+            type: string
+            format: uuid
+        - name: ModalidadeEnsinoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
         - name: InstituicoesGuids
           in: query
           schema:
@@ -218,7 +1128,7 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  '/AvaliacaoResultado/{avaliacaoResultadoGuid}/Instituicao/{instituicaoGuid}/Notas':
+  '/Indicadores/api/IndicadorResultado/AvaliacaoResultado/{avaliacaoResultadoGuid}/Instituicao/{instituicaoGuid}/Notas':
     get:
       tags:
         - IndicadoresApi-IndicadoresResultado
@@ -275,12 +1185,16 @@ paths:
           in: query
           schema:
             $ref: '#/components/schemas/Raca'
-        - name: OfertasEnsino
+        - name: EtapaEnsinoGuid
           in: query
           schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/GuidGuidValueTuple'
+            type: string
+            format: uuid
+        - name: ModalidadeEnsinoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
         - name: InstituicoesGuids
           in: query
           schema:
@@ -325,7 +1239,7 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  '/AvaliacaoResultado/{avaliacaoResultadoGuid}/Instituicao/{instituicaoGuid}/EfeitoRecuperacao':
+  '/Indicadores/api/IndicadorResultado/AvaliacaoResultado/{avaliacaoResultadoGuid}/Instituicao/{instituicaoGuid}/EfeitoRecuperacao':
     get:
       tags:
         - IndicadoresApi-IndicadoresResultado
@@ -382,12 +1296,16 @@ paths:
           in: query
           schema:
             $ref: '#/components/schemas/Raca'
-        - name: OfertasEnsino
+        - name: EtapaEnsinoGuid
           in: query
           schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/GuidGuidValueTuple'
+            type: string
+            format: uuid
+        - name: ModalidadeEnsinoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
         - name: InstituicoesGuids
           in: query
           schema:
@@ -432,35 +1350,45 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  /Indicadores/api/IndicadorMetaResultado:
-    post:
+  '/Indicadores/api/IndicadorFiltro/AvaliacaoResultado/{avaliacaoResultadoGuid}/Instituicao/{instituicaoGuid}':
+    get:
       tags:
-        - IndicadoresApi-IndicadorMetaResultado
-      summary: Criar resultado de meta de indicador
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CriarIndicadorMetaResultadoDTO'
-          text/json:
-            schema:
-              $ref: '#/components/schemas/CriarIndicadorMetaResultadoDTO'
-          application/*+json:
-            schema:
-              $ref: '#/components/schemas/CriarIndicadorMetaResultadoDTO'
+        - IndicadoresApi-IndicadorFiltro
+      summary: Listar filtros da avaliação de resultado
+      parameters:
+        - name: avaliacaoResultadoGuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: instituicaoGuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: tipoInstituicao
+          in: query
+          schema:
+            $ref: '#/components/schemas/Instituicoes'
+        - name: abaSelecionada
+          in: query
+          schema:
+            $ref: '#/components/schemas/FiltrosAba'
       responses:
         '200':
-          description: Guid do registro
+          description: Lista paginada dos resultados
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/GuidApiResponse'
+                $ref: '#/components/schemas/InstituicaoFiltroViewModelApiResponse'
             application/json:
               schema:
-                $ref: '#/components/schemas/GuidApiResponse'
+                $ref: '#/components/schemas/InstituicaoFiltroViewModelApiResponse'
             text/json:
               schema:
-                $ref: '#/components/schemas/GuidApiResponse'
+                $ref: '#/components/schemas/InstituicaoFiltroViewModelApiResponse'
         '400':
           description: Erro de validação
           content:
@@ -485,6 +1413,7 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
+  /Indicadores/api/IndicadorMetaResultado:
     get:
       tags:
         - IndicadoresApi-IndicadorMetaResultado
@@ -503,8 +1432,7 @@ paths:
         - name: TipoInstituicao
           in: query
           schema:
-            type: integer
-            format: int32
+            $ref: '#/components/schemas/Instituicoes'
         - name: EtapaEnsinoGuid
           in: query
           schema:
@@ -573,10 +1501,183 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
   '/Indicadores/api/IndicadorMetaResultado/{guid}':
-    put:
+    get:
       tags:
         - IndicadoresApi-IndicadorMetaResultado
-      summary: Atualizar resultado de meta de indicador
+      summary: Buscar resultado de meta de indicador por Guid
+      parameters:
+        - name: guid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Objeto detalhado
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/IndicadorMetaResultadoViewModelApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndicadorMetaResultadoViewModelApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IndicadorMetaResultadoViewModelApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Indicadores/api/ProcessamentoIndicadoresExecucao:
+    post:
+      tags:
+        - IndicadoresApi-ProcessamentoIndicadoresExecucao
+      summary: Criar processamento de indicadores resultado
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriarProcessamentoIndicadoresExecucaoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CriarProcessamentoIndicadoresExecucaoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CriarProcessamentoIndicadoresExecucaoDTO'
+      responses:
+        '200':
+          description: Guid do registro
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GuidApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - IndicadoresApi-ProcessamentoIndicadoresExecucao
+      summary: Filtrar processamentos
+      parameters:
+        - name: guid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: AvaliacaoResultadoGuid
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: Status
+          in: query
+          schema:
+            $ref: '#/components/schemas/StatusProcessamento'
+        - name: DataReferencia
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: Page
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Lista paginada dos processamentos
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProcessamentoIndicadoresExecucaoViewModelPaginatedResultApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessamentoIndicadoresExecucaoViewModelPaginatedResultApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProcessamentoIndicadoresExecucaoViewModelPaginatedResultApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Indicadores/api/ProcessamentoIndicadoresExecucao/{guid}':
+    put:
+      tags:
+        - IndicadoresApi-ProcessamentoIndicadoresExecucao
+      summary: Editar processamento de indicadores
       parameters:
         - name: guid
           in: path
@@ -588,16 +1689,16 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AtualizarIndicadorMetaResultadoDTO'
+              $ref: '#/components/schemas/EditarProcessamentoIndicadoresExecucaoDTO'
           text/json:
             schema:
-              $ref: '#/components/schemas/AtualizarIndicadorMetaResultadoDTO'
+              $ref: '#/components/schemas/EditarProcessamentoIndicadoresExecucaoDTO'
           application/*+json:
             schema:
-              $ref: '#/components/schemas/AtualizarIndicadorMetaResultadoDTO'
+              $ref: '#/components/schemas/EditarProcessamentoIndicadoresExecucaoDTO'
       responses:
         '200':
-          description: Guid atualizado
+          description: Guid editado
           content:
             text/plain:
               schema:
@@ -634,8 +1735,8 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
     delete:
       tags:
-        - IndicadoresApi-IndicadorMetaResultado
-      summary: Deletar resultado de meta de indicador
+        - IndicadoresApi-ProcessamentoIndicadoresExecucao
+      summary: Deletar processamento
       parameters:
         - name: guid
           in: path
@@ -682,8 +1783,8 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
     get:
       tags:
-        - IndicadoresApi-IndicadorMetaResultado
-      summary: Buscar resultado de meta de indicador por Guid
+        - IndicadoresApi-ProcessamentoIndicadoresExecucao
+      summary: Buscar processamento por Guid
       parameters:
         - name: guid
           in: path
@@ -697,13 +1798,73 @@ paths:
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/IndicadorMetaResultadoViewModelApiResponse'
+                $ref: '#/components/schemas/ProcessamentoIndicadoresExecucaoViewModelApiResponse'
             application/json:
               schema:
-                $ref: '#/components/schemas/IndicadorMetaResultadoViewModelApiResponse'
+                $ref: '#/components/schemas/ProcessamentoIndicadoresExecucaoViewModelApiResponse'
             text/json:
               schema:
-                $ref: '#/components/schemas/IndicadorMetaResultadoViewModelApiResponse'
+                $ref: '#/components/schemas/ProcessamentoIndicadoresExecucaoViewModelApiResponse'
+        '400':
+          description: Erro de validação
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ObjectApiResponse'
+        '500':
+          description: Erro interno
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  '/Indicadores/api/ProcessamentoIndicadoresExecucao/{guid}/Iniciar':
+    post:
+      tags:
+        - IndicadoresApi-ProcessamentoIndicadoresExecucao
+      summary: Iniciar processamento dos indicadores execução
+      parameters:
+        - name: guid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IniciarProcessamentoIndicadoresExecucaoDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/IniciarProcessamentoIndicadoresExecucaoDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/IniciarProcessamentoIndicadoresExecucaoDTO'
+      responses:
+        '200':
+          description: Importação iniciada com sucesso
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/StringApiResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringApiResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/StringApiResponse'
         '400':
           description: Erro de validação
           content:
@@ -786,21 +1947,20 @@ paths:
         - IndicadoresApi-ProcessamentoIndicadorResultado
       summary: Filtrar processamentos
       parameters:
-        - name: DataReferencia
-          in: query
-          schema:
-            type: string
-            format: date-time
         - name: CircuitoGestaoEtapaGuid
           in: query
           schema:
             type: string
             format: uuid
+        - name: DataReferencia
+          in: query
+          schema:
+            type: string
+            format: date-time
         - name: Status
           in: query
           schema:
-            type: integer
-            format: int32
+            $ref: '#/components/schemas/StatusProcessamento'
         - name: Page
           in: query
           schema:
@@ -1004,7 +2164,7 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  '/Indicadores/api/ProcessamentoIndicadoresResultado/{guid}/iniciar-importacao-meta-resultado':
+  '/Indicadores/api/ProcessamentoIndicadoresResultado/{guid}/Iniciar':
     post:
       tags:
         - IndicadoresApi-ProcessamentoIndicadorResultado
@@ -1070,28 +2230,19 @@ components:
           description: Mensagem do erro
           nullable: true
       additionalProperties: false
-    AtualizarIndicadorMetaResultadoDTO:
+    AtualizarProcessamentoIndicadoresResultadoDTO:
       required:
-        - valor
+        - circuitoGestaoEtapaGuid
+        - dataReferencia
+        - urlArquivo
       type: object
       properties:
-        valor:
-          type: number
-          format: double
-        periodoInicial:
+        dataReferencia:
           type: string
           format: date-time
-        periodoFinal:
-          type: string
-          format: date-time
-        modalidadeGuid:
+        circuitoGestaoEtapaGuid:
           type: string
           format: uuid
-          nullable: true
-      additionalProperties: false
-    AtualizarProcessamentoIndicadoresResultadoDTO:
-      type: object
-      properties:
         urlArquivo:
           type: string
           nullable: true
@@ -1101,46 +2252,30 @@ components:
           type: string
           nullable: true
       additionalProperties: false
-    CriarIndicadorMetaResultadoDTO:
-      required:
-        - etapaEnsinoGuid
-        - indicadorGuid
-        - instituicaoGuid
-        - periodoFinal
-        - periodoInicial
-        - processamentoGuid
-        - tipoInstituicao
-        - valor
+    ComponenteCurricularViewModel:
       type: object
       properties:
-        indicadorGuid:
+        guid:
           type: string
           format: uuid
-        valor:
-          type: number
-          format: double
-        instituicaoGuid:
+        nome:
           type: string
-          format: uuid
-        tipoInstituicao:
-          type: integer
-          format: int32
-        periodoInicial:
-          type: string
-          format: date-time
-        periodoFinal:
-          type: string
-          format: date-time
-        processamentoGuid:
-          type: string
-          format: uuid
-        etapaEnsinoGuid:
-          type: string
-          format: uuid
-        modalidadeGuid:
-          type: string
-          format: uuid
           nullable: true
+      additionalProperties: false
+    CriarProcessamentoIndicadoresExecucaoDTO:
+      required:
+        - avaliacaoResultadoGuid
+        - dataReferencia
+      type: object
+      properties:
+        avaliacaoResultadoGuid:
+          type: string
+          format: uuid
+        dataReferencia:
+          type: string
+          format: date-time
+        tipo:
+          $ref: '#/components/schemas/TipoProcessamentoExecucao'
       additionalProperties: false
     CriarProcessamentoIndicadoresResultadoDTO:
       required:
@@ -1164,7 +2299,38 @@ components:
         erro:
           type: string
           nullable: true
+        tipoProcessamento:
+          $ref: '#/components/schemas/TipoProcessamento'
       additionalProperties: false
+    EditarProcessamentoIndicadoresExecucaoDTO:
+      required:
+        - avaliacaoResultadoGuid
+        - dataReferencia
+        - processamentoGuid
+      type: object
+      properties:
+        processamentoGuid:
+          type: string
+          format: uuid
+        avaliacaoResultadoGuid:
+          type: string
+          format: uuid
+        dataReferencia:
+          type: string
+          format: date-time
+        tipo:
+          $ref: '#/components/schemas/TipoProcessamentoExecucao'
+      additionalProperties: false
+    FiltrosAba:
+      enum:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+      type: integer
+      format: int32
     GuidApiResponse:
       required:
         - errors
@@ -1184,8 +2350,311 @@ components:
           description: Lista de erros
           nullable: true
       additionalProperties: false
-    GuidGuidValueTuple:
+    IndicadorExecucaoProdutoViewModel:
       type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        planoGuid:
+          type: string
+          format: uuid
+        indicadorGuid:
+          type: string
+          format: uuid
+        avaliacaoGuid:
+          type: string
+          format: uuid
+        instituicaoGuid:
+          type: string
+          format: uuid
+          nullable: true
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+        periodoInicial:
+          type: string
+          format: date-time
+          nullable: true
+        periodoFinal:
+          type: string
+          format: date-time
+          nullable: true
+        ofertasEnsino:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfertasEnsinoViewModel'
+          nullable: true
+        percentualDeProdutos:
+          type: number
+          format: double
+        quantidadeTotalDeProdutos:
+          type: integer
+          format: int32
+        quantidadeDeProdutosQueDeveriamTerFinalizado:
+          type: integer
+          format: int32
+        quantidadeDeProdutosNaoInformados:
+          type: integer
+          format: int32
+        quantidadeDeProdutosCom0a25DeConclusao:
+          type: integer
+          format: int32
+        quantidadeDeProdutosCom25a50DeConclusao:
+          type: integer
+          format: int32
+        quantidadeDeProdutosCom50a75DeConclusao:
+          type: integer
+          format: int32
+        quantidadeDeProdutosCom75a100DeConclusao:
+          type: integer
+          format: int32
+        percentualDeProdutosRegionaisSumarizado:
+          type: number
+          format: double
+        quantidadeTotalDeProdutosRegionaisSumarizado:
+          type: integer
+          format: int32
+        quantidadeDeProdutosQueDeveriamTerFinalizadoRegionaisSumarizado:
+          type: integer
+          format: int32
+        quantidadeDeProdutosNaoInformadosRegionaisSumarizado:
+          type: integer
+          format: int32
+        quantidadeDeProdutosCom0a25DeConclusaoRegionaisSumarizado:
+          type: integer
+          format: int32
+        quantidadeDeProdutosCom25a50DeConclusaoRegionaisSumarizado:
+          type: integer
+          format: int32
+        quantidadeDeProdutosCom50a75DeConclusaoRegionaisSumarizado:
+          type: integer
+          format: int32
+        quantidadeDeProdutosCom75a100DeConclusaoRegionaisSumarizado:
+          type: integer
+          format: int32
+        percentualDeProdutosEscolasSumarizado:
+          type: number
+          format: double
+        quantidadeTotalDeProdutosEscolasSumarizado:
+          type: integer
+          format: int32
+        quantidadeDeProdutosQueDeveriamTerFinalizadoEscolasSumarizado:
+          type: integer
+          format: int32
+        quantidadeDeProdutosNaoInformadosEscolasSumarizado:
+          type: integer
+          format: int32
+        quantidadeDeProdutosCom0a25DeConclusaoEscolasSumarizado:
+          type: integer
+          format: int32
+        quantidadeDeProdutosCom25a50DeConclusaoEscolasSumarizado:
+          type: integer
+          format: int32
+        quantidadeDeProdutosCom50a75DeConclusaoEscolasSumarizado:
+          type: integer
+          format: int32
+        quantidadeDeProdutosCom75a100DeConclusaoEscolasSumarizado:
+          type: integer
+          format: int32
+      additionalProperties: false
+    IndicadorExecucaoProdutoViewModelIEnumerableApiResponse:
+      required:
+        - errors
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/IndicadorExecucaoProdutoViewModel'
+          description: Conteúdo do retorno
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    IndicadorExecucaoTarefaViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        planoGuid:
+          type: string
+          format: uuid
+        indicadorGuid:
+          type: string
+          format: uuid
+        avaliacaoGuid:
+          type: string
+          format: uuid
+        instituicaoGuid:
+          type: string
+          format: uuid
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+        periodoInicial:
+          type: string
+          format: date-time
+          nullable: true
+        periodoFinal:
+          type: string
+          format: date-time
+          nullable: true
+        ofertasEnsino:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfertasEnsinoViewModel'
+          nullable: true
+        percentualDeTarefas:
+          type: number
+          format: double
+        quantidadeTotalDeTarefas:
+          type: integer
+          format: int32
+        quantidadeDeTarefasQueDeveriamTerIniciado:
+          type: integer
+          format: int32
+        quantidadeDeTarefasQueDeveriamTerFinalizado:
+          type: integer
+          format: int32
+        quantidadeDeTarefasEmAndamento:
+          type: integer
+          format: int32
+        quantidadeDeTarefasPrevistas:
+          type: integer
+          format: int32
+        quantidadeDeTarefasNaoIniciadas:
+          type: integer
+          format: int32
+        quantidadeDeTarefasConcluidas:
+          type: integer
+          format: int32
+        quantidadeDeTarefasConcluidasComAtraso:
+          type: integer
+          format: int32
+        quantidadeDeTarefasAtrasadas:
+          type: integer
+          format: int32
+        percentualDeTarefasRegionaisSumarizado:
+          type: number
+          format: double
+        quantidadeTotalDeTarefasRegionaisSumarizado:
+          type: integer
+          format: int32
+        quantidadeDeTarefasQueDeveriamTerIniciadoRegionaisSumarizado:
+          type: integer
+          format: int32
+        quantidadeDeTarefasQueDeveriamTerFinalizadoRegionaisSumarizado:
+          type: integer
+          format: int32
+        quantidadeDeTarefasEmAndamentoRegionaisSumarizado:
+          type: integer
+          format: int32
+        quantidadeDeTarefasPrevistasRegionaisSumarizado:
+          type: integer
+          format: int32
+        quantidadeDeTarefasNaoIniciadasRegionaisSumarizado:
+          type: integer
+          format: int32
+        quantidadeDeTarefasConcluídasRegionaisSumarizado:
+          type: integer
+          format: int32
+        quantidadeDeTarefasConcluídasComAtrasoRegionaisSumarizado:
+          type: integer
+          format: int32
+        quantidadeDeTarefasAtrasadasRegionaisSumarizado:
+          type: integer
+          format: int32
+        percentualDeTarefasEscolasSumarizado:
+          type: number
+          format: double
+        quantidadeTotalDeTarefasEscolasSumarizado:
+          type: integer
+          format: int32
+        quantidadeDeTarefasQueDeveriamTerIniciadoEscolasSumarizado:
+          type: integer
+          format: int32
+        quantidadeDeTarefasQueDeveriamTerFinalizadoEscolasSumarizado:
+          type: integer
+          format: int32
+        quantidadeDeTarefasEmAndamentoEscolasSumarizado:
+          type: integer
+          format: int32
+        quantidadeDeTarefasPrevistasEscolasSumarizado:
+          type: integer
+          format: int32
+        quantidadeDeTarefasNaoIniciadasEscolasSumarizado:
+          type: integer
+          format: int32
+        quantidadeDeTarefasConcluídasEscolasSumarizado:
+          type: integer
+          format: int32
+        quantidadeDeTarefasConcluídasComAtrasoEscolasSumarizado:
+          type: integer
+          format: int32
+        quantidadeDeTarefasAtrasadasEscolasSumarizado:
+          type: integer
+          format: int32
+      additionalProperties: false
+    IndicadorExecucaoTarefaViewModelIEnumerableApiResponse:
+      required:
+        - errors
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/IndicadorExecucaoTarefaViewModel'
+          description: Conteúdo do retorno
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    IndicadorInstituicao:
+      type: object
+      properties:
+        aula:
+          type: number
+          format: double
+          nullable: true
+        frequencia:
+          type: number
+          format: double
+          nullable: true
+        nota:
+          type: number
+          format: double
+          nullable: true
+        tarefa:
+          type: number
+          format: double
+          nullable: true
+        produto:
+          type: number
+          format: double
+          nullable: true
+        execucao:
+          type: number
+          format: double
+          nullable: true
+        resultado:
+          type: number
+          format: double
+          nullable: true
+        classificacao:
+          type: string
+          nullable: true
       additionalProperties: false
     IndicadorMetaResultadoViewModel:
       type: object
@@ -1203,8 +2672,7 @@ components:
           type: string
           format: uuid
         tipoInstituicao:
-          type: integer
-          format: int32
+          $ref: '#/components/schemas/Instituicoes'
         periodoInicial:
           type: string
           format: date-time
@@ -1277,24 +2745,50 @@ components:
           description: Lista de erros
           nullable: true
       additionalProperties: false
-    IndicadorResultadoAulasViewModel:
+    IndicadorRede:
       type: object
       properties:
-        percentualAulas:
+        aula:
           type: number
           format: double
-        percentualAulasPorPeriodoSerie:
+          nullable: true
+        frequencia:
           type: number
           format: double
-        percentualAulasMediaRede:
+          nullable: true
+        nota:
           type: number
           format: double
-        percentualAulasPeriodoDisciplina:
+          nullable: true
+        tarefa:
           type: number
           format: double
-        indicadorGuid:
+          nullable: true
+        produto:
+          type: number
+          format: double
+          nullable: true
+        execucao:
+          type: number
+          format: double
+          nullable: true
+        resultado:
+          type: number
+          format: double
+          nullable: true
+        classificacao:
           type: string
-          format: uuid
+          nullable: true
+      additionalProperties: false
+    IndicadorResultadoAulasViewModel:
+      required:
+        - componenteCurricular
+        - periodo
+        - serie
+        - turma
+        - turno
+      type: object
+      properties:
         instituicaoGuid:
           type: string
           format: uuid
@@ -1320,6 +2814,33 @@ components:
           $ref: '#/components/schemas/Sexo'
         raca:
           $ref: '#/components/schemas/Raca'
+        serie:
+          type: string
+          nullable: true
+        turno:
+          type: string
+          nullable: true
+        turma:
+          type: string
+          nullable: true
+        componenteCurricular:
+          type: string
+          nullable: true
+        periodo:
+          type: string
+          nullable: true
+        percentualAulas:
+          type: number
+          format: double
+        percentualAulasPorPeriodoSerie:
+          type: number
+          format: double
+        percentualAulasMediaRede:
+          type: number
+          format: double
+        percentualAulasPeriodoDisciplina:
+          type: number
+          format: double
       additionalProperties: false
     IndicadorResultadoAulasViewModelIEnumerableApiResponse:
       required:
@@ -1342,6 +2863,12 @@ components:
           nullable: true
       additionalProperties: false
     IndicadorResultadoEfeitoRecuperacaoViewModel:
+      required:
+        - componenteCurricular
+        - periodo
+        - serie
+        - turma
+        - turno
       type: object
       properties:
         instituicaoGuid:
@@ -1369,6 +2896,21 @@ components:
           $ref: '#/components/schemas/Sexo'
         raca:
           $ref: '#/components/schemas/Raca'
+        serie:
+          type: string
+          nullable: true
+        turno:
+          type: string
+          nullable: true
+        turma:
+          type: string
+          nullable: true
+        componenteCurricular:
+          type: string
+          nullable: true
+        periodo:
+          type: string
+          nullable: true
         percentualDeAlunosComNotaAbaixoDaMediaAntesDaRecuperacaoPorDisciplina:
           type: number
           format: double
@@ -1445,23 +2987,14 @@ components:
           nullable: true
       additionalProperties: false
     IndicadorResultadoFrequenciasViewModel:
+      required:
+        - componenteCurricular
+        - periodo
+        - serie
+        - turma
+        - turno
       type: object
       properties:
-        percentualFrequencias:
-          type: number
-          format: double
-        percentualFrequenciasPorPeriodoSerie:
-          type: number
-          format: double
-        percentualFrequenciasMediaRede:
-          type: number
-          format: double
-        percentualFrequenciasPeriodoDisciplina:
-          type: number
-          format: double
-        indicadorGuid:
-          type: string
-          format: uuid
         instituicaoGuid:
           type: string
           format: uuid
@@ -1487,6 +3020,33 @@ components:
           $ref: '#/components/schemas/Sexo'
         raca:
           $ref: '#/components/schemas/Raca'
+        serie:
+          type: string
+          nullable: true
+        turno:
+          type: string
+          nullable: true
+        turma:
+          type: string
+          nullable: true
+        componenteCurricular:
+          type: string
+          nullable: true
+        periodo:
+          type: string
+          nullable: true
+        percentualFrequencias:
+          type: number
+          format: double
+        percentualFrequenciasPorPeriodoSerie:
+          type: number
+          format: double
+        percentualFrequenciasMediaRede:
+          type: number
+          format: double
+        percentualFrequenciasPeriodoDisciplina:
+          type: number
+          format: double
       additionalProperties: false
     IndicadorResultadoFrequenciasViewModelIEnumerableApiResponse:
       required:
@@ -1509,6 +3069,12 @@ components:
           nullable: true
       additionalProperties: false
     IndicadorResultadoNotasViewModel:
+      required:
+        - componenteCurricular
+        - periodo
+        - serie
+        - turma
+        - turno
       type: object
       properties:
         instituicaoGuid:
@@ -1536,6 +3102,21 @@ components:
           $ref: '#/components/schemas/Sexo'
         raca:
           $ref: '#/components/schemas/Raca'
+        serie:
+          type: string
+          nullable: true
+        turno:
+          type: string
+          nullable: true
+        turma:
+          type: string
+          nullable: true
+        componenteCurricular:
+          type: string
+          nullable: true
+        periodo:
+          type: string
+          nullable: true
         percentualNotas:
           type: number
           format: double
@@ -1614,6 +3195,285 @@ components:
           description: Lista de erros
           nullable: true
       additionalProperties: false
+    IndicadoresEscolasViewModel:
+      type: object
+      properties:
+        regionalGuid:
+          type: string
+          format: uuid
+        quantidadeEmDestaque:
+          type: integer
+          format: int32
+        percentualEmDestaque:
+          type: number
+          format: double
+        quantidadeEmAlinhamento:
+          type: integer
+          format: int32
+        percentualEmAlinhamento:
+          type: number
+          format: double
+        quantidadeEmAtencaoParaResultado:
+          type: integer
+          format: int32
+        percentualEmAtencaoParaResultado:
+          type: number
+          format: double
+        quantidadeEmAtencaoParaExecucao:
+          type: integer
+          format: int32
+        percentualEmAtencaoParaExecucao:
+          type: number
+          format: double
+        quantidadeEmApoioIntensivo:
+          type: integer
+          format: int32
+        percentualEmApoioIntensivo:
+          type: number
+          format: double
+      additionalProperties: false
+    IndicadoresPlanos:
+      type: object
+      properties:
+        planoAcaoPostado:
+          type: boolean
+        percentualAndamentoAcoes:
+          type: number
+          format: double
+      additionalProperties: false
+    IndicadoresPlanosEficaciaViewModel:
+      type: object
+      properties:
+        quantidadePlanosAcaoPostados:
+          type: integer
+          format: int32
+        quantidadePlanosAcaoNaoPostados:
+          type: integer
+          format: int32
+        percentualRegistrosAndamentoAcoes:
+          type: number
+          format: double
+      additionalProperties: false
+    IndicadoresPlanosRegionais:
+      type: object
+      properties:
+        quantidadePlanosAcaoPostadosRegionais:
+          type: integer
+          format: int32
+        quantidadePlanosAcaoNaoPostadosRegionais:
+          type: integer
+          format: int32
+        percentualRegistroAndamentoAcoesRegionais:
+          type: number
+          format: double
+      additionalProperties: false
+    IndicadoresReunioes:
+      type: object
+      properties:
+        quantidadeVisitasRegistradas:
+          type: integer
+          format: int32
+        percentualRegistrosAssinados:
+          type: number
+          format: double
+      additionalProperties: false
+    IndicadoresReunioesEficaciaViewModel:
+      type: object
+      properties:
+        quantidadeReunioesRealizadas:
+          type: integer
+          format: int32
+        percentualRegistrosAssinados:
+          type: number
+          format: double
+      additionalProperties: false
+    IndicadoresReunioesViewModel:
+      type: object
+      properties:
+        quantidadeReunioesRealizadas:
+          type: integer
+          format: int32
+        percentualRegistrosAssinados:
+          type: number
+          format: double
+      additionalProperties: false
+    IndicadoresValoresEficaciaViewModel:
+      type: object
+      properties:
+        regionalGuid:
+          type: string
+          format: uuid
+        escolaGuid:
+          type: string
+          format: uuid
+        escola:
+          type: string
+          nullable: true
+        escolaINEP:
+          type: string
+          nullable: true
+        aula:
+          type: number
+          format: double
+          nullable: true
+        frequencia:
+          type: number
+          format: double
+          nullable: true
+        nota:
+          type: number
+          format: double
+          nullable: true
+        tarefa:
+          type: number
+          format: double
+          nullable: true
+        produto:
+          type: number
+          format: double
+          nullable: true
+        execucao:
+          type: number
+          format: double
+          nullable: true
+        resultado:
+          type: number
+          format: double
+          nullable: true
+        classificacao:
+          type: string
+          nullable: true
+      additionalProperties: false
+    IndicadoresValoresEficaciaViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/IndicadoresValoresEficaciaViewModel'
+          nullable: true
+      additionalProperties: false
+    IndicadoresValoresViewModel:
+      type: object
+      properties:
+        regionalGuid:
+          type: string
+          format: uuid
+        regional:
+          type: string
+          nullable: true
+        regionalInep:
+          type: string
+          nullable: true
+        aula:
+          type: number
+          format: double
+          nullable: true
+        frequencia:
+          type: number
+          format: double
+          nullable: true
+        nota:
+          type: number
+          format: double
+          nullable: true
+        tarefa:
+          type: number
+          format: double
+          nullable: true
+        produto:
+          type: number
+          format: double
+          nullable: true
+        execucao:
+          type: number
+          format: double
+          nullable: true
+        resultado:
+          type: number
+          format: double
+          nullable: true
+        classificacao:
+          type: string
+          nullable: true
+        indicadoresEscolas:
+          type: array
+          items:
+            $ref: '#/components/schemas/IndicadoresEscolasViewModel'
+          nullable: true
+      additionalProperties: false
+    IniciarProcessamentoIndicadoresExecucaoDTO:
+      required:
+        - circuitoGestaoGuid
+      type: object
+      properties:
+        circuitoGestaoGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    InstituicaoFiltroViewModel:
+      type: object
+      properties:
+        ofertasEnsino:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfertaEnsinoViewModel'
+          nullable: true
+        turnos:
+          type: array
+          items:
+            $ref: '#/components/schemas/TurnoViewModel'
+          nullable: true
+        turmas:
+          type: array
+          items:
+            $ref: '#/components/schemas/TurmaViewModel'
+          nullable: true
+        componentesCurriculares:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComponenteCurricularViewModel'
+          nullable: true
+        sexos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Sexo'
+          nullable: true
+        racas:
+          type: array
+          items:
+            $ref: '#/components/schemas/Raca'
+          nullable: true
+      additionalProperties: false
+    InstituicaoFiltroViewModelApiResponse:
+      required:
+        - errors
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/InstituicaoFiltroViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
     Instituicoes:
       enum:
         - 1
@@ -1638,6 +3498,36 @@ components:
           description: Lista de erros
           nullable: true
       additionalProperties: false
+    OfertaEnsinoViewModel:
+      type: object
+      properties:
+        etapaEnsinoGuid:
+          type: string
+          format: uuid
+        modalidadeEnsinoGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    OfertasEnsinoDTO:
+      type: object
+      properties:
+        etapaEnsinoGuid:
+          type: string
+          format: uuid
+        modalidadeEnsinoGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
+    OfertasEnsinoViewModel:
+      type: object
+      properties:
+        etapaEnsinoGuid:
+          type: string
+          format: uuid
+        modalidadeEnsinoGuid:
+          type: string
+          format: uuid
+      additionalProperties: false
     ProblemDetails:
       type: object
       properties:
@@ -1658,6 +3548,86 @@ components:
           type: string
           nullable: true
       additionalProperties: { }
+    ProcessamentoIndicadoresExecucaoViewModel:
+      required:
+        - avaliacaoResultadoGuid
+        - dataReferencia
+        - processamentoGuid
+        - status
+      type: object
+      properties:
+        processamentoGuid:
+          type: string
+          format: uuid
+        avaliacaoResultadoGuid:
+          type: string
+          format: uuid
+        status:
+          $ref: '#/components/schemas/StatusProcessamento'
+        dataReferencia:
+          type: string
+          format: date-time
+        tipoInstituicao:
+          $ref: '#/components/schemas/Instituicoes'
+        erro:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ProcessamentoIndicadoresExecucaoViewModelApiResponse:
+      required:
+        - errors
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/ProcessamentoIndicadoresExecucaoViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    ProcessamentoIndicadoresExecucaoViewModelPaginatedResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalPages:
+          type: integer
+          format: int32
+        totalItens:
+          type: integer
+          format: int32
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProcessamentoIndicadoresExecucaoViewModel'
+          nullable: true
+      additionalProperties: false
+    ProcessamentoIndicadoresExecucaoViewModelPaginatedResultApiResponse:
+      required:
+        - errors
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/ProcessamentoIndicadoresExecucaoViewModelPaginatedResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
     ProcessamentoIndicadoresResultadoViewModel:
       type: object
       properties:
@@ -1736,6 +3706,7 @@ components:
       additionalProperties: false
     Raca:
       enum:
+        - 0
         - 1
         - 2
         - 3
@@ -1752,6 +3723,92 @@ components:
         - 3
       type: integer
       format: int32
+    SituacaoEficaciaEscolasViewModel:
+      type: object
+      properties:
+        indicadoresEscolas:
+          $ref: '#/components/schemas/IndicadoresValoresEficaciaViewModelPaginatedResult'
+        indicadoresPlano:
+          $ref: '#/components/schemas/IndicadoresPlanosEficaciaViewModel'
+        indicadoresReuniao:
+          $ref: '#/components/schemas/IndicadoresReunioesEficaciaViewModel'
+      additionalProperties: false
+    SituacaoEficaciaEscolasViewModelApiResponse:
+      required:
+        - errors
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/SituacaoEficaciaEscolasViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    SituacaoEficaciaInstituicaoViewModel:
+      type: object
+      properties:
+        indicadoresInstituicao:
+          $ref: '#/components/schemas/IndicadorInstituicao'
+        indicadoresRede:
+          $ref: '#/components/schemas/IndicadorRede'
+        indicadoresPlano:
+          $ref: '#/components/schemas/IndicadoresPlanos'
+        indicadoresReuniao:
+          $ref: '#/components/schemas/IndicadoresReunioes'
+      additionalProperties: false
+    SituacaoEficaciaInstituicaoViewModelApiResponse:
+      required:
+        - errors
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/SituacaoEficaciaInstituicaoViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    SituacaoEficaciaRegionaisViewModel:
+      type: object
+      properties:
+        indicadoresRegionais:
+          type: array
+          items:
+            $ref: '#/components/schemas/IndicadoresValoresViewModel'
+          nullable: true
+        indicadoresPlano:
+          $ref: '#/components/schemas/IndicadoresPlanosRegionais'
+        indicadoresReuniao:
+          $ref: '#/components/schemas/IndicadoresReunioesViewModel'
+      additionalProperties: false
+    SituacaoEficaciaRegionaisViewModelApiResponse:
+      required:
+        - errors
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indica se a requisição foi bem sucedida
+        data:
+          $ref: '#/components/schemas/SituacaoEficaciaRegionaisViewModel'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+          description: Lista de erros
+          nullable: true
+      additionalProperties: false
     StatusProcessamento:
       enum:
         - 1
@@ -1776,5 +3833,39 @@ components:
           items:
             $ref: '#/components/schemas/ApiError'
           description: Lista de erros
+          nullable: true
+      additionalProperties: false
+    TipoProcessamento:
+      enum:
+        - 1
+        - 2
+        - 3
+        - 4
+      type: integer
+      format: int32
+    TipoProcessamentoExecucao:
+      enum:
+        - 1
+        - 2
+      type: integer
+      format: int32
+    TurmaViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
+          nullable: true
+      additionalProperties: false
+    TurnoViewModel:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        nome:
+          type: string
           nullable: true
       additionalProperties: false
