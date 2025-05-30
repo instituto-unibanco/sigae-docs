@@ -7116,7 +7116,7 @@ components:
       type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://dev-wzpq2pvdskr0u2np.us.auth0.com/authorize?audience=https%3A%2F%2Flitedev.sigae.org.br%2F
+          authorizationUrl: https://your-env-here/authorize
           scopes:
             openid: OpenId
 security:

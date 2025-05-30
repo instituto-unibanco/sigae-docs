@@ -4187,7 +4187,7 @@ components:
       type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://dev-wzpq2pvdskr0u2np.us.auth0.com/authorize?audience=https%3A%2F%2Fdev-wzpq2pvdskr0u2np.us.auth0.com%2Fapi%2Fv2%2F
+          authorizationUrl: https://your-env-here/authorize
           scopes:
             openid: OpenId
 security:
